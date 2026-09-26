@@ -13,6 +13,7 @@ A Claude Code skill that turns one week's lecture slides (PDF) into a detailed, 
 - **Animated SVGs for anything dynamic**: optimizer steps, forward/backward passes, sliding kernels, token flow through an LLM, agent and training loops. Workflow diagrams are built from boxes, arrows and "tokens" that travel along the arrows; static structure diagrams use the same helpers. Everything is generated from code and plays inside Obsidian's `![[file.svg]]` embeds.
 - **Every number is verified** by a generated `verify.py` script using exact arithmetic, including the numbers shown in animations.
 - **Grounded content**: the slides are the ground truth; anything the note adds beyond them (supplements, deep-dive folds, paper attributions) is checked online against primary papers or standard textbooks while writing and cites its source, or is marked as unverified.
+- **Optional course mind map**: after a note is written, the user is asked whether to update one course-wide mind map; each knowledge point carries what / why / formula / worked example / pitfall / cross-week links, with links back into the notes.
 - **Optional strict review**: on request, an evaluator-optimizer loop runs a fresh evaluator subagent that checks each claim and the teaching rules; the writer fixes or rebuts each finding with evidence, for up to 3 rounds (`references/evaluator.md`). It is optional because it costs hundreds of thousands of tokens per round.
 
 ## Layout
@@ -23,6 +24,7 @@ A Claude Code skill that turns one week's lecture slides (PDF) into a detailed, 
 | `references/note-template.md` | Frontmatter and section skeleton of a note |
 | `scripts/prep_slides.py` | PDF → text with page markers, overview contact sheets, and slide screenshots (PyMuPDF) |
 | `scripts/svg_anim.py` | `Scene` helper that builds animated SVGs from computed data; `lint` checks them for Obsidian compatibility; `frames` renders chosen moments with headless Chrome/Edge into a strip for visual review |
+| `scripts/mindmap.py` | Optional course mind map: an outline with `@week|heading@` link tokens becomes an inline `markmap` note (rendered by the Obsidian plugin Mindmap NextGen); every heading link is checked |
 | `scripts/publish_note.py` | Writes the note and its attachments into the vault through `cli-anything-obsidian`, refuses to overwrite edits made in Obsidian, and checks that every embed resolves |
 
 ## How animations stay accurate

@@ -302,6 +302,40 @@ questions, "计算已用脚本核对", how many beyond-slides claims were checke
 and — only if 6c ran — rounds run and findings fixed; otherwise offer 6c in one line. Mention `/tutor-setup` → `/tutor` for quizzing
 when relevant.
 
+**Then ask (AskUserQuestion) whether to generate / update the course mind map** (step 9). Never
+build it without a yes — it is a supplement, not the core note.
+
+### 9. Course mind map (optional — only when the user says yes)
+One mind map per course, `Lecture Notes/<course>/<COURSE> 知识导图.md`, covering all weeks written so
+far. It is a ```` ```markmap ```` block, rendered inline by the Obsidian plugin **Mindmap NextGen**
+(tell the user to install it once if the map shows as plain code). Layout is automatic, so there is
+no manual positioning; do **not** build Canvas maps (tried: cramped, overlapping, duplicated content).
+
+1. Keep the outline in `<work>/../<course>-mindmap/outline.md` (read the current map note first and
+   extend it; never drop earlier weeks). Structure: `#` course · weeks → `##` themes (by topic, not by
+   week) → `###` knowledge points → `-` details.
+2. **Each knowledge point is explained, not summarised** — as child items, in this order when they
+   apply:
+   - `是什么：` one or two full sentences a beginner understands
+   - `为什么需要：` the problem it solves / what fails without it
+   - the formula, with what the symbols are
+   - `例：` a tiny worked example with real numbers (taken from the notes' verified examples)
+   - `注意：` the common pitfall
+   - `↔ Wk …：` how it connects to another week (this is where cross-week links live)
+   Put `@<week>|<exact heading>@` after a point or item to link it to that note section.
+3. Every number in the map goes into a small `verify_map.py` with `assert`s (reuse the notes'
+   `verify.py` results); run it.
+4. Build and check links, then publish:
+   ```bash
+   python ~/.claude/skills/lecture-note/scripts/mindmap.py outline.md map.md \
+     --course-dir "D:/obsidian/repo/NTULEARN/Lecture Notes/<course>"     # exits on any broken heading link
+   python ~/.claude/skills/lecture-note/scripts/publish_note.py map.md \
+     "Lecture Notes/<course>/<COURSE> 知识导图.md" --baseline <saved current map>   # or --new
+   ```
+   `mindmap.py` keeps a height the user set by resizing the map in Obsidian.
+5. Add `知识导图: "[[<COURSE> 知识导图]]"` to the new week note's frontmatter (and to earlier weeks that
+   lack it), via `publish_note.py --baseline`.
+
 ## Checklist before publishing
 - [ ] Frontmatter complete; `source_pdf` is the real file; `pages` / `pdf_page_count` correct
 - [ ] Every PDF page in range is covered (plan.md outline ticks off)
