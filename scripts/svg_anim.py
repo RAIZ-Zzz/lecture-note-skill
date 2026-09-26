@@ -323,7 +323,7 @@ def frames(args):
         n = max(args.n, 1)
         times = [round(cycle * i / (n - 1), 3) if n > 1 else 0 for i in range(n)]
         times[-1] = max(times[-1] - 0.01, 0)  # just before the loop restarts
-    out = Path(args.out)
+    out = Path(args.out).resolve()  # Chrome resolves --screenshot against its own cwd
     out.mkdir(parents=True, exist_ok=True)
     browser = find_browser()
     profile = tempfile.mkdtemp(prefix="svgframes-")
