@@ -204,6 +204,76 @@ class Scene:
             end = items[i + 1][0] if i + 1 < len(items) else None
             self.text(self.w / 2, y, s, size=size, color=color, show=(t, end))
 
+    # ---- diagrams: boxes, arrows, tokens flowing along arrows --------------------------------
+    def box(self, x, y, w, h, label, color="blue", fill=None, size=14, sub=None, show=None):
+        """Rounded box with a (multi-line, '\\n') label and optional smaller sub-label. Returns a Box."""
+        fill = fill or _tint(_c(color))
+        lines = str(label).split("\n") + (str(sub).split("\n") if sub else [])
+        n_main = len(str(label).split("\n"))
+        # shrink each line's font until it fits inside the box (never overflow the border)
+        sizes = [min(s, (w - 16) / max(_text_w(line, 1), 0.01)) for s, line in
+                 zip([size] * n_main + [size - 3] * (len(lines) - n_main), lines)]
+        total = sum(s * 1.3 for s in sizes)
+        ty = y + h / 2 - total / 2
+        texts = []
+        for i, (s, line) in enumerate(zip(sizes, lines)):
+            ty += s * 1.3
+            weight = "bold" if i < n_main else "normal"
+            col = _c("ink") if i < n_main else _c("gray")
+            texts.append(f'<text x="{_n(x + w / 2)}" y="{_n(ty - s * 0.3)}" font-size="{_n(s)}" fill="{col}" '
+                         f'text-anchor="middle" font-weight="{weight}">{escape(line)}</text>')
+        self._wrap(f'<rect x="{_n(x)}" y="{_n(y)}" width="{_n(w)}" height="{_n(h)}" rx="10" fill="{fill}" '
+                   f'stroke="{_c(color)}" stroke-width="2"/>' + "".join(texts), show)
+        return Box(x, y, w, h, _c(color))
+
+    def arrow(self, p1, p2, color="gray", bend=0, label=None, label_pos=0.5, label_offset=(0, -8),
+              width=2, dash=None, show=None, both=False):
+        """Arrow from p1 to p2 (points, e.g. box.right). bend>0 curves it to the left of travel.
+        Returns the SVG path string so a token can travel along it (see token())."""
+        (x1, y1), (x2, y2) = p1, p2
+        mx, my = (x1 + x2) / 2, (y1 + y2) / 2
+        length = math.hypot(x2 - x1, y2 - y1) or 1
+        cx, cy = mx - bend * (y2 - y1) / length, my + bend * (x2 - x1) / length
+        d = f"M{_n(x1)},{_n(y1)} Q{_n(cx)},{_n(cy)} {_n(x2)},{_n(y2)}"
+        name = self._marker(color)
+        start = f' marker-start="url(#{name})"' if both else ""
+        extra = f' stroke-dasharray="{dash}"' if dash else ""
+        body = (f'<path d="{d}" fill="none" stroke="{_c(color)}" stroke-width="{width}"{extra} '
+                f'marker-end="url(#{name})"{start}/>')
+        if label:
+            t = label_pos  # point on the quadratic curve
+            lx = (1 - t) ** 2 * x1 + 2 * (1 - t) * t * cx + t * t * x2 + label_offset[0]
+            ly = (1 - t) ** 2 * y1 + 2 * (1 - t) * t * cy + t * t * y2 + label_offset[1]
+            body += (f'<text x="{_n(lx)}" y="{_n(ly)}" font-size="12" fill="{_c(color)}" text-anchor="middle" '
+                     f'stroke="#fff" stroke-width="4" paint-order="stroke">{escape(label)}</text>')
+        self._wrap(body, show)
+        return d
+
+    def token(self, path, t0, t1, label=None, color="orange", r=7, hold=0.0):
+        """A dot (or labelled pill) that travels along `path` from t0 to t1, then stays `hold` seconds."""
+        c = self.cycle
+        end = min(t1 + hold, c)
+        kt = [0, t0 / c, t1 / c, 1]
+        kp = [0, 0, 1, 1]
+        motion = (f'<animateMotion dur="{_n(c)}s" repeatCount="indefinite" calcMode="linear" '
+                  f'path="{path}" keyPoints="{";".join(_n(v) for v in kp)}" '
+                  f'keyTimes="{";".join(_n(v) for v in kt)}"/>')
+        if label:
+            w = 12 + 12 * len(str(label)) * (1.6 if re.search(r"[一-鿿]", str(label)) else 0.9) / 1.6
+            shape = (f'<rect x="{_n(-w / 2)}" y="-11" width="{_n(w)}" height="22" rx="11" fill="{_c(color)}"/>'
+                     f'<text x="0" y="4" font-size="12" fill="#fff" text-anchor="middle">{escape(str(label))}</text>')
+        else:
+            shape = f'<circle r="{r}" fill="{_c(color)}" stroke="#fff" stroke-width="1.5"/>'
+        self.parts.append(f'<g opacity="0"><g>{shape}{motion}</g>{self._show((t0, end))}</g>')
+
+    def pulse(self, box, times, color=None, dur=0.8):
+        """Flash a box's border thicker at each time in `times` (e.g. 'the LLM is thinking now')."""
+        col = color or box.color
+        for t in times:
+            self._wrap(f'<rect x="{_n(box.x - 3)}" y="{_n(box.y - 3)}" width="{_n(box.w + 6)}" '
+                       f'height="{_n(box.h + 6)}" rx="12" fill="none" stroke="{_c(col)}" stroke-width="4"/>',
+                       (t, min(t + dur, self.cycle)))
+
     def raw(self, svg_fragment):
         self.parts.append(svg_fragment)
 
@@ -221,6 +291,34 @@ class Scene:
         problems = lint_one(path)
         print(json.dumps({"saved": str(path), "problems": problems}, ensure_ascii=False))
         return path
+
+
+class Box:
+    def __init__(self, x, y, w, h, color):
+        self.x, self.y, self.w, self.h, self.color = x, y, w, h, color
+
+    def at(self, fx, fy):
+        """Point at fraction (fx, fy) of the box, e.g. at(1, 0.3) = right edge, 30% down."""
+        return (self.x + fx * self.w, self.y + fy * self.h)
+
+    top = property(lambda s: s.at(0.5, 0))
+    bottom = property(lambda s: s.at(0.5, 1))
+    left = property(lambda s: s.at(0, 0.5))
+    right = property(lambda s: s.at(1, 0.5))
+    center = property(lambda s: s.at(0.5, 0.5))
+
+
+def _text_w(s, size):
+    """Rough rendered width: CJK / full-width chars ~1em, others ~0.58em."""
+    return sum(size if ord(ch) > 0x2e80 else size * 0.58 for ch in str(s))
+
+
+def _tint(hex_color, amount=0.88):
+    h = hex_color.lstrip("#")
+    if len(h) != 6:
+        return "#f8f9fa"
+    rgb = [int(h[i:i + 2], 16) for i in (0, 2, 4)]
+    return "#" + "".join(f"{round(v + (255 - v) * amount):02x}" for v in rgb)
 
 
 def _ticks(a, b):

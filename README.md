@@ -10,7 +10,7 @@ A Claude Code skill that turns one week's lecture slides (PDF) into a detailed, 
 - **Simple main line, depth on demand.** Full derivations, proofs, edge cases and material beyond the slides go into collapsible "deep dive (optional)" callouts, so a reader who skips them still follows the lecture.
 - **Check-in questions** after each part and at least 10 practice questions with folded answers.
 - **Slide screenshots** where a picture carries meaning the text can't.
-- **Animated SVGs** for processes that unfold over time (optimizer steps, sliding kernels, forward/backward passes). They are generated from code and play inside Obsidian's `![[file.svg]]` embeds.
+- **Animated SVGs for anything dynamic**: optimizer steps, forward/backward passes, sliding kernels, token flow through an LLM, agent and training loops. Workflow diagrams are built from boxes, arrows and "tokens" that travel along the arrows; static structure diagrams use the same helpers. Everything is generated from code and plays inside Obsidian's `![[file.svg]]` embeds.
 - **Every number is verified** by a generated `verify.py` script using exact arithmetic, including the numbers shown in animations.
 
 ## Layout

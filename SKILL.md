@@ -118,11 +118,23 @@ Attachment name: `week<N>[.<P>]-<topic-kebab>-s<NN>.png` (e.g. `week4.1-fuzzy-s0
 Embed: `![[Lecture Notes/<course>/attachments/<name>.png]]`, always followed by 1–3 sentences
 saying what to look at in the picture.
 
-### 4b. Animated SVGs (会动的图)
-**When:** the idea is a *process* — iterations of an optimizer, a kernel sliding over an image, a
-value being updated step by step, a distribution shifting, a curve being traced, a forward/backward
-pass flowing through a network. Typically **2–5 per lecture**; zero is fine if nothing moves.
-Not for: static facts, formulas, anything a screenshot already shows.
+### 4b. SVG figures: animations for anything dynamic, diagrams for structure (会动的图 / 流程图)
+**Rule: 凡是“动态的东西”，都想办法用 SVG 动画描述。** Anything that happens in steps, flows, or
+changes over time gets an animated SVG; anything that is a structure or a pipeline gets at least a
+static SVG diagram (same helpers, no tokens). Examples, not a closed list:
+- **Iterative math:** optimizer steps (GD / momentum / Adam), a value updated step by step, a
+  distribution shifting, a curve being traced, EMA filling up.
+- **Computation flow:** a forward pass (numbers flowing layer by layer through a tiny MLP), a
+  backward pass (gradients flowing back and being multiplied), a kernel sliding over an image,
+  attention weights being computed and mixed.
+- **Systems & workflows:** an LLM agent loop (User → LLM ⇄ Tools, Memory), a RAG pipeline, a
+  training loop (batch → forward → loss → backward → update), data moving between GPUs.
+- **Tokens:** text → tokens → embeddings → layers → next-token probabilities → sampled token
+  appended and fed back (autoregressive loop).
+
+Budget: typically **3–6 per lecture**; when the slides draw a workflow as boxes and arrows, redraw it as
+an animated SVG rather than only screenshotting it. Not for: static facts, a formula alone, anything a
+screenshot already shows well.
 
 **How (the accuracy recipe — never hand-type coordinates):**
 1. Write `<work>/anim/<slug>.py` that **computes** every position from the same numbers the note
@@ -145,6 +157,20 @@ Not for: static facts, formulas, anything a screenshot already shows.
    `show=(t0, t1)` to make things appear/disappear, and `raw()` for anything else (still SMIL,
    still on the shared timeline). Put shared numbers in `verify.py` or import them, so the
    animation and the text can never disagree.
+
+   **Diagram helpers** (workflows, pipelines, networks):
+   ```python
+   llm = sc.box(260, 190, 220, 90, "LLM", color="blue", sub="推理 & 规划")   # returns a Box
+   tools = sc.box(600, 190, 150, 90, "Tools", color="green", sub="搜索 · 代码执行")
+   act = sc.arrow(llm.at(1, 0.3), tools.at(0, 0.3), color="orange", bend=-28, label="Action")
+   sc.token(act, 3.0, 4.0, label="search", color="orange")   # a pill travels along the arrow 3s→4s
+   sc.pulse(tools, [4.0])                                      # the box lights up: "working now"
+   ```
+   `Box` gives anchor points `.left/.right/.top/.bottom/.center` and `.at(fx, fy)`; `arrow` returns
+   its path so `token` can follow it (`both=True` for ↔, `bend` to curve, `dash` for optional
+   paths). Box labels shrink automatically to fit. For a static diagram, draw boxes and arrows
+   only. For a numeric flow (forward pass), put the actual numbers in the tokens / box labels with
+   `show=(t0, t1)`, computed by the same code as `verify.py`.
 2. Lint and look:
    ```bash
    python ~/.claude/skills/lecture-note/scripts/svg_anim.py lint "<work>/anim/gd-steps.svg"
@@ -162,7 +188,9 @@ Not for: static facts, formulas, anything a screenshot already shows.
    - Cycle 6–12 s; hold the final state ≥ 1.5 s before the loop restarts.
 4. Design: one idea per animation; ≤ 4 colours with fixed meaning (the helper palette: blue =
    main object, orange = moving/updated thing, green = target/optimum, red = error/overshoot);
-   caption line says in words what the current step is; show the numbers being computed.
+   caption line says in words what the current step is, numbered ①②③ to match the prose;
+   show the numbers being computed. Workflows: at most ~6 boxes, left→right or top→bottom main
+   flow, loops drawn as curved arrows, one token moving at a time.
 5. Name: `week<N>[.<P>]-<topic-kebab>-anim-<slug>.svg`. Embed exactly like an image, then
    **always** write what to watch and a static fallback (the key numbers in a small table or
    list), so the note still teaches if the animation does not play:
