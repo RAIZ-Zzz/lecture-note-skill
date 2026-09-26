@@ -2,7 +2,7 @@
 
 Turns one week's lecture slides (PDF) into a Chinese, step-by-step **teaching** note in an Obsidian vault:
 
-- 讲解式、从易到难：one new idea per lesson, each following *问题 → 打个比方 → 小算例 → 公式 → 一句话记住*
+- one new idea per lesson, each following *问题 → 打个比方 → 小算例 → 公式 → 一句话记住*
 - analogies and tiny hand calculations for every abstract concept
 - main line kept simple; derivations / proofs / edge cases folded as `> [!note]- 深入：…（可跳过）`
 - slide screenshots + **animated SVGs** generated from code (SMIL, plays inside Obsidian's `![[x.svg]]`)
