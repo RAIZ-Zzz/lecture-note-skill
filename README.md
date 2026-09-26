@@ -24,7 +24,7 @@ A Claude Code skill that turns one week's lecture slides (PDF) into a detailed, 
 | `references/note-template.md` | Frontmatter and section skeleton of a note |
 | `scripts/prep_slides.py` | PDF → text with page markers, overview contact sheets, and slide screenshots (PyMuPDF) |
 | `scripts/svg_anim.py` | `Scene` helper that builds animated SVGs from computed data; `lint` checks them for Obsidian compatibility; `frames` renders chosen moments with headless Chrome/Edge into a strip for visual review |
-| `scripts/mindmap.py` | Optional course mind map: an outline with `@week&#124;heading@` link tokens becomes an inline `markmap` note (rendered by the Obsidian plugin Mindmap NextGen); every heading link is checked |
+| `scripts/mindmap.py` | Optional course mind map: an outline with `@week\|heading@` link tokens becomes an inline `markmap` note (rendered by the Obsidian plugin Mindmap NextGen); every heading link is checked |
 | `scripts/publish_note.py` | Writes the note and its attachments into the vault through `cli-anything-obsidian`, refuses to overwrite edits made in Obsidian, and checks that every embed resolves |
 
 ## How animations stay accurate
