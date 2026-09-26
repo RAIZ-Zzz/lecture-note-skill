@@ -1,4 +1,4 @@
-# Evaluator brief (evaluator-optimizer loop)
+# Evaluator brief (evaluator-optimizer loop — optional, run only when the user asks)
 
 The writer of a note is the worst judge of it: it shares the note's blind spots. So every note is
 checked by a **fresh evaluator subagent** that did not write it and sees only the artifacts.

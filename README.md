@@ -12,7 +12,8 @@ A Claude Code skill that turns one week's lecture slides (PDF) into a detailed, 
 - **Slide screenshots** where a picture carries meaning the text can't.
 - **Animated SVGs for anything dynamic**: optimizer steps, forward/backward passes, sliding kernels, token flow through an LLM, agent and training loops. Workflow diagrams are built from boxes, arrows and "tokens" that travel along the arrows; static structure diagrams use the same helpers. Everything is generated from code and plays inside Obsidian's `![[file.svg]]` embeds.
 - **Every number is verified** by a generated `verify.py` script using exact arithmetic, including the numbers shown in animations.
-- **Every claim is independently reviewed** in an evaluator-optimizer loop: a fresh evaluator subagent that did not write the note checks each claim against the slides, course references and primary sources, plus the teaching rules; the writer fixes or rebuts each finding with evidence, for up to 3 rounds. Unresolved items are marked in the note, never published silently (`references/evaluator.md`).
+- **Grounded content**: the slides are the ground truth; anything the note adds beyond them (supplements, deep-dive folds, paper attributions) is checked online against primary papers or standard textbooks while writing and cites its source, or is marked as unverified.
+- **Optional strict review**: on request, an evaluator-optimizer loop runs a fresh evaluator subagent that checks each claim and the teaching rules; the writer fixes or rebuts each finding with evidence, for up to 3 rounds (`references/evaluator.md`). It is optional because it costs hundreds of thousands of tokens per round.
 
 ## Layout
 
