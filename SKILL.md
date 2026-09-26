@@ -249,6 +249,25 @@ practice answer **and animation key position/caption number** with exact arithme
 (`fractions.Fraction`, integers; floats only where inherent), using `assert`. Run it; fix the note
 until it passes. Mention in the reply that the calculations were checked by script.
 
+### 6b. Evaluate → optimize (independent review loop)
+The pipeline above is prompt chaining: nothing in it checks that the *knowledge* is right, and a
+writer reviewing its own note shares the note's blind spots. So before publishing, run an
+**evaluator-optimizer loop** with `references/evaluator.md`:
+
+1. **Evaluate:** launch a *fresh* evaluator subagent with the Agent tool (`subagent_type:
+   "general-purpose"`), passing the prompt from `references/evaluator.md` with the paths filled in.
+   It reads only the artifacts (note, slide text/images, verify.py, refs). It checks every claim
+   against the slides → course reference PDFs → primary papers / standard textbooks (with URLs),
+   and checks the teaching rules. It writes `<work>/eval/round-<k>.json`.
+2. **Optimize:** for every blocker/major finding, fix the note or rebut it with evidence in
+   `<work>/eval/response-<k>.md`. Rerun `verify.py` (and animation frames if numbers changed).
+3. **Repeat** with a new evaluator (never reuse the previous one's context) until the verdict is
+   `pass`, max 3 rounds. Anything still open is marked in the note as `（待核对：…）` and reported
+   to the user; it is never published silently as fact.
+4. Every surviving `（补充）` statement carries its source inside its fold.
+
+Keep the round files; the reply states how many rounds ran and what was fixed.
+
 ### 7. Publish
 ```bash
 python ~/.claude/skills/lecture-note/scripts/publish_note.py "<work>/note.md" \
@@ -264,7 +283,9 @@ directly.
 
 ### 8. Reply
 Short summary: note path, pages covered, sections, number of screenshots, animations and practice
-questions, "计算已用脚本核对". Mention `/tutor-setup` → `/tutor` for quizzing when relevant.
+questions, "计算已用脚本核对", and the review result: rounds run, claims checked, findings fixed or
+rebutted, and any `（待核对）` items left for the user. Mention `/tutor-setup` → `/tutor` for quizzing
+when relevant.
 
 ## Checklist before publishing
 - [ ] Frontmatter complete; `source_pdf` is the real file; `pages` / `pdf_page_count` correct
@@ -279,6 +300,8 @@ questions, "计算已用脚本核对". Mention `/tutor-setup` → `/tutor` for q
       every animation passed `svg_anim.py lint`, its frame strip was looked at, and it has a
       static fallback (table/list of the same numbers)
 - [ ] Every numeric claim, answer and animation number checked by `verify.py`
+- [ ] Evaluator loop ended with `pass` (or ≤ 3 rounds with open items marked `（待核对）`);
+      every `（补充）` block cites its source
 - [ ] ≥ 10 practice questions (≥ 60% concept recall, ≥ 20% calculation, ≥ 2 “why” analysis),
       answers folded in `> [!success]- 展开答案`
 - [ ] 术语中英对照 table and `> [!tip] 学完后的检查标准` at the end
