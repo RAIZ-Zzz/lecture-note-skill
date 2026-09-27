@@ -18,14 +18,17 @@ def page_range(spec, count):
     if not spec:
         return list(range(1, count + 1))
     start, _, stop = spec.partition("-")
-    return list(range(int(start), int(stop or start) + 1))
+    start, stop = int(start), int(stop or start)
+    if not 1 <= start <= stop <= count:
+        sys.exit(f"--pages {spec}: the PDF has pages 1-{count}")
+    return list(range(start, stop + 1))
 
 
 def prep(args):
     doc = pymupdf.open(args.pdf)
     out = Path(args.out)
-    (out / "sheets").mkdir(parents=True, exist_ok=True)
     pages = page_range(args.pages, doc.page_count)
+    (out / "sheets").mkdir(parents=True, exist_ok=True)
 
     stats = []
     with open(out / "text.txt", "w", encoding="utf-8") as fh:

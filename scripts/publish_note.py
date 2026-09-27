@@ -9,7 +9,9 @@ Safety rules:
   --baseline  the live note must still equal this saved copy (made right after you read it),
               so edits made in Obsidian meanwhile are never overwritten.
   An attachment name that already exists with different bytes is an error, never overwritten.
-Afterwards the note is read back through cli-anything-obsidian and every ![[...]] embed is checked.
+  OBSIDIAN_VAULT must be the vault open in Obsidian; a read error other than 404 aborts.
+Every ![[...]] embed is checked before anything is written; afterwards the note is read back
+through cli-anything-obsidian, and only then are the attachments copied.
 """
 import argparse
 import hashlib
@@ -21,12 +23,13 @@ import subprocess
 import sys
 from pathlib import Path
 
-VAULT = Path(os.environ.get("OBSIDIAN_VAULT", r"D:\obsidian\repo\NTULEARN"))
+VAULT = Path(os.environ["OBSIDIAN_VAULT"]) if os.environ.get("OBSIDIAN_VAULT") else None
 
 
 def cli(*args):
+    # The CLI talks to whichever vault Obsidian has open; main() checks that it is VAULT.
     env = dict(os.environ, PYTHONIOENCODING="utf-8")
-    run = subprocess.run(["cli-anything-obsidian", "--json", "--vault", str(VAULT), *args],
+    run = subprocess.run(["cli-anything-obsidian", "--json", *args],
                          capture_output=True, text=True, encoding="utf-8", env=env)
     try:
         data = json.loads(run.stdout) if run.stdout.strip() else {}
@@ -57,11 +60,23 @@ def main():
     args = parser.parse_args()
     sys.stdout.reconfigure(encoding="utf-8")
 
+    if VAULT is None or not VAULT.is_dir():
+        fail(f"set OBSIDIAN_VAULT to the vault folder (now {os.environ.get('OBSIDIAN_VAULT')!r})")
     vault_path = args.vault_path if args.vault_path.endswith(".md") else args.vault_path + ".md"
     body = Path(args.note_file).read_text(encoding="utf-8")
     attachments_dir = VAULT / Path(vault_path).parent / "attachments"
 
+    # Attachments are copied on disk, the note goes through Obsidian: both must be the same vault.
+    listing = cli("vault", "list")
+    if listing.get("error"):
+        fail(f"cannot reach Obsidian: {listing['error']}")
+    on_disk = {p.name for p in VAULT.iterdir()}
+    if not {f.rstrip("/") for f in listing.get("files", [])} <= on_disk:
+        fail(f"the vault open in Obsidian is not OBSIDIAN_VAULT={VAULT}")
+
     current = cli("vault", "read", vault_path)
+    if current.get("error") and "error 404" not in current["error"]:
+        fail(f"cannot read {vault_path}: {current['error']}")  # never mistake an error for "absent"
     exists = "content" in current
     if args.new and exists:
         fail(f"{vault_path} already exists; read it, save a baseline copy and use --baseline")
@@ -80,10 +95,12 @@ def main():
         if dest.exists() and digest(dest) != digest(src):
             fail(f"different attachment already exists: {dest}")
         plan.append((src, dest))
-    attachments_dir.mkdir(parents=True, exist_ok=True)
-    for src, dest in plan:
-        if not dest.exists():
-            shutil.copyfile(src, dest)
+    incoming = {dest.name for _, dest in plan}
+    missing = [e for e in re.findall(r"!\[\[([^\]|#]+)", body)
+               if Path(e).name not in incoming and not (VAULT / e).exists()
+               and not list(VAULT.rglob(Path(e).name))]
+    if missing:
+        fail(f"these embeds would not resolve (add them with --image): {missing}")
 
     if not exists:
         result = cli("vault", "create", vault_path, "--file", args.note_file)
@@ -97,10 +114,11 @@ def main():
     after = cli("vault", "read", vault_path)
     if after.get("content") != body:
         fail("saved content differs from the prepared note")
-    missing = [e for e in re.findall(r"!\[\[([^\]|#]+)", body)
-               if not (VAULT / e).exists() and not list(VAULT.rglob(Path(e).name))]
-    if missing:
-        fail(f"note saved, but these embeds do not resolve: {missing}")
+
+    attachments_dir.mkdir(parents=True, exist_ok=True)
+    for src, dest in plan:
+        if not dest.exists():
+            shutil.copyfile(src, dest)
 
     print(json.dumps({
         "ok": True,

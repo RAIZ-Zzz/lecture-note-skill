@@ -34,18 +34,47 @@ A Claude Code skill that turns one week's lecture slides (PDF) into a detailed, 
 3. `svg_anim.py frames` pauses the timeline at chosen times and screenshots each frame, so every key moment can be checked against the text before publishing.
 4. Every animation is followed by a static table of the same numbers, so the note still works if the animation does not play.
 
-## Requirements
+## Installation on a new machine
 
-- [Claude Code](https://claude.com/claude-code)
-- Python 3 with `pymupdf`
-- [`cli-anything-obsidian`](https://github.com/HKUDS/CLI-Anything) for reading and writing the vault
-- Google Chrome or Microsoft Edge (only for previewing animation frames)
+The skill itself holds nothing machine-specific: nothing in this repo needs editing. A machine
+needs the following before the first run.
 
-## Installation
+### Required
 
-1. Copy this folder to `~/.claude/skills/lecture-note/`.
-2. Edit the **Fixed facts** section of `SKILL.md`: the vault path, the course folders and the slide locations are specific to the author's machine.
-3. In Claude Code, run `/lecture-note <course> <week> [pdf path] [pages A-B]`.
+1. [Claude Code](https://claude.com/claude-code).
+2. Python 3, then the two packages the scripts use (both on PyPI):
+   ```bash
+   pip install pymupdf cli-anything-obsidian
+   ```
+   On macOS / Linux the command may be `python3` / `pip3`.
+3. [Obsidian](https://obsidian.md), with your vault open whenever the skill runs:
+   - install and enable the community plugin **Local REST API**;
+   - copy its API key into the environment variable `OBSIDIAN_API_KEY`.
+
+   Check: `cli-anything-obsidian --json vault list` prints your vault's top-level folders.
+4. The environment variable `OBSIDIAN_VAULT` = absolute path of that same vault folder
+   (attachments are copied there on disk; the publish script refuses to run if it is not the
+   vault Obsidian has open).
+5. The skill itself:
+   ```bash
+   git clone https://github.com/RAIZ-Zzz/lecture-note-skill ~/.claude/skills/lecture-note
+   ```
+   Update later with `git pull`. Without git, download the zip and unpack it to the same folder.
+
+Notes go to `Lecture Notes/<course>/` inside the vault; create one folder per course there.
+
+### Optional
+
+- Google Chrome or Microsoft Edge: only for previewing animation frames. Set `$CHROME` if it is
+  not in a standard location.
+- `local.md`: copy `local.example.md` to `local.md` and list where each course's slides are on
+  this machine. It is git-ignored. Without it, the skill asks for the PDF path and offers to
+  create the file.
+- The Obsidian plugin **Mindmap NextGen**: only for the optional course mind map.
+
+### Use
+
+In Claude Code, run `/lecture-note <course> <week> [pdf path] [pages A-B]`.
 
 ## License
 

@@ -1,6 +1,6 @@
 """Course mind map (optional step): outline.md -> '<course> 知识导图.md' with one ```markmap block.
 
-  python mindmap.py OUTLINE.md OUT.md --course-dir "D:/obsidian/repo/NTULEARN/Lecture Notes/<course>"
+  python mindmap.py OUTLINE.md OUT.md --course-dir "$OBSIDIAN_VAULT/Lecture Notes/<course>"
                     [--expand 6] [--height 1000]
 
 OUTLINE.md is plain markmap markdown (# root, ## themes, ### knowledge points, - details) in which
@@ -18,9 +18,11 @@ from pathlib import Path
 
 
 def week_note(course_dir, week):
-    hits = sorted(Path(course_dir).glob(f"WEEK {week}*.md"))
-    if not hits:
-        sys.exit(f"no note for WEEK {week} in {course_dir}")
+    # "WEEK 1" or "WEEK 1 - Title", never WEEK 10 or WEEK 1.1
+    hits = [p for p in Path(course_dir).glob("WEEK *.md")
+            if re.fullmatch(rf"WEEK {re.escape(week)}( .*)?", p.stem)]
+    if len(hits) != 1:
+        sys.exit(f"WEEK {week} in {course_dir}: expected one note, found {[p.name for p in hits]}")
     return hits[0]
 
 

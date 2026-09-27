@@ -21,9 +21,11 @@ argument-hint: "<course> <week[.part]> [pdf path] [pages A-B]"
 | obsidian-markdown | syntax | — | callouts, embeds, properties, wikilinks: follow it when writing |
 | tutor-setup → tutor | whole course | `StudyVault/` in the course folder (CWD) | exam prep: concept notes, MOC, quizzes with mastery tracking |
 
+The other two are separate skills and may not be installed; this skill works without them (the
+template and callout list in `references/note-template.md` are enough).
 Do not build a StudyVault here, and do not touch other weeks' notes except to add links.
-At the end, point the user to `/tutor-setup` (run from the course folder) when the course has
-several weeks of notes and an exam is coming.
+If `tutor-setup` is installed, point the user to it at the end (run from the course folder) when
+the course has several weeks of notes and an exam is coming.
 
 ## Who the reader is (read this first — it drives every writing decision)
 
@@ -42,25 +44,24 @@ everyday analogy or a tiny calculation whenever something is abstract. They aske
 5. **会动的图** — where a process unfolds over steps or time, add an animated SVG made by code
    (section 4b). Motion must show something the text would otherwise need many words for.
 
-## Fixed facts
+## Setup (nothing machine-specific lives in this file)
 
-- Vault: `$OBSIDIAN_VAULT` = `D:\obsidian\repo\NTULEARN`. Read/write notes **only** through
-  `cli-anything-obsidian` (the publish script does this).
-- Courses (vault folder ← slide folder):
-
-  | Vault folder | Slides |
-  |---|---|
-  | `AI6103-DeepLearning` | `D:\Study\AI6103-DeepLearning\*.pdf` |
-  | `AI6104-MATH FOR AI` | `D:\Study\AI6104-Math\PPT\` |
-  | `AI6124-FUZZY` | `D:\Study\AI124-Fuzzy\PPT\` and `...\MSAI 2026 dropbox link\` |
-  | `AI6127-NLP` | `D:\Study\AI127-NLP\` |
-  | `AI6130-LLM` | `D:\Study\AI6130-LLM\` |
-
+- `<skill>` below = this skill's base directory (shown when the skill loads; normally
+  `~/.claude/skills/lecture-note`). Fill it in literally, including inside generator scripts.
+- Vault: the environment variable `$OBSIDIAN_VAULT` (absolute path of the vault folder). If it is
+  unset, stop and ask the user to set it. Read/write notes **only** through `cli-anything-obsidian`
+  (the publish script does this); it talks to the vault open in Obsidian, and the publish script
+  checks that this is the same folder as `$OBSIDIAN_VAULT`.
+- Courses: the vault folders under `Lecture Notes/` (`cli-anything-obsidian --json vault list
+  "Lecture Notes"`). Where each course's slides live on this machine is in `<skill>/local.md`
+  (git-ignored). If that file or the course's row is missing, ask the user for the slide folder,
+  then create/extend `local.md` from `local.example.md`.
 - **Lecture number ≠ week number** (e.g. AI6103 "Lecture 3 ML Foundations" is WEEK 4). Never pick
   the PDF from its filename alone: check `source_pdf` in existing WEEK notes, then open the PDF's
-  first pages. If the user named both the PDF and the target note, use what they named.
+  first pages. `source_pdf` may be a path from another machine: match on the file name only.
+  If the user named both the PDF and the target note, use what they named.
   If still ambiguous, ask the user with AskUserQuestion.
-- Scripts (run with `python`, pymupdf is installed): `~/.claude/skills/lecture-note/scripts/`
+- Scripts (run with `python`, or `python3` where that is the name; needs `pymupdf`): `<skill>/scripts/`
   - `prep_slides.py` — slide text, overview sheets, screenshots
   - `svg_anim.py` — build / lint / preview animated SVGs (needs Chrome or Edge for `frames`)
   - `publish_note.py` — safe write into the vault + embed check
@@ -81,7 +82,7 @@ everyday analogy or a tiny calculation whenever something is abstract. They aske
 
 ### 2. Read the slides
 ```bash
-python ~/.claude/skills/lecture-note/scripts/prep_slides.py prep "<pdf>" "<work>" [--pages A-B]
+python <skill>/scripts/prep_slides.py prep "<pdf>" "<work>" [--pages A-B]
 ```
 - Read `<work>/text.txt` fully (it has `===== page N =====` markers).
 - Look at **every** overview sheet in `<work>/sheets/` (Read the PNGs): text extraction misses
@@ -109,8 +110,8 @@ Write `<work>/plan.md`:
 Pick slides whose picture carries meaning the text can't (architectures, plots, worked tables,
 geometry). Typically 8–20 per lecture; do not screenshot text-only slides.
 ```bash
-python ~/.claude/skills/lecture-note/scripts/prep_slides.py shot "<pdf>" "<work>/shots" 11 20 28
-python ~/.claude/skills/lecture-note/scripts/prep_slides.py shot "<pdf>" "<work>/shots" 38 --clip 0,170,940,420
+python <skill>/scripts/prep_slides.py shot "<pdf>" "<work>/shots" 11 20 28
+python <skill>/scripts/prep_slides.py shot "<pdf>" "<work>/shots" 38 --clip 0,170,940,420
 ```
 Read each cut PNG to confirm it is legible and cropped correctly.
 Attachment name: `week<N>[.<P>]-<topic-kebab>-s<NN>.png` (e.g. `week4.1-fuzzy-s02.png`,
@@ -140,7 +141,7 @@ screenshot already shows well.
 1. Write `<work>/anim/<slug>.py` that **computes** every position from the same numbers the note
    uses (the update rule, the toy function, the table values), then draws with the `Scene` helper:
    ```python
-   import sys; sys.path.insert(0, r"C:/Users/32454/.claude/skills/lecture-note/scripts")
+   import sys; sys.path.insert(0, r"<skill>/scripts")
    from svg_anim import Scene
    sc = Scene(640, 360, cycle=8, title="梯度下降：学习率 0.2")
    ax = sc.axes(x=(-3.5, 3.5), y=(0, 10), box=(60, 45, 600, 300), xlabel="w", ylabel="L(w)=w²")
@@ -173,8 +174,8 @@ screenshot already shows well.
    `show=(t0, t1)`, computed by the same code as `verify.py`.
 2. Lint and look:
    ```bash
-   python ~/.claude/skills/lecture-note/scripts/svg_anim.py lint "<work>/anim/gd-steps.svg"
-   python ~/.claude/skills/lecture-note/scripts/svg_anim.py frames "<work>/anim/gd-steps.svg" "<work>/anim/frames" --times 0.5,3.5,5.5,7.5
+   python <skill>/scripts/svg_anim.py lint "<work>/anim/gd-steps.svg"
+   python <skill>/scripts/svg_anim.py frames "<work>/anim/gd-steps.svg" "<work>/anim/frames" --times 0.5,3.5,5.5,7.5
    ```
    **Read the `-strip.png`** and check each frame against the note: the dot is where the numbers
    say, captions match, nothing overlaps or is cut off, text is readable. Fix and repeat.
@@ -285,7 +286,7 @@ not run, the reply offers it in one line.
 
 ### 7. Publish
 ```bash
-python ~/.claude/skills/lecture-note/scripts/publish_note.py "<work>/note.md" \
+python <skill>/scripts/publish_note.py "<work>/note.md" \
   "Lecture Notes/<course>/WEEK n.md" \
   --image "<work>/shots/s11.png=week4-ml-foundations-s11.png" \
   --image "<work>/anim/gd-steps.svg=week4-ml-foundations-anim-gd-steps.svg" ... \
@@ -299,7 +300,7 @@ directly.
 ### 8. Reply
 Short summary: note path, pages covered, sections, number of screenshots, animations and practice
 questions, "计算已用脚本核对", how many beyond-slides claims were checked online, any `（待核对）` items,
-and — only if 6c ran — rounds run and findings fixed; otherwise offer 6c in one line. Mention `/tutor-setup` → `/tutor` for quizzing
+and — only if 6c ran — rounds run and findings fixed; otherwise offer 6c in one line. Mention `/tutor-setup` → `/tutor` for quizzing (only if installed)
 when relevant.
 
 **Then ask (AskUserQuestion) whether to generate / update the course mind map** (step 9). Never
@@ -327,9 +328,9 @@ no manual positioning; do **not** build Canvas maps (tried: cramped, overlapping
    `verify.py` results); run it.
 4. Build and check links, then publish:
    ```bash
-   python ~/.claude/skills/lecture-note/scripts/mindmap.py outline.md map.md \
-     --course-dir "D:/obsidian/repo/NTULEARN/Lecture Notes/<course>"     # exits on any broken heading link
-   python ~/.claude/skills/lecture-note/scripts/publish_note.py map.md \
+   python <skill>/scripts/mindmap.py outline.md map.md \
+     --course-dir "$OBSIDIAN_VAULT/Lecture Notes/<course>"     # exits on any broken heading link
+   python <skill>/scripts/publish_note.py map.md \
      "Lecture Notes/<course>/<COURSE> 知识导图.md" --baseline <saved current map>   # or --new
    ```
    `mindmap.py` keeps a height the user set by resizing the map in Obsidian.
