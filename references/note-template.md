@@ -29,7 +29,7 @@ tags:
 > [!info] Course & scope
 > **<course>** · `<pdf file name>` · **PDF pp. A–B**
 > A step-by-step teaching note: easy → hard, one new idea at a time. Every lesson follows
-> **problem → analogy → worked example (or question chain) → formula → one-sentence takeaway**.
+> **the problem → work it out yourself → the concept from the slides → what it solves and is for → pros and cons → next**.
 > The folded Deep dive blocks can be skipped; the main line still makes sense without them.
 > Previous: [[WEEK <n-1>]] · Next: [[WEEK <n+1>]]   ← only link notes that exist
 
@@ -47,29 +47,37 @@ Tell it as a story, not a list.>
 
 ### 1.1 <concept> (<English term>)
 
-<A real problem / failure case: 1–3 sentences with concrete numbers, ending in a number or a decision.>
+**Why we need it**
+<Plain words: what goes wrong without this idea, as a concrete failure. Say where every number
+comes from and what it means. No term, definition or formula yet.>
 
-> [!example] Analogy
-> <everyday picture.> Where the analogy breaks: <one sentence>.
-
-**Worked example:** <2–3 numbers, step by step, every intermediate value shown; a table if there are several steps.>
-
-| Step | … | … |
-| --- | --- | --- |
-
-<For a key mechanism, use a question chain instead of the worked example:>
+**Work it out yourself**
+<Set up one small scenario in plain words, then guide the reader to the fix:>
 
 > [!question]- Question 1: <count / observe something on a tiny case>
 > <answer> — <one-line takeaway>
 
+<one or two sentences carrying the reader to the next question>
+
 > [!question]- Question 2: <change one thing>
 > <answer> — <one-line takeaway>
 
-**As a formula:**
+**The concept from the slides**
+<The slides' name for what the reader just built, in the note language and in English; the slides'
+definition and every point they make.>
 $$<formula>$$
-<which number from the example / questions each symbol stands for.>
+<which number from the questions each symbol stands for.>
 
-**In one sentence:** <one sentence the reader could say out loud.>
+**In one sentence:** <one sentence the reader could say out loud (note language + English).>
+
+**What it solves and what it is for**
+<Connect to earlier knowledge points / weeks; what exactly it fixes; where it is used in practice.>
+
+> [!example] Analogy
+> <optional everyday picture if the idea is still abstract.> Where the analogy breaks: <one sentence>.
+
+| Step | … | … |
+| --- | --- | --- |
 
 ![[Lecture Notes/<course>/attachments/week<n>[.<p>]-<topic>-s<NN>.png]]
 <what to look at in this picture and what it shows.>
@@ -83,7 +91,11 @@ $$<formula>$$
 > [!warning] Common pitfall
 > <only real, common misunderstandings + the correct view>
 
-### 1.2 <next concept> … (same rhythm; each ### introduces at most 1–2 new terms)
+**Pros and cons**
+<What it buys vs what it costs. End with the weakness that the next lesson fixes, phrased as the
+next lesson's problem.>
+
+### 1.2 <next concept> … (same arc; its "Why we need it" grows out of 1.1's pros and cons)
 
 > [!question]- Pause: <one question checking this part's core idea>
 > <answer + one or two sentences of explanation>
@@ -127,11 +139,14 @@ language follows whichever column is closer, or asks the user.
 | Reading route (easy → hard) · Slides · After it you can answer | 阅读路线（从易到难） · 课件页 · 学完能回答 |
 | Before we start: what problem this lecture solves | 开始之前：这一讲要解决什么问题 |
 | Part 1 · … / Part N · Review and practice | 第一部分 · … / 第 N 部分 · 复习与练习 |
-| Analogy | 打个比方 |
-| Worked example | 小算例 |
+| Why we need it | 为什么需要它 |
+| Work it out yourself | 自己动手推一推 |
 | Question k: … | 第 k 题：… |
-| As a formula | 写成公式 |
+| The concept from the slides | 课件里的概念 |
 | In one sentence | 一句话记住 |
+| What it solves and what it is for | 它解决了什么、能用来干嘛 |
+| Analogy | 打个比方 |
+| Pros and cons | 优点与代价 |
 | What to watch | 看动画时注意 |
 | Deep dive: … (optional) | 深入：…（可跳过） |
 | (beyond slides) | （补充） |

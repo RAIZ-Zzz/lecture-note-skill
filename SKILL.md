@@ -1,9 +1,10 @@
 ---
 name: lecture-note
 description: >
-  Turn one week's lecture slides (PDF) into a step-by-step teaching note (taught, not summarised;
-  easy → hard; analogies + tiny worked examples; question chains built on real problems; hard
-  extras folded; animated SVG where motion helps) in the user's Obsidian vault at
+  Turn one week's lecture slides (PDF) into a step-by-step teaching note built for learning, not
+  exam drilling: every knowledge point goes problem → reader discovers the fix through guided
+  questions → the slides' concept → what it solves and is for → pros/cons leading to the next point;
+  hard extras folded; animated SVG where motion helps; in the user's Obsidian vault at
   `Lecture Notes/<course>/WEEK n.md`, with slide screenshots in the course `attachments/` folder,
   hand-worked examples verified by script, and fold-answer practice questions. The note language is
   chosen per note: Chinese, English, Chinese with English key points, English with Chinese terms,
@@ -33,81 +34,76 @@ the course has several weeks of notes and an exam is coming.
 
 ## Who the reader is (read this first — it drives every writing decision)
 
-The reader's attention for new material is **very limited**. They cannot absorb a pile of new terms
-at once, and summary-style notes (dense bullet lists, "X is …; Y is …; Z is …") do not teach them.
-They learn from a **patient teacher talking them through one idea at a time**, easy → hard, with an
-everyday analogy or a tiny calculation whenever something is abstract. They asked for six things:
+The reader's attention for new material is **very limited**. A wall of unexplained terms at the
+start of a section loses them at once, and summary-style notes (dense bullet lists, "X is …; Y is
+…; Z is …") do not teach them. They learn when a **patient teacher lets them discover each idea
+themselves**, one idea at a time, easy → hard. The notes are **for learning, not for exam drilling**:
+the goal is to understand what each idea solves and what it is for, so that exam answers follow.
 
-1. **Understandable and learnable** — the note must teach the lecture without the slides, **from
-   easy to hard**.
-2. **Analogies matter** — every abstract concept gets an everyday analogy *or* a tiny hand
-   calculation (usually both: analogy for the feeling, numbers for the substance).
-3. **As simple as possible** — the main line explains only what is needed to understand the
-   lecture. Harder extras (full derivations, proofs, edge cases, "why exactly 0.9", history) are
-   **not dropped but folded** into a Deep dive fold. A reader who skips every fold still
-   understands the lecture.
-4. **Taught, not summarised** — prose that explains, in small steps, like a lesson.
-5. **Moving pictures** — where a process unfolds over steps or time, add an animated SVG made by
-   code (section 4b). Motion must show something the text would otherwise need many words for.
-6. **Learn by answering, starting from real problems** — they learn a mechanism best by deriving it
-   themselves through a short chain of questions anchored in a real problem (next section).
+Everything below serves one method, the lesson arc. Labels such as "Deep dive", "Pause" or
+"(beyond slides)" are written in the note's language: see the label table in
+`references/note-template.md`.
 
-Labels such as "Deep dive", "Analogy", "Pause" or "(beyond slides)" are written in the note's
-language: see the label table in `references/note-template.md`.
+## The lesson arc — how every knowledge point is taught (notes and live explanations alike)
 
-## Teaching by exercises — used when writing a note and when explaining one
+Every knowledge point (each `###` lesson in a note, each topic in a live explanation) walks the same
+five steps. The steps flow into each other in ordinary sentences ("so we are stuck here… let's try
+to fix it ourselves… what we just built has a name on the slides…"), never as a jump from one
+heading to an unrelated one.
 
-The reader understands a mechanism best when **they derive it themselves by answering 3–5 small
-questions**, each anchored in a real problem, rather than reading the formula and then an example.
-Tried on a receptive-field lesson: count where the next window's centre lands on a 9-pixel row →
-count how many pixels one upper unit sees → change the stride → fill the ResNet stem table. The
-reader derived both recurrences on their own and then caught the stride trap in a quiz-style question.
+1. **The problem.** Before anything is named: what goes wrong without this idea, and which problem
+   this knowledge point exists to solve. Use plain everyday language and a concrete, picturable
+   failure ("layer 2 had learned 'above 5 means cat'; after one training step every image is above
+   5"). Say where every number comes from and what it means. Never open with the term, a
+   definition, a formula or bare numbers.
+2. **Discover it yourself.** Set up one small scenario and guide the reader, step by step, to design
+   the fix on their own. Use a question chain of 3–5 small questions: Q1 is pure counting or
+   observation on a tiny case with no formula; each next question changes **one** thing; the reader
+   does the conceptual step (which number goes where, which way it moves) while arithmetic stays at
+   small integers. By the end the reader has built the idea without knowing its name.
+3. **Name it: the slides' concept.** Only now introduce the concept exactly as the slides present
+   it: its name, definition and formula, with every symbol mapped onto the numbers the reader just
+   produced ("this is exactly your answer to Q2: 7 = 3 + 2×2"). Include every point the slide makes
+   about it.
+4. **Understand it fully.** Analyse the concept and connect it to earlier knowledge points (and
+   earlier weeks), then extend it: what exactly it solves, what it is used for in real networks and
+   tasks (ResNet stem, a VGG block, the homework setup…), and how it changes the earlier picture.
+   An everyday analogy helps here if the idea is still abstract (say where the analogy breaks).
+5. **Pros and cons, and what comes next.** Weigh what it costs against what it buys. The remaining
+   weakness is the bridge to the next knowledge point ("ReLU's zero slope kills units → Leaky
+   ReLU"), so the next lesson's step 1 grows out of this lesson's step 5.
 
-**Real problems first, abstraction last.**
-- **Engineering topics** (networks, training, systems): every concept enters through a concrete
-  practical question that ends in a number or a decision — "In a 224×224 image, can one unit of
-  layer 3 see the whole cat?", "Why does the loss become NaN at learning rate 0.5?", "How many
-  parameters does this layer have, and does it fit in GPU memory?". Do not open with a definition,
-  keep abstract vocabulary out until it is needed, and name a concept only after the reader has
-  already used it.
-- **Pure math topics** (linear algebra, probability, proofs): some abstraction is fine, but still
-  start from something computable by hand (a 2×2 matrix, one fair die) before the general statement.
-- When the reader asks "what is this for?", answer with the real problem the section solves and
-  what goes wrong without it, not with a restatement of the formula.
+**Language inside the arc.** Narrative, questions and transitions use plain everyday language.
+Technical language is reserved for the technical points themselves (terms, definitions, formulas,
+key statements), and each such point is stated **once in the note language and once in English**,
+because the English wording is often the clearer of the two. The exact mix per note is the
+`lang` option (step 1.4).
 
-**Explain the problem before the concept.** Before any concept is named or any question is asked,
-the reader must fully understand the situation: what system it is, where each number comes from,
-what each number stands for, and which outcome we care about. For example: "these 4 numbers are
-one neuron's outputs on the 4 images of a batch; layer 2 has learned 'above 5 means cat'". If the
-reader can't say what a number means, the question is not ready. The concept (its name, definition,
-formula) comes only after the reader has worked through the problem and felt why it needs solving.
-A section that opens with its term ("Internal Covariate Shift is…") or with bare numbers ("take
-(2, 4, 6, 8)") breaks this rule.
+**Engineering vs pure math.** For engineering topics (networks, training, systems) steps 1–2 are
+always a practical scenario. For pure math (linear algebra, probability, proofs) more abstraction
+is acceptable, but step 2 still starts from something computable by hand (a 2×2 matrix, one fair
+die) before the general statement.
 
-**Designing the question chain (both modes).**
-1. State the goal in one sentence as a real problem, set up the scenario in plain words (as above),
-   then give a roadmap: "3–5 questions, one at a time".
-2. Q1 is pure counting or observation on a tiny case (a 1D row of 9 pixels, 3 numbers); no formula.
-3. Each next question changes **one** thing (kernel size, stride, one more layer), so the reader
-   discovers what that one thing does.
-4. The reader does the conceptual step (which number goes where, which way it moves); arithmetic
-   stays at small integers. After their answers, write the formula and map every symbol onto the
-   numbers they just produced ("this is exactly your answer to Q2: 7 = 3 + 2×2").
-5. Finish with a real-network application (ResNet stem, a VGG block, the homework setup) and one
-   quiz-style question that contains the common trap.
+**Coverage.** The arc is how the slides are taught, not a replacement for them: every knowledge
+point and every piece of content on the slides must appear (steps 3–4 carry it), in slide order
+unless a prerequisite has to come first.
 
-**Mode A: while writing a note.** Every lesson opens with a real problem (lesson unit step 1). For
-the lecture's key mechanisms (anything with a formula or a procedure), replace the plain worked
-example with a guided chain of 3–5 `> [!question]-` "Question k" folds. Each fold holds the answer
-plus a one-line takeaway. The formula comes right after the chain, built from those answers.
+When the reader asks "what is this for?", answer with step 1 and step 4 (the problem it solves and
+what it is used for), not with a restatement of the formula.
+
+**Mode A: while writing a note.** Each `###` lesson follows the arc (see the lesson unit in step 5
+and the template). Step 2's questions are `> [!question]-` "Question k" folds, each holding the
+answer plus a one-line takeaway, and the prose between them carries the reader forward.
 
 **Mode B: explaining an existing note interactively** (the user wants to learn or review a section,
 or says "you ask, I answer"). Read the section first. No slide prep and no publishing are needed.
-Talk in the user's language, whatever the note's language is.
+Talk in the user's language, whatever the note's language is. Walk the arc live:
+- Step 1 in a few plain sentences, then the roadmap of step 2 ("4 small questions, one at a time").
 - Ask **one question per turn** and wait for the answer.
 - Right answer → confirm in one line, add the one insight it reveals, then ask the next question.
   Wrong answer → reconstruct where their number came from, say which step is wrong and why, and
   give a one-line self-check ("4×2 = 8, but only 4 pixels were added"). Do not re-teach the section.
+- After the chain, do steps 3–5 in prose, then offer the next knowledge point.
 - Do long arithmetic yourself (run it); never ask them to multiply decimals.
 - If they drift to another topic and come back, re-post the open question verbatim.
 - At the end, say what they can now do, and record progress (questions done, questions still open)
@@ -152,10 +148,10 @@ Talk in the user's language, whatever the note's language is.
    user asks to switch. Otherwise ask with AskUserQuestion:
    | Option | What the note looks like |
    |---|---|
-   | `zh` | Chinese prose; English term in parentheses on first use, e.g. the Chinese word for receptive field followed by "(receptive field)" |
+   | `zh+en` (recommended default) | Plain Chinese narrative; every technical point (term, definition, formula explanation, key statement) is stated in Chinese and then in English |
+   | `zh` | Chinese only; English term in parentheses on first use |
    | `en` | English throughout |
-   | `zh+en` | ~90% Chinese; the key points also get one English line: each lesson's one-sentence takeaway, the formula's symbol explanation, and exam-critical definitions |
-   | `en+zh` | English prose; Chinese term in parentheses on first use; bilingual glossary |
+   | `en+zh` | Plain English narrative; every technical point is stated in English and then in Chinese |
    "Other" in the question lets the user describe a custom mix; record it in `lang` as `custom:
    <their description>`. Labels follow the label table in `references/note-template.md`.
 5. Read 1–2 recent substantial notes of the **same course** for terminology and link targets
@@ -177,14 +173,17 @@ Write `<work>/plan.md`:
 1. **Learning ladder** — list the lecture's concepts and order them so each one needs only
    the ones above it. Follow the lecture order, except when the slides use an idea before
    explaining it: then teach the prerequisite first (a short step) and say so.
-2. For each concept, decide:
-   - **Real problem** — the practical question it answers, ending in a number or a decision.
-   - **Analogy** — one everyday picture (walking downhill, making change, a class average, braking
-     a car…). Also note where the analogy stops working, so the note can say it in one line.
-   - **Tiny example or question chain** — the 2–3 numbers you will compute by hand, or, for a key
-     mechanism, the 3–5 questions of its chain.
-   - **Main line vs fold** — what a beginner needs to follow the lecture goes in the main line;
-     everything else goes in a Deep dive fold (see rule 3).
+2. For each knowledge point, plan its arc:
+   - **Problem** — what goes wrong without it, as a picturable failure with numbers whose meaning
+     is stated.
+   - **Discovery scenario** — the small setting and its 3–5 questions (Q1 counting only; each
+     next question changes one thing).
+   - **Slide concept** — the slides' name, definition, formula and every point the slides make.
+   - **Connections and uses** — which earlier points it builds on, what it is used for in practice;
+     an everyday analogy if it stays abstract (and where the analogy breaks).
+   - **Pros, cons and bridge** — the weakness that motivates the next knowledge point.
+   - **Main line vs fold** — what a beginner needs goes in the main line; everything else goes in a
+     Deep dive fold.
    - **Visual** — slide screenshot, static figure, animated SVG, or none (see 4b).
 3. **New-term budget** — mark the lessons that introduce several new terms and split them so each
    `###` lesson introduces **at most 1–2 new terms**.
@@ -298,20 +297,19 @@ shorter than 1% of the cycle.
 Follow `references/note-template.md` for frontmatter, skeleton and labels, and the
 `obsidian-markdown` skill for syntax. Write in the chosen note language (step 1.4).
 
-#### The lesson unit (every `###` concept follows this rhythm)
-1. **A real problem / failure case** — a real engineering question the reader can picture, ending
-   in a number or a decision ("What happens when the learning rate is too large? Look at these 3
-   numbers…"). Say where every number comes from and what it means before using it. No definition
-   and no term name first: the name comes after the reader has seen the problem.
-2. **Analogy** — `> [!example]` Analogy with the everyday picture; one line on where it breaks.
-3. **Worked example or question chain** — 2–3 numbers, every intermediate value shown, in a small
-   table if there are steps. For key mechanisms, use a guided question chain instead (Mode A above).
-4. **As a formula** — only now the formula; map every symbol back to the numbers just used.
-5. **In one sentence** — one sentence the reader could say out loud.
+#### The lesson unit (every `###` knowledge point follows the arc)
+1. **The problem** — what goes wrong without it; plain words; numbers explained before use.
+2. **Discover it yourself** — the scenario and its Question k folds; short prose between them.
+3. **The concept from the slides** — name (note language + English), definition, formula with
+   every symbol mapped to the numbers from step 2; then **In one sentence**.
+4. **Understand it fully** — connections to earlier points, what it solves, what it is used for;
+   optional Analogy callout; slide screenshots / animations with their "what to watch" lines.
+5. **Pros and cons → next** — the trade-off, ending in the question the next lesson answers.
 6. (optional) Deep dive fold — derivations, proofs, edge cases, extra variants.
 7. (optional) `> [!warning]` Common pitfall — only real, common confusions.
 
-Sometimes a lesson needs just 1+3+5; keep it short when the idea is simple (rule 3).
+A very small point (one slide bullet that refines the previous lesson) may shrink to steps 1, 3
+and 5 in a few sentences, but it still starts from the problem, never from the term.
 
 #### Writing rules
 - **Explain, do not summarise.** Write connected explanatory prose — "first…, then…, so…" — as a
@@ -338,7 +336,8 @@ Sometimes a lesson needs just 1+3+5; keep it short when the idea is simple (rule
   can be shown" gaps, rare edge cases, historical notes, alternative variants. Content beyond the
   slides is marked (beyond slides) (in the fold title if it's in a fold).
 - **Fill slide jumps** — where a slide skips steps, fill them in (in a fold if long).
-- Language per step 1.4. In `zh` / `zh+en`, give the English term in parentheses on first use.
+- Language per step 1.4 and "Language inside the arc": plain words for the story, technical
+  language only for technical points, each stated in the note language and in English.
 - Follow the lecture's order and cover every page (plan.md ticks it off).
 - Math in `$...$` / `$$...$$`. Tables for step-by-step numbers and comparisons.
   No invented slide content, no fake citations.
@@ -448,8 +447,11 @@ overlapping, duplicated content).
 - [ ] Every PDF page in range is covered (plan.md outline ticks off)
 - [ ] Easy → hard: every lesson's first sentence is readable using only earlier lessons
 - [ ] Every abstract concept has an analogy and/or tiny calculation next to it
-- [ ] Every lesson opens with a real problem, not a definition; each key mechanism has a guided
-      chain of 3–5 folded questions ending in the formula built from their answers
+- [ ] Every lesson walks the arc: problem → self-discovery questions → slide concept → analysis,
+      connections and uses → pros/cons that lead into the next lesson; transitions read smoothly
+- [ ] No section opens with a term, definition, formula or bare numbers
+- [ ] Technical points are stated in the note language and in English (per `lang`)
+- [ ] Every knowledge point and piece of content on the slides appears somewhere
 - [ ] No summary-style lesson (a bullet list introducing several new terms); ≤ 2 new terms per `###`
 - [ ] Hard extras are in Deep dive folds; skipping all folds still leaves a complete explanation
 - [ ] A Pause check after each part
@@ -460,8 +462,8 @@ overlapping, duplicated content).
 - [ ] Every beyond-slides claim ((beyond slides) marks, non-slide Deep dive folds, paper
       attributions) was checked online and cites its source, or is marked `(to verify)`
 - [ ] (only if the user asked for 6c) evaluator loop ended with `pass` or ≤ 3 rounds
-- [ ] ≥ 10 practice questions (≥ 60% concept recall, ≥ 20% calculation, ≥ 2 "why" analysis),
-      answers in Show answer folds
+- [ ] ≥ 10 practice questions that check understanding, not exam tricks (≥ 60% "what does it
+      solve / why", ≥ 20% calculation, ≥ 2 connecting two ideas), answers in Show answer folds
 - [ ] Glossary table and the Self-check-after-studying tip at the end
 - [ ] Links to previous/next week notes if they exist (`[[WEEK 4]]`)
 - [ ] LaTeX renders: every multi-row `bmatrix`/`cases` separates rows with `\\` (a lone `\`

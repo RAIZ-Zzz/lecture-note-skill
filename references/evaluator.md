@@ -40,6 +40,12 @@ Inputs (read all of them):
    itself; a formula whose symbols are not all explained.
 
 ### B. Teaching rules (from SKILL.md) — check each
+- A lesson does not walk the arc: problem in plain words → self-discovery questions → the slides'
+  concept → what it solves and is for → pros/cons leading into the next lesson; or a transition
+  between steps is abrupt.
+- A section opens with a term, definition, formula or bare numbers, or uses a number before saying
+  what it means.
+- A technical point is not stated in both the note language and English (when `lang` asks for it).
 - A term is used before it is explained.
 - An abstract concept has neither an analogy nor a small worked example next to it.
 - A lesson introduces more than two new terms, or is written as a summary list instead of

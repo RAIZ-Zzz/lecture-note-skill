@@ -8,18 +8,18 @@ Chosen per note (`--lang`, or the skill asks):
 
 | Option | Result |
 |---|---|
-| `zh` | Chinese prose, English term in parentheses on first use |
+| `zh+en` (recommended) | Plain Chinese narrative; every technical point is stated in Chinese and then in English |
+| `zh` | Chinese only, English term in parentheses on first use |
 | `en` | English throughout |
-| `zh+en` | ~90% Chinese; key points (takeaways, symbol explanations, exam-critical definitions) also get one English line |
-| `en+zh` | English prose, Chinese term in parentheses on first use, bilingual glossary |
+| `en+zh` | Plain English narrative; every technical point is stated in English and then in Chinese |
 | custom | any mix you describe |
 
 Callout labels ("Analogy", "Deep dive", "Pause", …) follow the note language; the label table is in `references/note-template.md`.
 
 ## What the notes look like
 
-- **Taught, not summarized.** Each lesson introduces at most one or two new terms and follows the same rhythm: a real problem that ends in a number or a decision → an everyday analogy → a tiny worked example with small numbers → the formula, with every symbol mapped back to those numbers → a one-sentence takeaway.
-- **Learn by answering.** Key mechanisms are taught as a chain of 3–5 folded questions: the first one only asks the reader to count something on a tiny case, each next one changes one thing, and the formula at the end is assembled from the reader's own answers. Engineering topics start from practical questions ("can this layer see the whole cat?") rather than definitions; pure-math topics may be more abstract but still start from something computable by hand.
+- **One lesson arc for every knowledge point.** (1) What goes wrong without it, in plain words; (2) a small scenario in which the reader, guided by 3–5 questions, designs the fix themselves; (3) only then the slides' name, definition and formula, mapped onto the reader's own answers; (4) what it really solves, how it connects to earlier material, and what it is used for; (5) its pros and cons, whose remaining weakness leads into the next lesson. No section opens with a term, a formula or bare numbers.
+- **Built for learning, not exam drilling.** Every point on the slides is covered, but the aim is to understand what each idea is for. Engineering topics start from practical situations ("can this layer see the whole cat?"); pure-math topics may be more abstract but still start from something computable by hand.
 - **Interactive mode.** Ask the skill to teach a section of an existing note and it poses one question per turn, checks each answer, and on a wrong answer shows where the number came from instead of re-teaching the whole section.
 - **Easy to hard.** Before writing, the skill plans a learning ladder so every concept only relies on concepts explained above it. No term is used before it is explained.
 - **Analogies and small calculations** accompany every abstract idea (gradients, curvature, variance, momentum, …).
