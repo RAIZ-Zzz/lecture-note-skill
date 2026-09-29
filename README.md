@@ -1,6 +1,6 @@
 # lecture-note — Claude Code skill
 
-A Claude Code skill that turns one week's lecture slides (PDF) into a detailed, step-by-step **teaching** note in an Obsidian vault, and that can teach an existing note interactively by exercises. This README describes how the skill works.
+A Claude Code skill that turns lecture slides (PDF) into a detailed, step-by-step **teaching** note in an Obsidian vault, and that can teach an existing note interactively by exercises. This README describes how the skill works.
 
 ## Note language
 
