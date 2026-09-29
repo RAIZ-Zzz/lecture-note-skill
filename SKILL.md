@@ -79,6 +79,25 @@ key statements), and each such point is stated **once in the note language and o
 because the English wording is often the clearer of the two. The exact mix per note is the
 `lang` option (step 1.4).
 
+**Plain words are the bridge, professional terms are the destination.** Plain language gets the
+reader in, but every lesson must land on the professional vocabulary, so the reader can talk to
+other engineers. Asked "which activation would you use?", the reader should say "ReLU", not "if
+x > 0 output x, otherwise 0". So step 3 always ends with **In professional terms**: one or two
+sentences saying the idea the way a practitioner would ("use ReLU as the activation; add
+BatchNorm after each conv layer"), in the note language and in English. Plain explanations are
+**short, precise and correct**: no padding, no vague wording, no simplification that becomes false.
+
+**Uniform shape.** Bad, uneven layout makes a learner give up. Every `###` lesson has the same
+labelled blocks in the same order (the lesson unit in step 5), the same heading pattern, and a
+similar length and number of questions (3–5). Split an oversized knowledge point into two lessons
+and merge crumbs into one; do not let one lesson sprawl while the next is two lines.
+
+**When unsure how to teach something, look up how the best teachers do it.** Before writing a
+point whose teaching path is unclear, search for how recognised teachers explain it (Stanford
+CS231n notes, d2l.ai, distill.pub, 3Blue1Brown, Andrej Karpathy's lectures, the original paper's own
+intuition section) and adapt their scenario or picture to the arc. What is borrowed follows the
+grounding rules (step 6b): cite it, and mark it (beyond slides) when it adds content.
+
 **Engineering vs pure math.** For engineering topics (networks, training, systems) steps 1–2 are
 always a practical scenario. For pure math (linear algebra, probability, proofs) more abstraction
 is acceptable, but step 2 still starts from something computable by hand (a 2×2 matrix, one fair
@@ -301,7 +320,8 @@ Follow `references/note-template.md` for frontmatter, skeleton and labels, and t
 1. **The problem** — what goes wrong without it; plain words; numbers explained before use.
 2. **Discover it yourself** — the scenario and its Question k folds; short prose between them.
 3. **The concept from the slides** — name (note language + English), definition, formula with
-   every symbol mapped to the numbers from step 2; then **In one sentence**.
+   every symbol mapped to the numbers from step 2; then **In professional terms** (how a
+   practitioner says it, note language + English).
 4. **Understand it fully** — connections to earlier points, what it solves, what it is used for;
    optional Analogy callout; slide screenshots / animations with their "what to watch" lines.
 5. **Pros and cons → next** — the trade-off, ending in the question the next lesson answers.
@@ -450,6 +470,12 @@ overlapping, duplicated content).
 - [ ] Every lesson walks the arc: problem → self-discovery questions → slide concept → analysis,
       connections and uses → pros/cons that lead into the next lesson; transitions read smoothly
 - [ ] No section opens with a term, definition, formula or bare numbers
+- [ ] Every lesson ends its concept block with In professional terms; plain explanations are
+      short, precise and correct
+- [ ] Uniform shape: every `###` lesson has the same blocks in the same order, similar length and
+      3–5 questions; no sprawling or two-line lessons
+- [ ] Points whose teaching path was unclear were checked against how recognised teachers explain
+      them, with sources
 - [ ] Technical points are stated in the note language and in English (per `lang`)
 - [ ] Every knowledge point and piece of content on the slides appears somewhere
 - [ ] No summary-style lesson (a bullet list introducing several new terms); ≤ 2 new terms per `###`

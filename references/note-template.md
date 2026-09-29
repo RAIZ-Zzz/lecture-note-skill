@@ -68,7 +68,8 @@ definition and every point they make.>
 $$<formula>$$
 <which number from the questions each symbol stands for.>
 
-**In one sentence:** <one sentence the reader could say out loud (note language + English).>
+**In professional terms:** <one or two sentences the way a practitioner would say it, with the proper
+terms (e.g. "use ReLU as the activation"), in the note language and in English.>
 
 **What it solves and what it is for**
 <Connect to earlier knowledge points / weeks; what exactly it fixes; where it is used in practice.>
@@ -143,7 +144,7 @@ language follows whichever column is closer, or asks the user.
 | Work it out yourself | 自己动手推一推 |
 | Question k: … | 第 k 题：… |
 | The concept from the slides | 课件里的概念 |
-| In one sentence | 一句话记住 |
+| In professional terms | 专业说法 |
 | What it solves and what it is for | 它解决了什么、能用来干嘛 |
 | Analogy | 打个比方 |
 | Pros and cons | 优点与代价 |
