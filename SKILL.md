@@ -139,7 +139,7 @@ Talk in the user's language, whatever the note's language is. Walk the arc live:
 - Courses: the vault folders under `Lecture Notes/` (`cli-anything-obsidian --json vault list
   "Lecture Notes"`). Where each course's slides live on this machine is in `<skill>/local.md`
   (git-ignored). If that file or the course's row is missing, ask the user for the slide folder,
-  then create/extend `local.md` from `local.example.md`.
+  then create/extend `local.md`: a two-column table, `| Vault folder | Slides |`, one row per course.
 - **Lecture number ≠ week number** (e.g. AI6103 "Lecture 3 ML Foundations" is WEEK 4). Never pick
   the PDF from its filename alone: check `source_pdf` in existing WEEK notes, then open the PDF's
   first pages. `source_pdf` may be a path from another machine: match on the file name only.

@@ -83,7 +83,7 @@ Notes go to `Lecture Notes/<course>/` inside the vault; create one folder per co
 
 - Google Chrome or Microsoft Edge: only for previewing animation frames. Set `$CHROME` if it is
   not in a standard location.
-- `local.md`: copy `local.example.md` to `local.md` and list where each course's slides are on
+- `local.md`: a two-column table (`| Vault folder | Slides |`) listing where each course's slides are on
   this machine. It is git-ignored. Without it, the skill asks for the PDF path and offers to
   create the file.
 - The Obsidian plugin **Mindmap NextGen**: only for the optional course mind map.
