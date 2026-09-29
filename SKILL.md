@@ -75,8 +75,18 @@ reader derived both recurrences on their own and then caught the stride trap in 
 - When the reader asks "what is this for?", answer with the real problem the section solves and
   what goes wrong without it, not with a restatement of the formula.
 
+**Explain the problem before the concept.** Before any concept is named or any question is asked,
+the reader must fully understand the situation: what system it is, where each number comes from,
+what each number stands for, and which outcome we care about. For example: "these 4 numbers are
+one neuron's outputs on the 4 images of a batch; layer 2 has learned 'above 5 means cat'". If the
+reader can't say what a number means, the question is not ready. The concept (its name, definition,
+formula) comes only after the reader has worked through the problem and felt why it needs solving.
+A section that opens with its term ("Internal Covariate Shift is…") or with bare numbers ("take
+(2, 4, 6, 8)") breaks this rule.
+
 **Designing the question chain (both modes).**
-1. State the goal in one sentence as a real problem, then a roadmap: "3–5 questions, one at a time".
+1. State the goal in one sentence as a real problem, set up the scenario in plain words (as above),
+   then give a roadmap: "3–5 questions, one at a time".
 2. Q1 is pure counting or observation on a tiny case (a 1D row of 9 pixels, 3 numbers); no formula.
 3. Each next question changes **one** thing (kernel size, stride, one more layer), so the reader
    discovers what that one thing does.
@@ -291,7 +301,8 @@ Follow `references/note-template.md` for frontmatter, skeleton and labels, and t
 #### The lesson unit (every `###` concept follows this rhythm)
 1. **A real problem / failure case** — a real engineering question the reader can picture, ending
    in a number or a decision ("What happens when the learning rate is too large? Look at these 3
-   numbers…"). 1–3 sentences. No definition first.
+   numbers…"). Say where every number comes from and what it means before using it. No definition
+   and no term name first: the name comes after the reader has seen the problem.
 2. **Analogy** — `> [!example]` Analogy with the everyday picture; one line on where it breaks.
 3. **Worked example or question chain** — 2–3 numbers, every intermediate value shown, in a small
    table if there are steps. For key mechanisms, use a guided question chain instead (Mode A above).
