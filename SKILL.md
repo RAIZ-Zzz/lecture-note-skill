@@ -87,6 +87,26 @@ sentences saying the idea the way a practitioner would ("use ReLU as the activat
 BatchNorm after each conv layer"), in the note language and in English. Plain explanations are
 **short, precise and correct**: no padding, no vague wording, no simplification that becomes false.
 
+**Explain every special term where it is used.** A reader who opens a lesson in the middle of the
+note, or reads it days later, must never meet an unexplained word. Examples: a question says
+"channel" and the reader asks "what is a channel?", or cannot tell "batch" from "channel".
+- **Terms taught earlier.** At the first use of a technical term in a lesson that did not
+  introduce it, add a one-line reminder in brackets plus a link to where it is taught, e.g.
+  "channel (one feature map: what a single kernel produces when it slides over the image, see
+  [[#8. …|§8]])" or "[[WEEK 5]] §14". This applies across weeks, and to question text as well as prose.
+- **Confusable pairs.** When a lesson uses two terms that learners mix up, contrast them in one
+  small concrete example before the reader needs them. Typical pairs are batch vs channel, epoch vs
+  iteration, parameter vs hyperparameter, validation vs test set, equivariance vs invariance, and
+  loss vs metric. For batch vs channel: "shape B×C×H×W = 2×64×2×2: 2 images, each with 64 feature
+  maps of 2×2; BatchNorm takes one channel across both images → 8 numbers."
+- **Tensor shapes.** Whenever a lesson talks about a tensor, name every axis in plain words with
+  the numbers. Write "2 images × 64 channels × 2×2 positions", never a bare "B×C×H×W".
+- **Glossary coverage.** Every term reminded or contrasted this way also appears in the note's
+  glossary.
+- **Mode B.** When the reader asks "what is X?", give the one-line meaning, a concrete example,
+  and, if X has a confusable partner, the contrast. Then note the gap so the written note gets the
+  reminder too.
+
 **Uniform shape.** Bad, uneven layout makes a learner give up. Every `###` lesson has the same
 labelled blocks in the same order (the lesson unit in step 5), the same heading pattern, and a
 similar length and number of questions (3–5). Split an oversized knowledge point into two lessons
@@ -477,6 +497,10 @@ overlapping, duplicated content).
 - [ ] Points whose teaching path was unclear were checked against how recognised teachers explain
       them, with sources
 - [ ] Technical points are stated in the note language and in English (per `lang`)
+- [ ] Every technical term used in a lesson (prose and questions) was either introduced in that
+      lesson or gets a one-line bracketed reminder + link at its first use there; confusable pairs
+      (batch/channel, epoch/iteration, …) are contrasted with a concrete shape; every tensor's axes
+      are named in plain words with numbers
 - [ ] Every knowledge point and piece of content on the slides appears somewhere
 - [ ] No summary-style lesson (a bullet list introducing several new terms); ≤ 2 new terms per `###`
 - [ ] Hard extras are in Deep dive folds; skipping all folds still leaves a complete explanation
