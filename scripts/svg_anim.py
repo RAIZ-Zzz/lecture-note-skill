@@ -4,13 +4,13 @@ Library (import it from a generator script in the work folder):
 
     import sys; sys.path.insert(0, r"<skill>/scripts")
     from svg_anim import Scene
-    sc = Scene(640, 360, cycle=8, title="梯度下降：每一步沿斜坡往下走")
+    sc = Scene(640, 360, cycle=8, title="Gradient descent: each step goes downhill")
     ax = sc.axes(x=(-3, 3), y=(0, 9), box=(60, 30, 600, 300), xlabel="w", ylabel="L(w)")
     sc.curve(ax, lambda w: w * w)
     pts = [(3, 9), (1.8, 3.24), (1.08, 1.1664)]          # the SAME numbers as the note / verify.py
     sc.mover(ax, pts, times=[1, 3, 5])                    # dot is at pts[i] from times[i]
     sc.trail(ax, pts, times=[1, 3, 5])                    # arrows appear as the dot moves
-    sc.captions([(0, "起点 w=3"), (3, "第 1 步后 w=1.8"), (5, "第 2 步后 w=1.08")])
+    sc.captions([(0, "start w=3"), (3, "after step 1: w=1.8"), (5, "after step 2: w=1.08")])
     sc.save("<work>/anim/gd-steps.svg")
 
 Every animation shares ONE timeline: dur = cycle, repeatCount = indefinite, scheduled with
@@ -259,7 +259,7 @@ class Scene:
                   f'path="{path}" keyPoints="{";".join(_n(v) for v in kp)}" '
                   f'keyTimes="{";".join(_n(v) for v in kt)}"/>')
         if label:
-            w = 12 + 12 * len(str(label)) * (1.6 if re.search(r"[一-鿿]", str(label)) else 0.9) / 1.6
+            w = 12 + 12 * len(str(label)) * (1.6 if re.search(r"[\u4e00-\u9fff]", str(label)) else 0.9) / 1.6
             shape = (f'<rect x="{_n(-w / 2)}" y="-11" width="{_n(w)}" height="22" rx="11" fill="{_c(color)}"/>'
                      f'<text x="0" y="4" font-size="12" fill="#fff" text-anchor="middle">{escape(str(label))}</text>')
         else:

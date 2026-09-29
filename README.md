@@ -1,10 +1,26 @@
 # lecture-note — Claude Code skill
 
-A Claude Code skill that turns one week's lecture slides (PDF) into a detailed, step-by-step **teaching** note in an Obsidian vault. The notes are written in Chinese with English technical terms; this README describes how the skill works.
+A Claude Code skill that turns one week's lecture slides (PDF) into a detailed, step-by-step **teaching** note in an Obsidian vault, and that can teach an existing note interactively by exercises. This README describes how the skill works.
+
+## Note language
+
+Chosen per note (`--lang`, or the skill asks):
+
+| Option | Result |
+|---|---|
+| `zh` | Chinese prose, English term in parentheses on first use |
+| `en` | English throughout |
+| `zh+en` | ~90% Chinese; key points (takeaways, symbol explanations, exam-critical definitions) also get one English line |
+| `en+zh` | English prose, Chinese term in parentheses on first use, bilingual glossary |
+| custom | any mix you describe |
+
+Callout labels ("Analogy", "Deep dive", "Pause", …) follow the note language; the label table is in `references/note-template.md`.
 
 ## What the notes look like
 
-- **Taught, not summarized.** Each lesson introduces at most one or two new terms and follows the same rhythm: a concrete problem → an everyday analogy → a tiny worked example with small numbers → the formula, with every symbol mapped back to those numbers → a one-sentence takeaway.
+- **Taught, not summarized.** Each lesson introduces at most one or two new terms and follows the same rhythm: a real problem that ends in a number or a decision → an everyday analogy → a tiny worked example with small numbers → the formula, with every symbol mapped back to those numbers → a one-sentence takeaway.
+- **Learn by answering.** Key mechanisms are taught as a chain of 3–5 folded questions: the first one only asks the reader to count something on a tiny case, each next one changes one thing, and the formula at the end is assembled from the reader's own answers. Engineering topics start from practical questions ("can this layer see the whole cat?") rather than definitions; pure-math topics may be more abstract but still start from something computable by hand.
+- **Interactive mode.** Ask the skill to teach a section of an existing note and it poses one question per turn, checks each answer, and on a wrong answer shows where the number came from instead of re-teaching the whole section.
 - **Easy to hard.** Before writing, the skill plans a learning ladder so every concept only relies on concepts explained above it. No term is used before it is explained.
 - **Analogies and small calculations** accompany every abstract idea (gradients, curvature, variance, momentum, …).
 - **Simple main line, depth on demand.** Full derivations, proofs, edge cases and material beyond the slides go into collapsible "deep dive (optional)" callouts, so a reader who skips them still follows the lecture.
@@ -74,7 +90,7 @@ Notes go to `Lecture Notes/<course>/` inside the vault; create one folder per co
 
 ### Use
 
-In Claude Code, run `/lecture-note <course> <week> [pdf path] [pages A-B]`.
+In Claude Code, run `/lecture-note <course> <week> [pdf path] [pages A-B] [--lang zh|en|zh+en|en+zh]`, or ask it to teach a section of an existing note ("teach me WEEK 5 section 10.2, you ask and I answer").
 
 ## License
 

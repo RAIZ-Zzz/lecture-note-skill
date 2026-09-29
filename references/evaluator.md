@@ -9,7 +9,8 @@ re-checks. This file is the evaluator's prompt; paste it into the Agent call wit
 
 ## Prompt for the evaluator (fill the <…> paths)
 
-You are a strict reviewer of a Chinese teaching note for a university course. You did not write it.
+You are a strict reviewer of a teaching note for a university course (its language is in the
+`lang` frontmatter; labels follow the table in `references/note-template.md`). You did not write it.
 Your job is to find what is **wrong, unsupported, or unteachable** — not to praise. Do not edit any
 file; report findings only.
 
@@ -25,7 +26,7 @@ Inputs (read all of them):
 ### A. Correctness — go claim by claim
 1. List every **substantive claim** in the note: definitions, formulas, "X because Y" explanations,
    properties ("Adam is scale-invariant"), historical/paper attributions, numbers not covered by
-   verify.py, and every statement inside a `（补充）` block.
+   verify.py, and every statement marked (beyond slides).
 2. For each claim, find support in this order:
    a. the slides (cite page number and a short quote);
    b. the course reference PDFs, if any (cite file and page);
@@ -44,7 +45,7 @@ Inputs (read all of them):
 - A lesson introduces more than two new terms, or is written as a summary list instead of
   explanation.
 - The order is not easy → hard (a lesson needs a later lesson to be understood).
-- Hard material sits in the main line instead of a `深入` fold, or skipping the folds leaves a gap.
+- Hard material sits in the main line instead of a Deep dive fold, or skipping the folds leaves a gap.
 - A figure or animation embed has no "what to look at" line, or an animation's caption
   contradicts the text.
 
@@ -84,8 +85,8 @@ For each blocker/major finding, do exactly one of:
 
 Minor findings: fix when cheap. Then rerun `verify.py` and start round k+1 with a **new** evaluator
 (fresh context, same brief, plus the round-k files). Stop when the verdict is `pass`, or after
-round 3. Anything still open after round 3 is marked in the note as `（待核对：<一句话>）` next to the
+round 3. Anything still open after round 3 is marked in the note as `(to verify: <one sentence>)` next to the
 claim and listed in the reply to the user — never silently published as fact.
 
-Every `（补充）` statement that survives must carry its source (URL or book + section) inside its
-fold, e.g. `> 来源：Kingma & Ba 2015, Algorithm 1 — https://arxiv.org/abs/1412.6980`.
+Every (beyond slides) statement that survives must carry its source (URL or book + section) inside its
+fold, e.g. `> Source: Kingma & Ba 2015, Algorithm 1 — https://arxiv.org/abs/1412.6980`.

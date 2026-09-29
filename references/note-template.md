@@ -1,14 +1,18 @@
 # Note template
 
-Copy this skeleton. Replace `<…>`; drop optional lines marked `(可选)` when not applicable.
+Copy this skeleton. Replace `<…>`; drop optional lines marked `(optional)` when not applicable.
+The skeleton uses the **English labels**; for `zh` / `zh+en` notes, swap in the Chinese label for
+each one from the [label table](#labels-per-note-language) below. SKILL.md refers to the labels by
+their English names (e.g. "the Deep dive fold").
 
 ````markdown
 ---
 course: <vault folder name, e.g. AI6103-DeepLearning>
 week: <n>
-part: <p>                      # (可选) only for WEEK n.p notes
-topic: <中文主题，含英文关键词>
-lecturer: <name>               # (可选) if on the title slide
+part: <p>                      # (optional) only for WEEK n.p notes
+topic: <topic in the note language, with English keywords>
+lang: <zh | en | zh+en | en+zh | custom>
+lecturer: <name>               # (optional) if on the title slide
 source_pdf: "<absolute path with forward slashes>"
 pages: "<A-B>"
 pdf_page_count: <total pages of the PDF>
@@ -20,91 +24,135 @@ tags:
   - <kebab-case-topic>
 ---
 
-# WEEK <n>[ · Part <p>] · <中文标题>
+# WEEK <n>[ · Part <p>] · <title>
 
-> [!info] 课程与范围
-> **<course>** · `<pdf file name>` · **PDF 第 A–B 页**
-> 讲解式教学笔记：从易到难，一次只讲一个新概念。每节的节奏是 **问题 → 打个比方 → 小算例 → 公式 → 一句话记住**。
-> 折叠的「深入」块可以先跳过，跳过也能看懂主线。
-> 上一讲：[[WEEK <n-1>]] · 下一讲：[[WEEK <n+1>]]   ← only link notes that exist
+> [!info] Course & scope
+> **<course>** · `<pdf file name>` · **PDF pp. A–B**
+> A step-by-step teaching note: easy → hard, one new idea at a time. Every lesson follows
+> **problem → analogy → worked example (or question chain) → formula → one-sentence takeaway**.
+> The folded Deep dive blocks can be skipped; the main line still makes sense without them.
+> Previous: [[WEEK <n-1>]] · Next: [[WEEK <n+1>]]   ← only link notes that exist
 
-| 阅读路线（从易到难） | 课件页 | 学完能回答 |
+| Reading route (easy → hard) | Slides | After it you can answer |
 | --- | --- | --- |
-| [[#第一部分 · <…>]] | p.A–p.X | <一个问题> |
+| [[#Part 1 · <…>]] | p.A–p.X | <one real question> |
 | … | … | … |
 
-## 开始之前：这一讲要解决什么问题
+## Before we start: what problem this lecture solves
 
-<用一个贯穿全讲的小场景（2–3 个数）讲清楚：我们卡在哪里、这一讲给了什么办法。讲故事，不列清单。>
+<One running scenario with 2–3 numbers: where we are stuck and what this lecture gives us.
+Tell it as a story, not a list.>
 
-## 第一部分 · <主题>
+## Part 1 · <topic>
 
-### 1.1 <概念>（<English term>）
+### 1.1 <concept> (<English term>)
 
-<一个问题 / 失败场景：1–3 句，给出具体数字。>
+<A real problem / failure case: 1–3 sentences with concrete numbers, ending in a number or a decision.>
 
-> [!example] 打个比方
-> <日常类比。> 这个比方不完全对的地方：<一句话>。
+> [!example] Analogy
+> <everyday picture.> Where the analogy breaks: <one sentence>.
 
-**小算例：** <2–3 个数，逐步计算，每个中间值都写出来；有多步时用表格。>
+**Worked example:** <2–3 numbers, step by step, every intermediate value shown; a table if there are several steps.>
 
-| 步 | … | … |
+| Step | … | … |
 | --- | --- | --- |
 
-**写成公式：** 
-$$<公式>$$
-<每个符号对应刚才哪个数。>
+<For a key mechanism, use a question chain instead of the worked example:>
 
-**一句话记住：** <一句能说出口的话。>
+> [!question]- Question 1: <count / observe something on a tiny case>
+> <answer> — <one-line takeaway>
+
+> [!question]- Question 2: <change one thing>
+> <answer> — <one-line takeaway>
+
+**As a formula:**
+$$<formula>$$
+<which number from the example / questions each symbol stands for.>
+
+**In one sentence:** <one sentence the reader could say out loud.>
 
 ![[Lecture Notes/<course>/attachments/week<n>[.<p>]-<topic>-s<NN>.png]]
-<这张图要看哪里、说明了什么。>
+<what to look at in this picture and what it shows.>
 
 ![[Lecture Notes/<course>/attachments/week<n>[.<p>]-<topic>-anim-<slug>.svg]]
-**看动画时注意：** <盯住哪个元素、它的变化说明了什么>。（动画不动时看上面的表，数值相同。）
+**What to watch:** <which element to follow and what its change means>. (If the animation does not play, the table above has the same numbers.)
 
-> [!note]- 深入：<完整推导 / 证明 / 边界情况>（可跳过）
-> <主线不需要、但想弄透时再看的内容。超出课件的标（补充）。>
+> [!note]- Deep dive: <full derivation / proof / edge cases> (optional)
+> <material the main line does not need. Mark anything beyond the slides as (beyond slides).>
 
-> [!warning] 易错点
-> <只写真实常见的误解 + 正确理解>
+> [!warning] Common pitfall
+> <only real, common misunderstandings + the correct view>
 
-### 1.2 <下一个概念> …（同样节奏；每个 ### 最多引入 1–2 个新术语）
+### 1.2 <next concept> … (same rhythm; each ### introduces at most 1–2 new terms)
 
-> [!question]- 停一下：<检查本部分核心概念的一个小问题>
-> <答案 + 一两句解释>
+> [!question]- Pause: <one question checking this part's core idea>
+> <answer + one or two sentences of explanation>
 
-…（按课件顺序继续各部分）…
+… (continue part by part in slide order) …
 
-## 第 N 部分 · 复习与练习
+## Part N · Review and practice
 
-### 本讲一页总结
-| 概念 | 一句话 | 关键公式 |
+### One-page summary
+| Concept | In one sentence | Key formula |
 | --- | --- | --- |
 
-### 练习题
+### Practice questions
 
-#### 题 1 · <标题>
-<题目>
+#### Q1 · <title>
+<question>
 
-> [!success]- 展开答案
-> <答案 + 推理过程>
+> [!success]- Show answer
+> <answer + reasoning>
 
-…（≥ 10 题）…
+… (≥ 10 questions) …
 
-### 术语中英对照
-| 中文 | English | 一句话解释 |
+### Glossary
+| Term | English | Meaning in one sentence |
 | --- | --- | --- |
 
-> [!tip] 学完后的检查标准
-> **会算：** …
-> **会解释：** …
-> **会串联：** …
+> [!tip] Self-check after studying
+> **Can compute:** …
+> **Can explain:** …
+> **Can connect:** …
 ````
 
+## Labels per note language
+
+`en` and `en+zh` use the English column; `zh` and `zh+en` use the Chinese column. A `custom`
+language follows whichever column is closer, or asks the user.
+
+| Label (English) | Chinese |
+| --- | --- |
+| Course & scope | 课程与范围 |
+| Reading route (easy → hard) · Slides · After it you can answer | 阅读路线（从易到难） · 课件页 · 学完能回答 |
+| Before we start: what problem this lecture solves | 开始之前：这一讲要解决什么问题 |
+| Part 1 · … / Part N · Review and practice | 第一部分 · … / 第 N 部分 · 复习与练习 |
+| Analogy | 打个比方 |
+| Worked example | 小算例 |
+| Question k: … | 第 k 题：… |
+| As a formula | 写成公式 |
+| In one sentence | 一句话记住 |
+| What to watch | 看动画时注意 |
+| Deep dive: … (optional) | 深入：…（可跳过） |
+| (beyond slides) | （补充） |
+| (to verify: …) | （待核对：…） |
+| Source: | 来源： |
+| Common pitfall | 易错点 |
+| Pause: … | 停一下：… |
+| One-page summary | 本讲一页总结 |
+| Practice questions · Show answer | 练习题 · 展开答案 |
+| Glossary | 术语中英对照 |
+| Self-check after studying · Can compute / explain / connect | 学完后的检查标准 · 会算 / 会解释 / 会串联 |
+| Original note | 原笔记 |
+| Mind map note `<COURSE> Mind Map` · frontmatter key `mindmap` | `<COURSE> 知识导图` · frontmatter key `知识导图` |
+| Mind map items: What · Why needed · Example · Pitfall | 是什么 · 为什么需要 · 例 · 注意 |
+
+Glossary columns: in `zh` / `zh+en` it is *Chinese · English · one-line meaning*; in `en` it is
+*Term · one-line meaning* (drop the English column); in `en+zh` it is *English · Chinese · meaning*.
+
 ## Callouts used in this vault
-- `> [!info]` scope · `> [!warning] 易错点` pitfalls · `> [!important]` exam-critical
-- `> [!example] 打个比方` analogy · `> [!note]- 深入：…（可跳过）` folded hard extras (mark （补充） if beyond slides)
-- `> [!question]- 停一下：…` end-of-part check (answer inside the fold)
-- `> [!success]- 展开答案` folded answers · `> [!quote] 原笔记` user text preserved from an old stub
-- `> [!tip] 学完后的检查标准` closing checklist
+- `> [!info]` scope · `> [!warning]` Common pitfall · `> [!important]` exam-critical
+- `> [!example]` Analogy · `> [!note]- Deep dive: … (optional)` folded hard extras (mark (beyond slides) where it applies)
+- `> [!question]-` Question k (question chains) and Pause (end-of-part check), answer inside the fold
+- `> [!success]-` Show answer, for folded practice answers · `> [!quote]` Original note, for user text kept from an old stub
+- `> [!tip]` Self-check after studying, the closing checklist
