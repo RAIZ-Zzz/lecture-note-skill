@@ -41,7 +41,7 @@ themselves**, one idea at a time, easy → hard. The notes are **for learning, n
 the goal is to understand what each idea solves and what it is for, so that exam answers follow.
 
 Everything below serves one method, the lesson arc. Labels such as "Deep dive", "Pause" or
-"(beyond slides)" are written in the note's language: see the label table in
+"Supplement" are written in the note's language: see the label table in
 `references/note-template.md`.
 
 ## The lesson arc — how every knowledge point is taught (notes and live explanations alike)
@@ -163,7 +163,7 @@ and merge crumbs into one; do not let one lesson sprawl while the next is two li
 point whose teaching path is unclear, search for how recognised teachers explain it (Stanford
 CS231n notes, d2l.ai, distill.pub, 3Blue1Brown, Andrej Karpathy's lectures, the original paper's own
 intuition section) and adapt their scenario or picture to the arc. What is borrowed follows the
-grounding rules (step 6b): cite it, and mark it (beyond slides) when it adds content.
+grounding rules (step 6b): cite it as a numbered reference in the house-style supplement format.
 
 **Engineering vs pure math.** For engineering topics (networks, training, systems) steps 1–2 are
 always a practical scenario. For pure math (linear algebra, probability, proofs) more abstraction
@@ -223,6 +223,7 @@ Talk in the user's language, whatever the note's language is. Walk the arc live:
 - Scripts (run with `python`, or `python3` where that is the name; needs `pymupdf`): `<skill>/scripts/`
   - `prep_slides.py` — slide text, overview sheets, screenshots
   - `svg_anim.py` — build / lint / preview animated SVGs (needs Chrome or Edge for `frames`)
+  - `lint_note.py` — house-style check (pages, supplements, citations, figure captions)
   - `publish_note.py` — safe write into the vault + embed check
   - `mindmap.py` — optional course mind map
 - Work files go in the session scratchpad, e.g. `<scratchpad>/lecture-note/<course>-week<n>/`.
@@ -434,7 +435,14 @@ and 5 in a few sentences, but it still starts from the problem, never from the t
 - **Keep it simple with folds.** Main line: what's needed to understand the slides. Put in a Deep
   dive fold: full algebra of a derivation (keep the one-line result in the main line), proofs, "it
   can be shown" gaps, rare edge cases, historical notes, alternative variants. Content beyond the
-  slides is marked (beyond slides) (in the fold title if it's in a fold).
+  slides never goes in a Deep dive fold: it is a supplement (next rule).
+- **One format per element: follow the house style** in `references/note-template.md`, like a
+  paper's style guide. Slide pages are always `（p.N）`. Beyond-slides content is either
+  `（补充 [n]）` after a sentence or a `补充：<topic> [n]` fold ending in `来源：[n]`. Citations
+  are numbered `[n]` and resolve to one `## 参考文献` list at the end of the note, in APA-like
+  format. Figures get `*图 k · p.N · title：…*` captions, data tables get `**表 k · title**`, and
+  referenced equations get `\tag{k}`. Callouts use the fixed titles. Never improvise a format; if
+  an element is missing from the house style, add it there first.
 - **Fill slide jumps** — where a slide skips steps, fill them in (in a fold if long).
 - Language per step 1.4 and "Language inside the arc": plain words for the story, technical
   language only for technical points, each stated in the note language and in English.
@@ -479,12 +487,14 @@ The slides are the ground truth (treat them as ~99.9% right). What can be wrong 
 adds beyond them. So, while writing:
 1. **Slide content:** state it as the slides do; when you paraphrase or fill in a skipped step,
    re-read the slide page to confirm you did not change its meaning.
-2. **Anything beyond the slides** — every (beyond slides) block, every Deep dive fold that is not on
-   a slide, paper attributions ("proposed by…", "original paper uses…"), and non-obvious "X because
+2. **Anything beyond the slides** — every supplement (inline `（补充 [n]）` or `补充：` fold), paper
+   attributions ("proposed by…", "original paper uses…"), and non-obvious "X because
    Y" explanations of your own — must be checked online *before* it goes in: WebSearch/WebFetch the
    original paper, official docs, or a standard textbook (d2l.ai, Goodfellow et al., Bishop, the
    lecture notes the slides credit). No blogs, forums or AI-generated pages as evidence.
-3. Put the source inside the fold: `> Source: Kingma & Ba 2015, Alg. 1 — https://arxiv.org/abs/1412.6980`.
+3. Cite it with a numbered marker `[n]` and add the full entry to the note's `## 参考文献`, e.g.
+   `[3] Kingma, D. P., & Ba, J. (2015). Adam: A method for stochastic optimization. *ICLR*.
+   https://arxiv.org/abs/1412.6980` (house style in `references/note-template.md`).
 4. If you cannot confirm it, drop it or mark it `(to verify: …)`; never state it as fact from memory.
 
 ### 6d. Student test of the questions (default, always)
@@ -528,6 +538,11 @@ Keep the round files; the reply states how many rounds ran and what was fixed. W
 not run, the reply offers it in one line.
 
 ### 7. Publish
+First lint the house style and fix every issue until it passes:
+```bash
+python <skill>/scripts/lint_note.py "<work>/note.md"
+```
+Then publish:
 ```bash
 python <skill>/scripts/publish_note.py "<work>/note.md" \
   "Lecture Notes/<course>/WEEK n.md" \
@@ -621,8 +636,10 @@ overlapping, duplicated content).
 - [ ] Every question follows the question-writing rules (one meaning per symbol across the note,
       self-contained, one ask, counting unit and procedure stated, stepwise answer), and the
       student test (6d) ran with every flagged question fixed
-- [ ] Every beyond-slides claim ((beyond slides) marks, non-slide Deep dive folds, paper
-      attributions) was checked online and cites its source, or is marked `(to verify)`
+- [ ] Every beyond-slides claim (supplements, paper attributions) was checked online and cites a
+      numbered reference, or is marked `(to verify)`
+- [ ] House style followed and `scripts/lint_note.py` passes (pages, supplements, citations ↔
+      reference list, figure captions)
 - [ ] (only if the user asked for 6c) evaluator loop ended with `pass` or ≤ 3 rounds
 - [ ] ≥ 10 practice questions that check understanding, not exam tricks (≥ 60% "what does it
       solve / why", ≥ 20% calculation, ≥ 2 connecting two ideas), answers in Show answer folds
