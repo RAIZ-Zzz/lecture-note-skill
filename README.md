@@ -15,6 +15,26 @@ good tutor would bring it in: first the problem, then you try what you already k
 break, and only then the slides give the fix a name. It can also **tutor you live** on any
 section, one question at a time.
 
+> [!WARNING]
+> **Please read before you rely on a note.**
+>
+> 1. **The model can still be wrong.** At the time of release (September 2026), OpenAI's flagship
+>    model is GPT-6 Astra, and this skill was built and used with Claude Code running Claude Opus
+>    5.5. Today's LLMs are very capable, and they still make mistakes. In the very study sessions
+>    that shaped this skill, the model miscounted the examples on a slide, reused the same numbers
+>    with a new meaning without saying so, and repeated a tutorial answer that computed cosine
+>    similarity on vectors that were not normalised. `verify.py` and online grounding catch many
+>    errors, but not all. Check the note against your slides, and question anything that looks
+>    off.
+> 2. **The skill is still improving.** Its teaching rules change as we learn from real study
+>    sessions (see the dated notes in [`references/learning-design.md`](references/learning-design.md)).
+>    Notes generated with an earlier version may not follow the latest rules. Issues and pull
+>    requests are welcome.
+> 3. **Better learning, not guaranteed grades.** The notes aim to make studying more efficient
+>    and more interesting, to improve the whole learning process, and to build the habit of solving
+>    engineering problems by reasoning from the problem. They do **not** guarantee a high score.
+>    Whether you do well depends on you, not on how good the notes are.
+
 ---
 
 ## What it feels like
