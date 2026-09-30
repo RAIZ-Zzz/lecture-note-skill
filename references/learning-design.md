@@ -97,7 +97,30 @@ result → consequence → conclusion, and the topic's last lesson calls back to
   one question and said "split channels into groups" without saying how. The learner read it as a
   C(4,2) combination count and could not see why "all 4 channels" gave 2 groups instead of 1.
 
-### 9. Plain words as a bridge, professional terms as the destination
+### 9. The learner chooses the story
+- **Rule:** before a multi-lesson topic, offer 2–3 candidate running stories (one recommended,
+  "Other" for the learner's own) and keep the chosen one for the whole topic.
+- **Why:** personalising the context of a lesson to the learner's own interests improved
+  engagement and learning (Cordova & Lepper, 1996). Choice also supports autonomy, one of the
+  basic needs behind intrinsic motivation in self-determination theory (Deci & Ryan, 2000). A
+  story the learner picked is one they can picture, and that is what anchored instruction relies
+  on.
+- **Session note (2026-09-30):** the learner designed the story-driven approach and asked that
+  the story itself be theirs to choose, not imposed.
+
+### 10. A telling slide figure beats a page of prose
+- **Rule:** when a slide figure *is* the concept (the normalization cube, an architecture diagram),
+  bring it in early, read it for the learner (axes, what the highlight means, the slide's own
+  symbols), and ask questions on it. Text and tables fill in only what the figure cannot show.
+- **Why:** people learn better from words and pictures together than from words alone (the
+  multimedia principle), and cues that point attention at the key part of a graphic help further
+  (the signalling principle; Mayer, 2009). A figure shows at once what prose has to build up in
+  sequence, and it spares working memory.
+- **Session note (2026-09-30):** several text tables about "which numbers form one group" did not
+  land. The slide's cube with a blue block along N, C and H,W made it clear at once, and the
+  learner pointed out that the slide's picture was more effective than the long explanation.
+
+### 11. Plain words as a bridge, professional terms as the destination
 - **Rule:** tell the story in plain language and land every point on the professional term, stated
   in the note language and in English ("In professional terms").
 - **Why:** this is the learner's stated preference. They find the English wording clearer and need
@@ -118,6 +141,11 @@ result → consequence → conclusion, and the topic's last lesson calls back to
 - Cognition and Technology Group at Vanderbilt (1992). The Jasper series as an example of anchored
   instruction: Theory, program description, and assessment data. *Educational Psychologist*,
   27(3), 291–315. https://doi.org/10.1207/s15326985ep2703_3
+- Cordova, D. I., & Lepper, M. R. (1996). Intrinsic motivation and the process of learning:
+  Beneficial effects of contextualization, personalization, and choice. *Journal of Educational
+  Psychology*, 88(4), 715–730.
+- Deci, E. L., & Ryan, R. M. (2000). Self-determination theory and the facilitation of intrinsic
+  motivation, social development, and well-being. *American Psychologist*, 55(1), 68–78.
 - Deslauriers, L., McCarty, L. S., Miller, K., Callaghan, K., & Kestin, G. (2019). Measuring actual
   learning versus feeling of learning in response to being actively engaged in the classroom.
   *PNAS*, 116(39), 19251–19257. https://doi.org/10.1073/pnas.1821936116
@@ -133,6 +161,7 @@ result → consequence → conclusion, and the topic's last lesson calls back to
   educational setting. *Scientific Reports*, 15, 17458. https://doi.org/10.1038/s41598-025-97652-6
 - Kirschner, P. A., Sweller, J., & Clark, R. E. (2006). Why minimal guidance during instruction does
   not work. *Educational Psychologist*, 41(2), 75–86.
+- Mayer, R. E. (2009). *Multimedia Learning* (2nd ed.). Cambridge University Press.
 - Piaget, J. (1985). *The Equilibration of Cognitive Structures*. University of Chicago Press.
 - Sinha, T., & Kapur, M. (2021). When problem solving followed by instruction works: Evidence for
   productive failure. *Review of Educational Research*, 91(5), 761–798.

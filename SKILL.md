@@ -60,6 +60,33 @@ photo), applies what was learned so far, and shows it break, so the next idea is
 announced. Reuse the story's objects instead of new toy data; the last lesson calls back to the
 first. Knowledge points chain; that is learning, not rote filling.
 
+**The user chooses the story.** A story works only if the learner can picture it and cares about
+it, so never impose one. Before a multi-lesson topic starts, whether in a note (step 3) or live
+(Mode B), offer **2–3 candidate stories** with AskUserQuestion. Give each one a one-line premise,
+the objects and numbers it will use, and which later lessons it covers well (e.g. "cat classifier
+on 4 photos: covers drift, small batches and deployment"; "exam-score curve across 4 classes";
+"sensor readings from 4 machines"). Mark one as recommended. "Other" lets the user describe their
+own story; use that one, filling in numbers that make every lesson's failure visible. Record the
+choice in `plan.md` and keep it for the whole topic unless the user asks to switch. When a note
+covers several such topics, ask about all of them in one AskUserQuestion call (up to 4 questions).
+
+**Let a telling slide figure do the explaining.** Some slide figures are the concept: the
+normalization cube, where the blue block is exactly "which numbers are averaged together"; an
+architecture diagram; a plot of the loss surface. One well-read figure often teaches more than
+paragraphs of prose. When a lesson has such a figure:
+- bring it in **early**, at step 2 or at the latest at the start of step 3, not as decoration after
+  the explanation;
+- **read it for the reader**: name every axis or part in plain words with this topic's symbols
+  (N = images, C = channels, H, W = positions), say what the highlight or colour means, and map it
+  onto the running story;
+- **ask questions on the figure itself** ("how thick is the blue block along N?", "slide it along C:
+  how many blocks?"), then use text and tables only for what the figure cannot show (the numbers,
+  the why, the failure in the story);
+- keep the slide's own notation. If the note's symbols differ, switch to the slide's and rename
+  the note's clashing symbol instead.
+
+Decorative slide images (memes, photos, logos) never replace explanation.
+
 Every knowledge point (each `###` lesson in a note, each topic in a live explanation) walks the same
 five steps. The steps flow into each other in ordinary sentences ("so we are stuck here… let's try
 to fix it ourselves… what we just built has a name on the slides…"), never as a jump from one
@@ -157,6 +184,9 @@ answer plus a one-line takeaway, and the prose between them carries the reader f
 **Mode B: explaining an existing note interactively** (the user wants to learn or review a section,
 or says "you ask, I answer"). Read the section first. No slide prep and no publishing are needed.
 Talk in the user's language, whatever the note's language is. Walk the arc live:
+- At the start of a new multi-lesson topic, let the user choose the running story (2–3 candidates
+  via AskUserQuestion, one recommended, "Other" for their own). If the lesson has a slide figure
+  that is the concept, show it early and ask on it.
 - Step 1 in a few plain sentences, then the roadmap of step 2 ("4 small questions, one at a time").
 - Before the first question, move the topic's running scenario into the new situation and let the
   user try what they already know on it (step 2 of the arc); no separate "purpose / mapping" box.
@@ -248,8 +278,13 @@ Write `<work>/plan.md`:
    - **Pros, cons and bridge** — the weakness that motivates the next knowledge point.
    - **Main line vs fold** — what a beginner needs goes in the main line; everything else goes in a
      Deep dive fold.
-   - **Visual** — slide screenshot, static figure, animated SVG, or none (see 4b).
-3. **New-term budget** — mark the lessons that introduce several new terms and split them so each
+   - **Visual** — slide screenshot, static figure, animated SVG, or none (see 4b). Flag slide figures
+     that *are* the concept; they come in early and carry questions (see "Let a telling slide figure
+     do the explaining").
+3. **Running stories** — group the knowledge points into topics. For every multi-lesson topic,
+   draft 2–3 candidate stories and let the user pick (see "The user chooses the story") before
+   writing. Record the chosen story and its numbers here.
+4. **New-term budget** — mark the lessons that introduce several new terms and split them so each
    `###` lesson introduces **at most 1–2 new terms**.
 
 ### 4. Pick and cut screenshots
@@ -559,6 +594,8 @@ overlapping, duplicated content).
 - [ ] Every lesson walks the arc: problem → self-discovery questions → slide concept → analysis,
       connections and uses → pros/cons that lead into the next lesson; transitions read smoothly
 - [ ] No section opens with a term, definition, formula or bare numbers
+- [ ] The user chose each multi-lesson topic's running story (2–3 candidates offered); slide
+      figures that are the concept come in early, are read for the reader and carry questions
 - [ ] Each multi-lesson topic runs on one scenario from first lesson to last; every lesson moves it
       into a new situation, applies what was learned, shows it fail, then fixes it; no number changes
       role silently; each chain ends with result → consequence → conclusion

@@ -93,7 +93,7 @@ The design isn't taste. Each rule follows a research result:
 | The tutor never hands over the answer first | Unrestricted GPT-4 help lowered unassisted exam scores by 17%; hint-only tutors removed the harm (Bastani et al., *PNAS* 2025). A research-designed AI tutor doubled learning gains (Kestin et al., *Sci. Rep.* 2025) |
 | Struggle is kept, not smoothed away | Active learners learn more but *feel* they learn less (Deslauriers et al., *PNAS* 2019) |
 
-Full reasoning, the session notes that shaped each rule, and 18 references are in
+Full reasoning, the session notes that shaped each rule, and 20 references are in
 [`references/learning-design.md`](references/learning-design.md).
 
 ## Features
