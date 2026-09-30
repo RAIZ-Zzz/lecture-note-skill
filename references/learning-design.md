@@ -83,7 +83,21 @@ result → consequence → conclusion, and the topic's last lesson calls back to
   a tutorial's cosine answer silently used unnormalised vectors. A learner who trusts wrong numbers
   learns the wrong thing.
 
-### 8. Plain words as a bridge, professional terms as the destination
+### 8. Questions that can be understood, not just answered
+- **Rule:** every question is self-contained, asks one thing, uses each symbol with a single
+  meaning across the whole note, states exactly what is counted and how, and has a stepwise answer
+  (question-writing rules in `SKILL.md` step 5). A fresh "student" subagent then answers every
+  question from the note alone, and whatever it misreads is rewritten (step 6d).
+- **Why:** unclear wording adds extraneous cognitive load. The learner spends working memory on
+  decoding the question instead of on the idea (Sweller, 1988; Kirschner et al., 2006). Checking
+  that the answers are correct (`verify.py`) cannot catch this. Only a reader without the author's
+  context can.
+- **Session note (2026-09-30):** a question on normalisation groups used N for "number of images",
+  while an earlier lesson used N for "number of values averaged". It also packed two scenarios into
+  one question and said "split channels into groups" without saying how. The learner read it as a
+  C(4,2) combination count and could not see why "all 4 channels" gave 2 groups instead of 1.
+
+### 9. Plain words as a bridge, professional terms as the destination
 - **Rule:** tell the story in plain language and land every point on the professional term, stated
   in the note language and in English ("In professional terms").
 - **Why:** this is the learner's stated preference. They find the English wording clearer and need
@@ -123,5 +137,7 @@ result → consequence → conclusion, and the topic's last lesson calls back to
 - Sinha, T., & Kapur, M. (2021). When problem solving followed by instruction works: Evidence for
   productive failure. *Review of Educational Research*, 91(5), 761–798.
   https://doi.org/10.3102/00346543211019105
+- Sweller, J. (1988). Cognitive load during problem solving: Effects on learning. *Cognitive
+  Science*, 12(2), 257–285.
 - VanLehn, K. (2011). The relative effectiveness of human tutoring, intelligent tutoring systems,
   and other tutoring systems. *Educational Psychologist*, 46(4), 197–221.

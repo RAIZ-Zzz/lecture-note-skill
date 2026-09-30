@@ -94,7 +94,7 @@ The design isn't taste. Each rule follows a research result:
 | The tutor never hands over the answer first | Unrestricted GPT-4 help lowered unassisted exam scores by 17%; hint-only tutors removed the harm (Bastani et al., *PNAS* 2025). A research-designed AI tutor doubled learning gains (Kestin et al., *Sci. Rep.* 2025) |
 | Struggle is kept, not smoothed away | Active learners learn more but *feel* they learn less (Deslauriers et al., *PNAS* 2019) |
 
-Full reasoning, the session notes that shaped each rule, and 17 references are in
+Full reasoning, the session notes that shaped each rule, and 18 references are in
 [`references/learning-design.md`](references/learning-design.md).
 
 ## Features
@@ -108,6 +108,7 @@ Full reasoning, the session notes that shaped each rule, and 17 references are i
 
 **Trustworthy**
 - **Every number verified** by a generated `verify.py` with exact arithmetic, including the numbers inside animations.
+- **Questions tested on a "student".** A fresh agent that sees only the note answers every question before opening its answer, and flags any that it misreads: a hidden setup, a letter with two meanings, two asks in one, an ambiguous count. Flagged questions are rewritten.
 - **Grounded.** The slides are the ground truth; anything beyond them is checked online against papers or standard textbooks and cited, or marked *(to verify)*.
 - **Optional strict review.** A fresh evaluator agent checks every claim and teaching rule over up to 3 fix-or-rebut rounds (`references/evaluator.md`).
 

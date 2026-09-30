@@ -161,7 +161,9 @@ Talk in the user's language, whatever the note's language is. Walk the arc live:
 - Before the first question, move the topic's running scenario into the new situation and let the
   user try what they already know on it (step 2 of the arc); no separate "purpose / mapping" box.
   When resuming mid-chain, recap where the story stands in a line, not just the open question.
-- Ask **one question per turn** and wait for the answer.
+- Ask **one question per turn** and wait for the answer. Live questions follow the same
+  question-writing rules as written ones (step 5). If the note's own question breaks them (hidden
+  setup, reused letter, two asks), rephrase it for the user, and fix the note afterwards.
 - Right answer → confirm in one line, add the one insight it reveals, then ask the next question.
   Wrong answer → reconstruct where their number came from, say which step is wrong and why, and
   give a one-line self-check ("4×2 = 8, but only 4 pixels were added"). Do not re-teach the section.
@@ -405,6 +407,32 @@ and 5 in a few sentences, but it still starts from the problem, never from the t
 - Math in `$...$` / `$$...$$`. Tables for step-by-step numbers and comparisons.
   No invented slide content, no fake citations.
 
+#### Question-writing rules (question chains, Pause folds, practice questions, live questions)
+Questions are where notes most often become a mess: the reader can follow prose but trips on a
+question that depends on a hidden setup, reuses a letter, or asks two things at once. Every
+question must pass these rules:
+- **One symbol, one meaning, for the whole note.** Keep a symbol table in `<work>/plan.md` (letter →
+  meaning → an example value) and use only those letters. Never reuse a letter for something else,
+  even across lessons: if the slides write N for batch size in one place and N for "number of
+  values averaged" in another, rename one in the note (e.g. B for images, N for values) and say
+  once that the slide's letter differs. Prefer words over letters in question text: "2 images",
+  not "N = 2".
+- **Self-contained.** A question restates the objects it needs from the running story in plain
+  words ("the batch now holds 2 images; each has 4 channels, each channel a 2×2 map") instead of
+  pointing at "the setting above". Tensor axes are named with numbers every time.
+- **One ask per question.** No "…? And if…? And if…?" A second situation becomes the next question.
+- **Say exactly what is counted and how.** For counting questions, name the unit ("a group = the
+  numbers averaged together once") and the procedure ("channels are split once into fixed
+  consecutive pairs, {1,2} and {3,4}; this is not choosing pairs"), so no reader can read it as
+  C(n,k) or as a different grouping.
+- **Answers show the steps, not a compressed formula.** Give each step in words with its numbers,
+  e.g. "per image: 2 groups; 2 images → 2 × 2 = 4 groups; each group: 2 channels × 4 positions =
+  8 numbers". When several cases are compared, end with a small table (case → what is fixed →
+  what is averaged → numbers per group → number of groups).
+- **Numbers keep their roles.** If a later lesson needs the same numbers in a different role,
+  first check whether the story itself can supply it (same four images, smaller batch). If the
+  role must change, say so in the story, never silently.
+
 ### 6. Verify every number
 Write `<work>/verify.py` that recomputes **every** worked example, question-chain answer,
 dimension, parameter count, practice answer **and animation key position/caption number** with
@@ -423,6 +451,24 @@ adds beyond them. So, while writing:
    lecture notes the slides credit). No blogs, forums or AI-generated pages as evidence.
 3. Put the source inside the fold: `> Source: Kingma & Ba 2015, Alg. 1 — https://arxiv.org/abs/1412.6980`.
 4. If you cannot confirm it, drop it or mark it `(to verify: …)`; never state it as fact from memory.
+
+### 6d. Student test of the questions (default, always)
+`verify.py` proves the answers are right, not that the questions can be understood. So before
+publishing, launch **one fresh subagent** with the Agent tool (`subagent_type: "general-purpose"`).
+Give it only `<work>/note.md` and no slides, plans or chat context. Ask it to act as the target
+reader, a beginner who reads the note top to bottom and **answers every question before opening
+its fold**. For each question it reports:
+- its own answer, and whether it matches the fold;
+- any symbol whose meaning it had to guess, or that means two things in the note;
+- any object it could not locate ("which 4 numbers?", "what is N here?");
+- any question that asks more than one thing, or that can be read two ways (e.g. a count that
+  could be combinations);
+- any number whose role changed without being stated.
+
+Rewrite every flagged question under the question-writing rules. Rerun `verify.py` if numbers
+changed, and rerun the student test on the changed questions only. The test covers questions,
+not prose, so it costs far less than 6c. Mention in the reply how many questions were flagged
+and fixed.
 
 ### 6c. Independent review loop (optional — only when the user asks)
 Run this only when the user asks for a strict review ("strict check", "review it", "evaluator",
@@ -535,6 +581,9 @@ overlapping, duplicated content).
       every animation passed `svg_anim.py lint`, its frame strip was looked at, and it has a
       static fallback (table/list of the same numbers)
 - [ ] Every numeric claim, answer and animation number checked by `verify.py`
+- [ ] Every question follows the question-writing rules (one meaning per symbol across the note,
+      self-contained, one ask, counting unit and procedure stated, stepwise answer), and the
+      student test (6d) ran with every flagged question fixed
 - [ ] Every beyond-slides claim ((beyond slides) marks, non-slide Deep dive folds, paper
       attributions) was checked online and cites its source, or is marked `(to verify)`
 - [ ] (only if the user asked for 6c) evaluator loop ended with `pass` or ≤ 3 rounds
