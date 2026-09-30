@@ -32,16 +32,17 @@ section, one question at a time.
 >    the skill. In practice validation does find many problems, but it **costs a lot of tokens**,
 >    and even after it the note is still **not guaranteed to be 100% correct**. Check the note
 >    against your slides and question anything that looks off.
-> 2. **The skill is still improving.** Its teaching rules change as we learn from real study
+>     ## 🧠 Please use your own critical thinking!!!
+> 3. **The skill is still improving.** Its teaching rules change as we learn from real study
 >    sessions (see the dated notes in [`references/learning-design.md`](references/learning-design.md)).
 >    Notes generated with an earlier version may not follow the latest rules. Issues and pull
 >    requests are welcome.
-> 3. **Better learning, not guaranteed grades.** The notes aim to make studying more efficient
+> 4. **Better learning, not guaranteed grades.** The notes aim to make studying more efficient
 >    and more interesting, to improve the whole learning process, and to build the habit of solving
 >    engineering problems by reasoning from the problem. They do **not** guarantee a high score.
 >    Whether you do well depends on you, not on how good the notes are.
 >
-> ## 🧠 Please use your own critical thinking.
+> 
 
 ---
 
