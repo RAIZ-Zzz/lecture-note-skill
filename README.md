@@ -26,23 +26,22 @@ section, one question at a time.
 >    similarity on vectors that were not normalised. `verify.py` and online grounding catch many
 >    errors, but not all. Therefore, **please use your own critical thinking!**
 >
-> 2. **The skill has a validation option.** It is an independent evaluator agent checks every claim
->    against the slides and primary sources (`references/evaluator.md`; just ask for a "strict
->    review"). You can also simply ask your AI assistant to fact-check a note on its own, without
->    the skill. In practice validation does find many problems, but it **costs a lot of tokens**,
->    and even after it the note is still **not guaranteed to be 100% correct**. Check the note
->    against your slides and question anything that looks off. 
->    
+> 2. **The skill has a validation option.** It is an independent evaluator agent that checks every
+>    claim against the slides and primary sources (`references/evaluator.md`; just ask for a
+>    "strict review"). You can also simply ask your AI assistant to fact-check a note on its own,
+>    without the skill. In practice validation does find many problems, but it **costs a lot of
+>    tokens**, and even after it the note is still **not guaranteed to be 100% correct**. Check the
+>    note against your slides and question anything that looks off.
+>
 > 3. **The skill is still improving.** Its teaching rules change as we learn from real study
 >    sessions (see the dated notes in [`references/learning-design.md`](references/learning-design.md)).
 >    Notes generated with an earlier version may not follow the latest rules. Issues and pull
 >    requests are welcome.
+>
 > 4. **Better learning, not guaranteed grades.** The notes aim to make studying more efficient
 >    and more interesting, to improve the whole learning process, and to build the habit of solving
 >    engineering problems by reasoning from the problem. They do **not** guarantee a high score.
 >    Whether you do well depends on you, not on how good the notes are.
->
-> 
 
 ---
 
