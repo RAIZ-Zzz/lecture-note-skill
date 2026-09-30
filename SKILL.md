@@ -13,7 +13,7 @@ description: >
   one of their courses. Also use to teach a section of an existing WEEK note interactively by
   exercises ("teach me WEEK n section x", "you ask, I answer", "what is this section for").
   Not for whole-course exam-prep vaults or mastery-tracked quizzing — that is /tutor-setup and /tutor.
-argument-hint: "<course> <week[.part]> [pdf path] [pages A-B] [--lang zh|en|zh+en|en+zh]"
+argument-hint: "<subject> <note name | vault path> [file to learn] [pages A-B] [--lang zh|en|zh+en|en+zh]"
 ---
 
 # LLA · Love Learning Anything — one PDF → one step-by-step teaching note
@@ -231,7 +231,12 @@ Talk in the user's language, whatever the note's language is. Walk the arc live:
 ## Workflow
 
 ### 1. Resolve target and note language
-1. Parse course, week, optional part (`4.1` → week 4 part 1), PDF, page range, and `--lang`.
+1. Parse subject, note, the file to learn (the PDF), page range, and `--lang`. The subject is a course or any topic that
+   is hard to learn; it names the folder `Lecture Notes/<subject>/`. The note argument is the
+   file: a name (`WEEK 4`, `Special Relativity`) → `Lecture Notes/<subject>/<name>.md`; a path
+   containing `/` → that path in the vault, as given. `WEEK n` in the steps below means this note,
+   and the attachment prefix `week<N>[.<P>]` means the note name in lowercase kebab case
+   (`special-relativity`; `WEEK 4.1` keeps the existing `week4.1`).
 2. `cli-anything-obsidian --json vault read "Lecture Notes/<course>/WEEK n"` (also try
    `WEEK n.P`, and `vault list` on the course folder, since titles vary: `WEEK 2 - Linear Algebra`).
 3. If the note exists: save its exact `content` to `<work>/baseline.md`, and look at what it already

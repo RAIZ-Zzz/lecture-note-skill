@@ -198,7 +198,7 @@ Notes go to `Lecture Notes/<course>/` inside the vault; create one folder per co
 
 ### Use
 
-`/lla <course> <week> [pdf path] [pages A-B] [--lang zh|en|zh+en|en+zh]`, or ask it to
+`/lla <subject> <note name | vault path> [file to learn] [pages A-B] [--lang zh|en|zh+en|en+zh]`, or ask it to
 teach a section of an existing note.
 
 ## Under the hood
