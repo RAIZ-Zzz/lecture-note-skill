@@ -31,8 +31,8 @@ section, one question at a time.
 >    review"). You can also simply ask your AI assistant to fact-check a note on its own, without
 >    the skill. In practice validation does find many problems, but it **costs a lot of tokens**,
 >    and even after it the note is still **not guaranteed to be 100% correct**. Check the note
->    against your slides and question anything that looks off.
->     ## 🧠 Please use your own critical thinking!!!
+>    against your slides and question anything that looks off. "Please use your own critical thinking!!!"
+>    
 > 3. **The skill is still improving.** Its teaching rules change as we learn from real study
 >    sessions (see the dated notes in [`references/learning-design.md`](references/learning-design.md)).
 >    Notes generated with an earlier version may not follow the latest rules. Issues and pull
