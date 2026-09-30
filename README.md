@@ -19,6 +19,7 @@ Callout labels ("Analogy", "Deep dive", "Pause", …) follow the note language; 
 ## What the notes look like
 
 - **One lesson arc for every knowledge point.** (1) What goes wrong without it, in plain words; (2) a small scenario in which the reader, guided by 3–5 questions, designs the fix themselves; (3) only then the slides' name, definition and formula, mapped onto the reader's own answers; (4) what it really solves, how it connects to earlier material, and what it is used for; (5) its pros and cons, whose remaining weakness leads into the next lesson. No section opens with a term, a formula or bare numbers.
+- **One running scenario per topic.** A multi-lesson topic (e.g. BatchNorm) is told as one story from start to end. Each lesson moves the story into a new situation, lets the reader apply what they already learned, shows it fail, and only then introduces the fix. The last lesson calls back to the first. The reasoning and the research behind it (anchored instruction, productive failure, meaningful learning, guided discovery, evidence on AI tutors) are in [`references/learning-design.md`](references/learning-design.md), with full references.
 - **Built for learning, not exam drilling.** Every point on the slides is covered, but the aim is to understand what each idea is for. Engineering topics start from practical situations ("can this layer see the whole cat?"); pure-math topics may be more abstract but still start from something computable by hand.
 - **Interactive mode.** Ask the skill to teach a section of an existing note and it poses one question per turn, checks each answer, and on a wrong answer shows where the number came from instead of re-teaching the whole section.
 - **Easy to hard.** Before writing, the skill plans a learning ladder so every concept only relies on concepts explained above it. No term is used before it is explained.
@@ -38,6 +39,7 @@ Callout labels ("Analogy", "Deep dive", "Pause", …) follow the note language; 
 |---|---|
 | `SKILL.md` | The workflow and writing rules Claude follows |
 | `references/note-template.md` | Frontmatter and section skeleton of a note |
+| `references/learning-design.md` | Why the notes teach this way: principles, the session notes that shaped them, and references |
 | `scripts/prep_slides.py` | PDF → text with page markers, overview contact sheets, and slide screenshots (PyMuPDF) |
 | `scripts/svg_anim.py` | `Scene` helper that builds animated SVGs from computed data; `lint` checks them for Obsidian compatibility; `frames` renders chosen moments with headless Chrome/Edge into a strip for visual review |
 | `scripts/mindmap.py` | Optional course mind map: an outline with `@week\|heading@` link tokens becomes an inline `markmap` note (rendered by the Obsidian plugin Mindmap NextGen); every heading link is checked |

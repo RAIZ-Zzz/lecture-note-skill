@@ -46,6 +46,11 @@ Everything below serves one method, the lesson arc. Labels such as "Deep dive", 
 
 ## The lesson arc — how every knowledge point is taught (notes and live explanations alike)
 
+**Why this approach:** `references/learning-design.md` explains the teaching approach and the
+research behind each rule: anchored instruction, productive failure, meaningful learning, guided
+(not minimal-guidance) discovery, and evidence on AI tutors. Read it before changing any rule in
+this section.
+
 **One running scenario per topic, from start to end.** A topic that spans several lessons (e.g.
 BatchNorm: why normalize → γ/β → small batches → inference → other norms) is taught through **one**
 story that every lesson continues, e.g. a cat classifier whose layer 1 outputs 2, 4, 6, 8 on four
