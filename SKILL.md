@@ -46,6 +46,15 @@ Everything below serves one method, the lesson arc. Labels such as "Deep dive", 
 
 ## The lesson arc — how every knowledge point is taught (notes and live explanations alike)
 
+**One running scenario per topic, from start to end.** A topic that spans several lessons (e.g.
+BatchNorm: why normalize → γ/β → small batches → inference → other norms) is taught through **one**
+story that every lesson continues, e.g. a cat classifier whose layer 1 outputs 2, 4, 6, 8 on four
+training images and whose layer 2 learned "above 5 means cat". Each lesson moves the same story
+into a new situation (the GPU now fits only 2 images; the model is deployed and a user uploads one
+photo), applies what was learned so far, and shows it break, so the next idea is needed rather than
+announced. Reuse the story's objects instead of new toy data; the last lesson calls back to the
+first. Knowledge points chain; that is learning, not rote filling.
+
 Every knowledge point (each `###` lesson in a note, each topic in a live explanation) walks the same
 five steps. The steps flow into each other in ordinary sentences ("so we are stuck here… let's try
 to fix it ourselves… what we just built has a name on the slides…"), never as a jump from one
@@ -56,19 +65,12 @@ heading to an unrelated one.
    failure ("layer 2 had learned 'above 5 means cat'; after one training step every image is above
    5"). Say where every number comes from and what it means. Never open with the term, a
    definition, a formula or bare numbers.
-2. **Discover it yourself.** Set up one small scenario and guide the reader, step by step, to design
-   the fix on their own. **Before the scenario's first number, say what the scenario is for.** A
-   toy setup the reader cannot place ("pick 2 of {2, 4, 6, 8}") is only an instruction; they
-   follow the arithmetic but don't know what it proves. So open the scenario with three short
-   sentences:
-   (a) **the question** it answers, and why step 1 raised that question ("BN estimates the
-   whole-data mean from one batch, so how far off is that estimate when the batch is small?");
-   (b) **the mapping**: what each element stands for in the real system ("the 4 numbers are one
-   channel's value on 4 training images, and the true mean 5 is the answer we're checking against;
-   picking 2 is one random batch of size 2; listing all 6 pairs is every batch training could
-   draw"), including why a toy with a known answer is used;
-   (c) **what to look for**: which outcome would mean what ("if the 6 batch means stay near 5,
-   small batches are fine; if they scatter, BN's statistics depend on luck").
+2. **Discover it yourself.** Put the topic's **running scenario** (see below) into this lesson's
+   new situation, let the reader **apply what they already learned** to it, watch it **fail inside
+   the story**, and guide them, step by step, to design the fix on their own. The purpose of every
+   number then comes from the story itself ("the GPU only fits 2 of our 4 images now, so what mean
+   does BN compute?"); never drop in a free-floating toy ("pick 2 of {2, 4, 6, 8}") the reader
+   cannot place, and never give an existing number a new role without saying so in the story.
    After the chain, close the loop in one line: result → consequence → conclusion.
    Use a question chain of 3–5 small questions: Q1 is pure counting or
    observation on a tiny case with no formula; each next question changes **one** thing; the reader
@@ -151,8 +153,9 @@ answer plus a one-line takeaway, and the prose between them carries the reader f
 or says "you ask, I answer"). Read the section first. No slide prep and no publishing are needed.
 Talk in the user's language, whatever the note's language is. Walk the arc live:
 - Step 1 in a few plain sentences, then the roadmap of step 2 ("4 small questions, one at a time").
-- Before the first question, give the scenario's purpose, mapping and what-to-look-for (step 2 of
-  the arc). When resuming mid-chain, repeat them in a line, not just the open question.
+- Before the first question, move the topic's running scenario into the new situation and let the
+  user try what they already know on it (step 2 of the arc); no separate "purpose / mapping" box.
+  When resuming mid-chain, recap where the story stands in a line, not just the open question.
 - Ask **one question per turn** and wait for the answer.
 - Right answer → confirm in one line, add the one insight it reveals, then ask the next question.
   Wrong answer → reconstruct where their number came from, say which step is wrong and why, and
@@ -505,9 +508,9 @@ overlapping, duplicated content).
 - [ ] Every lesson walks the arc: problem → self-discovery questions → slide concept → analysis,
       connections and uses → pros/cons that lead into the next lesson; transitions read smoothly
 - [ ] No section opens with a term, definition, formula or bare numbers
-- [ ] Every scenario / toy example says, before its first number, which question it answers, what
-      each element stands for in the real system, and what result would mean what; the chain ends
-      with result → consequence → conclusion
+- [ ] Each multi-lesson topic runs on one scenario from first lesson to last; every lesson moves it
+      into a new situation, applies what was learned, shows it fail, then fixes it; no number changes
+      role silently; each chain ends with result → consequence → conclusion
 - [ ] Every lesson ends its concept block with In professional terms; plain explanations are
       short, precise and correct
 - [ ] Uniform shape: every `###` lesson has the same blocks in the same order, similar length and
