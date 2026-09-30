@@ -107,7 +107,7 @@ Full reasoning, the session notes that shaped each rule, and 20 references are i
 
 **Trustworthy**
 - **Every number verified** by a generated `verify.py` with exact arithmetic, including the numbers inside animations.
-- **One house style, like a paper.** Slide pages, supplements beyond the slides, numbered citations with a reference list, figure and table captions and callout titles each have exactly one format (`references/note-template.md`), and `lint_note.py` enforces the mechanical parts.
+- **One house style: a paper's rigor, a tutorial site's look.** Every element has exactly one format, is numbered where it is referred to, and every outside claim is cited. The look follows mainstream teaching sites (format only): prev/next navigation like Runoob, `实例` example blocks with their results, bold **注意：** notes, d2l-style section-numbered figures and equations, author–year citations with a reference list, and every note ending in summary → exercises → glossary → references (`references/note-template.md`). `lint_note.py` enforces the mechanical parts.
 - **Questions tested on a "student".** A fresh agent that sees only the note answers every question before opening its answer, and flags any that it misreads: a hidden setup, a letter with two meanings, two asks in one, an ambiguous count. Flagged questions are rewritten.
 - **Grounded.** The slides are the ground truth; anything beyond them is checked online against papers or standard textbooks and cited, or marked *(to verify)*.
 - **Optional strict review.** A fresh evaluator agent checks every claim and teaching rule over up to 3 fix-or-rebut rounds (`references/evaluator.md`).
@@ -199,7 +199,7 @@ teach a section of an existing note.
 | `scripts/prep_slides.py` | PDF → text with page markers, overview contact sheets and slide screenshots (PyMuPDF) |
 | `scripts/svg_anim.py` | `Scene` helper that builds animated SVGs from computed data; `lint` checks Obsidian compatibility; `frames` renders chosen moments with headless Chrome/Edge for visual review |
 | `scripts/mindmap.py` | Optional course mind map: an outline with `@week\|heading@` link tokens becomes an inline `markmap` note; every heading link is checked |
-| `scripts/lint_note.py` | House-style check: slide pages as (p. N), every supplement cited, citations match the reference list, every figure captioned |
+| `scripts/lint_note.py` | House-style check: slide pages as (p. N), every supplement cited author–year, citations match the reference list, every figure captioned, every example block has a result line |
 | `scripts/publish_note.py` | Writes the note and attachments into the vault through `cli-anything-obsidian`, refuses to overwrite edits made in Obsidian, and checks that every embed resolves |
 
 ### How animations stay accurate

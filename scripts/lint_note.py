@@ -4,10 +4,14 @@
 
 Checks the mechanical parts only:
   1. slide pages are cited as (p.N) / (p. N), not "第 N 页" / "pp."
-  2. beyond-slides content carries a citation: "(补充 [n])", or a "补充：… [n]" / "Supplement: … [n]"
-     fold that ends with a "来源：[n]" / "Sources: [n]" line; no bare "（补充）", "(beyond slides)"
-  3. every [n] cited in the text has a References entry, and every entry is cited
-  4. every image / SVG embed is followed by a "*图 k · …*" / "*Figure k · …*" caption
+  2. beyond-slides content carries an author-year citation: "(补充 [Author, Year])", or a
+     "> [!info]- 补充：…" / "Supplement: …" fold whose last line is "来源：[Author, Year]";
+     no bare "（补充）", "(beyond slides)", "补充推理"
+  3. every [Author, Year] cited in the text has a References entry "- [Author, Year] …",
+     and every entry is cited
+  4. every image / SVG embed is followed by a caption "*图 14.3 · …*" / "*Figure 14.3 · …*"
+  5. every "> [!example]" block is titled "实例 14.3：…" / "Example 14.3: …" and has a
+     result line (计算结果：/ 运行结果：/ Result: / Output:)
 Exits 1 and lists line numbers if anything fails.
 """
 import re
@@ -15,13 +19,17 @@ import sys
 from pathlib import Path
 
 REF_HEAD = re.compile(r"^##\s+(参考文献|References)\s*$")
+REF_ENTRY = re.compile(r"^-\s+\[([^\[\]]+,\s*\d{4}[a-z]?)\]\s+\S")
+CITE = re.compile(r"\[([A-Z][^\[\]]*?,\s*\d{4}[a-z]?)\]")
 EMBED = re.compile(r"!\[\[[^\]]+\.(png|jpe?g|svg|gif)(\|[^\]]*)?\]\]", re.I)
-CAPTION = re.compile(r"^\*(图|Figure) \d+ · ")
+CAPTION = re.compile(r"^\*(图|Figure) \d+(\.\d+)* · ")
 OLD_PAGE = re.compile(r"第\s*\d+(\s*[–-]\s*\d+)?\s*页|\bpp\.\s*\d")
-BARE_SUPP = re.compile(r"（补充）|（补充[，,]|\(beyond slides\)|补充推理|（补充(?! \[\d+\]）)")
-SUPP_FOLD = re.compile(r"^>\s*\[!note\]-\s*(补充：|Supplement: )(.*)$")
+BARE_SUPP = re.compile(r"（补充）|（补充[，,]|\(beyond slides\)|补充推理|（补充(?! \[[A-Z][^\]]*\d{4}[a-z]?\]）)")
+SUPP_FOLD = re.compile(r"^>\s*\[!\w+\]-?\s*(补充：|Supplement: )")
 SOURCE_LINE = re.compile(r"^>\s*(来源：|Sources?: )(.*)$")
-CITE = re.compile(r"(?<!\[)\[(\d+)\](?!\])")
+EXAMPLE_HEAD = re.compile(r"^>\s*\[!example\]-?\s*(.*)$")
+EXAMPLE_TITLE = re.compile(r"^(实例 \d+(\.\d+)*：|Example \d+(\.\d+)*: )")
+RESULT = re.compile(r"\*\*(计算结果：|运行结果：|Result:|Output:)\*\*")
 
 
 def strip_code_math(line):
@@ -34,7 +42,15 @@ def main():
     lines = path.read_text(encoding="utf-8").splitlines()
     issues, cited, entries = [], set(), set()
     in_refs = in_fence = False
-    open_supp = None  # line number of a supplement fold waiting for its source line
+    open_supp = open_example = None  # (line number, found?) of the callout being scanned
+
+    def close_callouts():
+        nonlocal open_supp, open_example
+        if open_supp:
+            issues.append(f"{open_supp}: supplement fold must end with '来源：[Author, Year]'")
+        if open_example:
+            issues.append(f"{open_example}: 实例 block needs a '**计算结果：**' / '**运行结果：**' line")
+        open_supp = open_example = None
 
     for i, raw in enumerate(lines, 1):
         if raw.strip().startswith("```"):
@@ -43,46 +59,52 @@ def main():
         if in_fence:
             continue
         if REF_HEAD.match(raw):
+            close_callouts()
             in_refs = True
             continue
         if in_refs:
-            m = re.match(r"^\[(\d+)\]\s+\S", raw)
+            m = REF_ENTRY.match(raw)
             if m:
-                entries.add(int(m.group(1)))
-            continue
+                entries.add(re.sub(r"\s+", " ", m.group(1)))
+            elif raw.startswith("## "):
+                in_refs = False
+            if in_refs:
+                continue
+        if not raw.startswith(">"):
+            close_callouts()
         line = strip_code_math(raw)
 
-        if open_supp and not raw.startswith(">"):
-            issues.append(f"{open_supp}: supplement fold has no '来源：[n]' / 'Sources: [n]' line")
-            open_supp = None
-        m = SUPP_FOLD.match(raw)
-        if m:
-            if not CITE.search(m.group(2)):
-                issues.append(f"{i}: supplement fold title needs a citation [n]")
+        if SUPP_FOLD.match(raw):
             open_supp = i
         m = SOURCE_LINE.match(raw)
         if m:
             if not CITE.search(m.group(2)):
-                issues.append(f"{i}: source line must cite numbered references, e.g. '来源：[2]'")
+                issues.append(f"{i}: source line must cite author-year, e.g. '来源：[Wu & He, 2018]'")
             open_supp = None
+        m = EXAMPLE_HEAD.match(raw)
+        if m:
+            if not EXAMPLE_TITLE.match(m.group(1)):
+                issues.append(f"{i}: example block must be titled '实例 14.3：…' / 'Example 14.3: …'")
+            open_example = i
+        if open_example and RESULT.search(raw):
+            open_example = None
 
         if OLD_PAGE.search(line):
             issues.append(f"{i}: cite slide pages as （p.N） / (p. N)")
         if BARE_SUPP.search(line):
-            issues.append(f"{i}: beyond-slides content needs '（补充 [n]）' or a '补充：… [n]' fold")
-        cited.update(int(n) for n in CITE.findall(line))
+            issues.append(f"{i}: beyond-slides content needs '（补充 [Author, Year]）' or a '补充：' fold")
+        cited.update(re.sub(r"\s+", " ", c) for c in CITE.findall(line))
 
         if EMBED.search(raw):
             nxt = next((l for l in lines[i:] if l.strip()), "")
             if not CAPTION.match(nxt):
-                issues.append(f"{i}: embed needs a caption line '*图 k · p.N · …*' / '*Figure k · …*'")
+                issues.append(f"{i}: embed needs a caption '*图 14.3 · p.N · …*' / '*Figure 14.3 · …*'")
+    close_callouts()
 
-    if open_supp:
-        issues.append(f"{open_supp}: supplement fold has no '来源：[n]' / 'Sources: [n]' line")
-    for n in sorted(cited - entries):
-        issues.append(f"[{n}] is cited but has no References entry")
-    for n in sorted(entries - cited):
-        issues.append(f"References entry [{n}] is never cited")
+    for c in sorted(cited - entries):
+        issues.append(f"[{c}] is cited but has no References entry")
+    for c in sorted(entries - cited):
+        issues.append(f"References entry [{c}] is never cited")
     if cited and not entries:
         issues.append("citations used but no '## 参考文献' / '## References' section")
 

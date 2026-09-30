@@ -163,7 +163,7 @@ and merge crumbs into one; do not let one lesson sprawl while the next is two li
 point whose teaching path is unclear, search for how recognised teachers explain it (Stanford
 CS231n notes, d2l.ai, distill.pub, 3Blue1Brown, Andrej Karpathy's lectures, the original paper's own
 intuition section) and adapt their scenario or picture to the arc. What is borrowed follows the
-grounding rules (step 6b): cite it as a numbered reference in the house-style supplement format.
+grounding rules (step 6b): cite it author–year (e.g. [Ioffe & Szegedy, 2015]) in the house-style supplement format.
 
 **Engineering vs pure math.** For engineering topics (networks, training, systems) steps 1–2 are
 always a practical scenario. For pure math (linear algebra, probability, proofs) more abstraction
@@ -436,13 +436,23 @@ and 5 in a few sentences, but it still starts from the problem, never from the t
   dive fold: full algebra of a derivation (keep the one-line result in the main line), proofs, "it
   can be shown" gaps, rare edge cases, historical notes, alternative variants. Content beyond the
   slides never goes in a Deep dive fold: it is a supplement (next rule).
-- **One format per element: follow the house style** in `references/note-template.md`, like a
-  paper's style guide. Slide pages are always `（p.N）`. Beyond-slides content is either
-  `（补充 [n]）` after a sentence or a `补充：<topic> [n]` fold ending in `来源：[n]`. Citations
-  are numbered `[n]` and resolve to one `## 参考文献` list at the end of the note, in APA-like
-  format. Figures get `*图 k · p.N · title：…*` captions, data tables get `**表 k · title**`, and
-  referenced equations get `\tag{k}`. Callouts use the fixed titles. Never improvise a format; if
-  an element is missing from the house style, add it there first.
+- **One format per element: follow the house style** in `references/note-template.md`. The
+  rigor is a paper's (one format per element, numbered, cited), and the look follows mainstream
+  teaching sites (Runoob, MDN, d2l.ai), format only:
+  - « prev · next » navigation at the top and bottom;
+  - decimal section numbers, with slide pages in the lesson heading `（p.N）`;
+  - worked calculations as `> [!example] 实例 14.3：…` blocks ending in **计算结果：** (or
+    **运行结果：** plus the real output);
+  - short cautions as a bold **注意：** paragraph;
+  - beyond-slides content as `（补充 [Author, Year]）` after a sentence, or as a
+    `> [!info]- 补充：<topic>` fold ending in `来源：[Author, Year]`;
+  - d2l-style author–year citations resolving to `## 参考文献`;
+  - figures, tables and equations numbered by section: `*图 14.3 · p.58 · …*`, `**表 14.3 · …**`,
+    `\tag{14.3}`;
+  - the note ending in 本讲小结 → 练习 → 术语中英对照 → 参考文献 → navigation;
+  - fixed callout titles.
+
+  Never improvise a format. If an element is missing from the house style, add it there first.
 - **Fill slide jumps** — where a slide skips steps, fill them in (in a fold if long).
 - Language per step 1.4 and "Language inside the arc": plain words for the story, technical
   language only for technical points, each stated in the note language and in English.
@@ -487,14 +497,15 @@ The slides are the ground truth (treat them as ~99.9% right). What can be wrong 
 adds beyond them. So, while writing:
 1. **Slide content:** state it as the slides do; when you paraphrase or fill in a skipped step,
    re-read the slide page to confirm you did not change its meaning.
-2. **Anything beyond the slides** — every supplement (inline `（补充 [n]）` or `补充：` fold), paper
+2. **Anything beyond the slides** — every supplement (inline `（补充 [Author, Year]）` or `补充：` fold), paper
    attributions ("proposed by…", "original paper uses…"), and non-obvious "X because
    Y" explanations of your own — must be checked online *before* it goes in: WebSearch/WebFetch the
    original paper, official docs, or a standard textbook (d2l.ai, Goodfellow et al., Bishop, the
    lecture notes the slides credit). No blogs, forums or AI-generated pages as evidence.
-3. Cite it with a numbered marker `[n]` and add the full entry to the note's `## 参考文献`, e.g.
-   `[3] Kingma, D. P., & Ba, J. (2015). Adam: A method for stochastic optimization. *ICLR*.
-   https://arxiv.org/abs/1412.6980` (house style in `references/note-template.md`).
+3. Cite it author–year, `[Kingma & Ba, 2015]`, and add the full entry to the note's
+   `## 参考文献`: `- [Kingma & Ba, 2015] Kingma, D. P., & Ba, J. (2015). Adam: A method for
+   stochastic optimization. *ICLR*. https://arxiv.org/abs/1412.6980` (house style in
+   `references/note-template.md`).
 4. If you cannot confirm it, drop it or mark it `(to verify: …)`; never state it as fact from memory.
 
 ### 6d. Student test of the questions (default, always)
@@ -636,8 +647,8 @@ overlapping, duplicated content).
 - [ ] Every question follows the question-writing rules (one meaning per symbol across the note,
       self-contained, one ask, counting unit and procedure stated, stepwise answer), and the
       student test (6d) ran with every flagged question fixed
-- [ ] Every beyond-slides claim (supplements, paper attributions) was checked online and cites a
-      numbered reference, or is marked `(to verify)`
+- [ ] Every beyond-slides claim (supplements, paper attributions) was checked online and cites an
+      author–year reference, or is marked `(to verify)`
 - [ ] House style followed and `scripts/lint_note.py` passes (pages, supplements, citations ↔
       reference list, figure captions)
 - [ ] (only if the user asked for 6c) evaluator loop ended with `pass` or ≤ 3 rounds
