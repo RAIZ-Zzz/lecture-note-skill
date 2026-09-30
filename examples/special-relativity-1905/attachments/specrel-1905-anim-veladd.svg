@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 330" width="800" height="330" data-cycle="10" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, Source Han Sans SC, sans-serif"><defs></defs><rect width="800" height="330" rx="10" fill="#ffffff" stroke="#d1d5db"/><text x="400" y="22" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold">§5  Adding velocities: the train (0.6c) + a ball fired forward (0.6c)</text>
+<line x1="605.38" y1="55" x2="605.38" y2="262" stroke="#6b7280" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="605.38" y="50" font-size="15" fill="#6b7280" text-anchor="middle" font-weight="bold">c</text>
+<text x="90" y="285" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="normal">0c</text>
+<line x1="90" y1="268" x2="90" y2="274" stroke="#6b7280" stroke-width="1"/>
+<text x="244.62" y="285" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="normal">0.3c</text>
+<line x1="244.62" y1="268" x2="244.62" y2="274" stroke="#6b7280" stroke-width="1"/>
+<text x="399.23" y="285" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="normal">0.6c</text>
+<line x1="399.23" y1="268" x2="399.23" y2="274" stroke="#6b7280" stroke-width="1"/>
+<text x="553.85" y="285" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="normal">0.9c</text>
+<line x1="553.85" y1="268" x2="553.85" y2="274" stroke="#6b7280" stroke-width="1"/>
+<text x="708.46" y="285" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="normal">1.2c</text>
+<line x1="708.46" y1="268" x2="708.46" y2="274" stroke="#6b7280" stroke-width="1"/>
+<line x1="90" y1="268" x2="760" y2="268" stroke="#6b7280" stroke-width="1"/>
+<g opacity="0"><text x="90" y="81" font-size="13" fill="#1f2937" text-anchor="start" font-weight="normal">Galileo: v + w</text><animate attributeName="opacity" dur="10s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.06" values="0;1"/></g>
+<g opacity="0"><rect x="90" y="87" width="309.23" height="16" rx="4" fill="#93c5fd"/><animate attributeName="opacity" dur="10s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.06" values="0;1"/></g>
+<rect x="399.23" y="87" height="16" rx="4" fill="#dc2626" width="0"><animate attributeName="width" dur="10s" repeatCount="indefinite" keyTimes="0;0.1;0.22;1" values="0;0;309.23;309.23"/></rect>
+<g opacity="0"><text x="760" y="81" font-size="13" fill="#dc2626" text-anchor="end" font-weight="bold">1.2c &gt; c !</text><animate attributeName="opacity" dur="10s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.22" values="0;1"/></g>
+<g opacity="0"><text x="90" y="151" font-size="13" fill="#1f2937" text-anchor="start" font-weight="normal">Einstein §5: (v + w)/(1 + vw/c²)</text><animate attributeName="opacity" dur="10s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.32" values="0;1"/></g>
+<g opacity="0"><rect x="90" y="157" width="309.23" height="16" rx="4" fill="#93c5fd"/><animate attributeName="opacity" dur="10s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.32" values="0;1"/></g>
+<rect x="399.23" y="157" height="16" rx="4" fill="#16a34a" width="0"><animate attributeName="width" dur="10s" repeatCount="indefinite" keyTimes="0;0.36;0.48;1" values="0;0;145.52;145.52"/></rect>
+<g opacity="0"><text x="760" y="151" font-size="13" fill="#16a34a" text-anchor="end" font-weight="bold">0.882c  (= 15/17 c)</text><animate attributeName="opacity" dur="10s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.48" values="0;1"/></g>
+<g opacity="0"><text x="90" y="221" font-size="13" fill="#1f2937" text-anchor="start" font-weight="normal">Einstein, light in the train</text><animate attributeName="opacity" dur="10s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.58" values="0;1"/></g>
+<g opacity="0"><rect x="90" y="227" width="309.23" height="16" rx="4" fill="#93c5fd"/><animate attributeName="opacity" dur="10s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.58" values="0;1"/></g>
+<rect x="399.23" y="227" height="16" rx="4" fill="#2563eb" width="0"><animate attributeName="width" dur="10s" repeatCount="indefinite" keyTimes="0;0.62;0.74;1" values="0;0;206.15;206.15"/></rect>
+<g opacity="0"><text x="760" y="221" font-size="13" fill="#2563eb" text-anchor="end" font-weight="bold">c + 0.6c → exactly c</text><animate attributeName="opacity" dur="10s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.74" values="0;1"/></g>
+<g opacity="1"><text x="400" y="312" font-size="13" fill="#1f2937" text-anchor="middle" font-weight="normal">① The train moves at v = 0.6c; inside it a ball is fired forward at w = 0.6c</text><animate attributeName="opacity" dur="10s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.32" values="1;0"/></g>
+<g opacity="0"><text x="400" y="312" font-size="13" fill="#1f2937" text-anchor="middle" font-weight="normal">② Einstein's rule: 1.2c / (1 + 0.36) = 0.882c — below the light-speed wall</text><animate attributeName="opacity" dur="10s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.32;0.58" values="0;1;0"/></g>
+<g opacity="0"><text x="400" y="312" font-size="13" fill="#1f2937" text-anchor="middle" font-weight="normal">③ Put light (w = c) in the train instead: the rule gives exactly c again</text><animate attributeName="opacity" dur="10s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.58" values="0;1"/></g></svg>

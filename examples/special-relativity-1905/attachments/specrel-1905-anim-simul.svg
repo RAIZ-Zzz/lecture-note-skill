@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 320" width="820" height="320" data-cycle="11" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, Source Han Sans SC, sans-serif"><defs></defs><rect width="820" height="320" rx="10" fill="#ffffff" stroke="#d1d5db"/><text x="410" y="22" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold">§2  Seen from the platform: light takes 2 ms forward but 0.5 ms back</text>
+<line x1="60" y1="184" x2="780" y2="184" stroke="#6b7280" stroke-width="2"/>
+<line x1="60" y1="184" x2="60" y2="190" stroke="#6b7280" stroke-width="1"/>
+<text x="60" y="204" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="normal">0 km</text>
+<line x1="162.86" y1="184" x2="162.86" y2="190" stroke="#6b7280" stroke-width="1"/>
+<text x="162.86" y="204" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="normal">100 km</text>
+<line x1="265.71" y1="184" x2="265.71" y2="190" stroke="#6b7280" stroke-width="1"/>
+<text x="265.71" y="204" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="normal">200 km</text>
+<line x1="368.57" y1="184" x2="368.57" y2="190" stroke="#6b7280" stroke-width="1"/>
+<text x="368.57" y="204" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="normal">300 km</text>
+<line x1="471.43" y1="184" x2="471.43" y2="190" stroke="#6b7280" stroke-width="1"/>
+<text x="471.43" y="204" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="normal">400 km</text>
+<line x1="574.29" y1="184" x2="574.29" y2="190" stroke="#6b7280" stroke-width="1"/>
+<text x="574.29" y="204" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="normal">500 km</text>
+<line x1="677.14" y1="184" x2="677.14" y2="190" stroke="#6b7280" stroke-width="1"/>
+<text x="677.14" y="204" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="normal">600 km</text>
+<line x1="780" y1="184" x2="780" y2="190" stroke="#6b7280" stroke-width="1"/>
+<text x="780" y="204" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="normal">700 km</text>
+<rect x="60.00" y="130" width="246.86" height="40" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2"><animate attributeName="x" dur="11s" repeatCount="indefinite" keyTimes="0;0.05;0.73;1" values="60.00;60.00;522.86;522.86"/></rect>
+<text x="60.00" y="122" font-size="12" fill="#2563eb">rear clock<animate attributeName="x" dur="11s" repeatCount="indefinite" keyTimes="0;0.05;0.73;1" values="60.00;60.00;522.86;522.86"/></text>
+<text x="244.86" y="122" font-size="12" fill="#2563eb">front clock<animate attributeName="x" dur="11s" repeatCount="indefinite" keyTimes="0;0.05;0.73;1" values="244.86;244.86;707.71;707.71"/></text>
+<circle cx="60.00" cy="150" r="8" fill="#ea580c"><animate attributeName="cx" dur="11s" repeatCount="indefinite" keyTimes="0;0.05;0.59;0.73;1" values="60.00;60.00;677.14;522.86;522.86"/></circle>
+<g opacity="0"><text x="677.14" y="100" font-size="13" fill="#ea580c" text-anchor="middle" font-weight="normal">catches the front: 2 ms</text><animate attributeName="opacity" dur="11s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.59" values="0;1"/></g>
+<g opacity="0"><text x="482.86" y="230" font-size="13" fill="#ea580c" text-anchor="middle" font-weight="normal">back at the rear: +0.5 ms</text><animate attributeName="opacity" dur="11s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.73" values="0;1"/></g>
+<g opacity="1"><text x="410" y="298" font-size="13" fill="#1f2937" text-anchor="middle" font-weight="normal">① The train (240 km long as seen from the platform) runs at 0.6c; a flash leaves the rear</text><animate attributeName="opacity" dur="11s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.07" values="1;0"/></g>
+<g opacity="0"><text x="410" y="298" font-size="13" fill="#1f2937" text-anchor="middle" font-weight="normal">② The front runs away from the light: closing speed c − v = 120 km/ms → 240/120 = 2 ms</text><animate attributeName="opacity" dur="11s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.07;0.59" values="0;1;0"/></g>
+<g opacity="0"><text x="410" y="298" font-size="13" fill="#1f2937" text-anchor="middle" font-weight="normal">③ The rear runs into the light: closing speed c + v = 480 km/ms → 240/480 = 0.5 ms</text><animate attributeName="opacity" dur="11s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.59;0.73" values="0;1;0"/></g>
+<g opacity="0"><text x="410" y="298" font-size="13" fill="#1f2937" text-anchor="middle" font-weight="normal">④ 2 ms ≠ 0.5 ms: by the §1 rule, train riders call these clocks NOT synchronous</text><animate attributeName="opacity" dur="11s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.73" values="0;1"/></g></svg>

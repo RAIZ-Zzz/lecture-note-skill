@@ -66,6 +66,19 @@ The note tells one story instead, and keeps it from the first BatchNorm lesson t
 
 Every number in that story is checked by a script before the note is published.
 
+## Example: Einstein 1905
+
+[`examples/special-relativity-1905`](examples/special-relativity-1905) is a full note generated from
+the 24-page English translation of *On the Electrodynamics of Moving Bodies*, written for a student
+in 1905 and told through one story: an imagined Bern express at 0.6c. Three of its six animations:
+
+| | | |
+| --- | --- | --- |
+| <img src="examples/special-relativity-1905/attachments/specrel-1905-anim-simul.svg" width="280"><br>Simultaneity is relative | <img src="examples/special-relativity-1905/attachments/specrel-1905-anim-passing.svg" width="280"><br>Contraction and dilation | <img src="examples/special-relativity-1905/attachments/specrel-1905-anim-veladd.svg" width="280"><br>Adding velocities |
+
+**This example has not been validated**: the optional strict review was not run on it (it passed
+`verify.py`, online grounding, the lint and the student test). See the example's README.
+
 ## How every lesson is built
 
 ```mermaid
