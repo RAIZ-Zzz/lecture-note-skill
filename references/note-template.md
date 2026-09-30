@@ -52,7 +52,9 @@ Tell it as a story, not a list.>
 comes from and what it means. No term, definition or formula yet.>
 
 **Work it out yourself**
-<Set up one small scenario in plain words, then guide the reader to the fix:>
+<First say what this scenario is for: the question it answers (and why step 1 raised it), what
+each element stands for in the real system, and what result would mean what. Then set up the small
+scenario in plain words and guide the reader to the fix:>
 
 > [!question]- Question 1: <count / observe something on a tiny case>
 > <answer> — <one-line takeaway>

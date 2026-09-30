@@ -57,7 +57,20 @@ heading to an unrelated one.
    5"). Say where every number comes from and what it means. Never open with the term, a
    definition, a formula or bare numbers.
 2. **Discover it yourself.** Set up one small scenario and guide the reader, step by step, to design
-   the fix on their own. Use a question chain of 3–5 small questions: Q1 is pure counting or
+   the fix on their own. **Before the scenario's first number, say what the scenario is for.** A
+   toy setup the reader cannot place ("pick 2 of {2, 4, 6, 8}") is only an instruction; they
+   follow the arithmetic but don't know what it proves. So open the scenario with three short
+   sentences:
+   (a) **the question** it answers, and why step 1 raised that question ("BN estimates the
+   whole-data mean from one batch, so how far off is that estimate when the batch is small?");
+   (b) **the mapping**: what each element stands for in the real system ("the 4 numbers are one
+   channel's value on 4 training images, and the true mean 5 is the answer we're checking against;
+   picking 2 is one random batch of size 2; listing all 6 pairs is every batch training could
+   draw"), including why a toy with a known answer is used;
+   (c) **what to look for**: which outcome would mean what ("if the 6 batch means stay near 5,
+   small batches are fine; if they scatter, BN's statistics depend on luck").
+   After the chain, close the loop in one line: result → consequence → conclusion.
+   Use a question chain of 3–5 small questions: Q1 is pure counting or
    observation on a tiny case with no formula; each next question changes **one** thing; the reader
    does the conceptual step (which number goes where, which way it moves) while arithmetic stays at
    small integers. By the end the reader has built the idea without knowing its name.
@@ -138,6 +151,8 @@ answer plus a one-line takeaway, and the prose between them carries the reader f
 or says "you ask, I answer"). Read the section first. No slide prep and no publishing are needed.
 Talk in the user's language, whatever the note's language is. Walk the arc live:
 - Step 1 in a few plain sentences, then the roadmap of step 2 ("4 small questions, one at a time").
+- Before the first question, give the scenario's purpose, mapping and what-to-look-for (step 2 of
+  the arc). When resuming mid-chain, repeat them in a line, not just the open question.
 - Ask **one question per turn** and wait for the answer.
 - Right answer → confirm in one line, add the one insight it reveals, then ask the next question.
   Wrong answer → reconstruct where their number came from, say which step is wrong and why, and
@@ -490,6 +505,9 @@ overlapping, duplicated content).
 - [ ] Every lesson walks the arc: problem → self-discovery questions → slide concept → analysis,
       connections and uses → pros/cons that lead into the next lesson; transitions read smoothly
 - [ ] No section opens with a term, definition, formula or bare numbers
+- [ ] Every scenario / toy example says, before its first number, which question it answers, what
+      each element stands for in the real system, and what result would mean what; the chain ends
+      with result → consequence → conclusion
 - [ ] Every lesson ends its concept block with In professional terms; plain explanations are
       short, precise and correct
 - [ ] Uniform shape: every `###` lesson has the same blocks in the same order, similar length and
