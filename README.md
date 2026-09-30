@@ -1,4 +1,4 @@
-# lecture-note
+# learn-like-an-engineer
 
 **Turn lecture slides into notes that *teach*, not notes you memorise.**
 
@@ -9,7 +9,7 @@
 Slides are a list of answers. You read *"BatchNorm: normalise each channel with the mini-batch mean
 and variance"*, nod, and forget it by Friday, because you never had the problem it solves.
 
-`lecture-note` is a [Claude Code](https://claude.com/claude-code) skill that reads a lecture PDF and
+`learn-like-an-engineer` (formerly `lecture-note`) is a [Claude Code](https://claude.com/claude-code) skill that reads a lecture PDF and
 writes a step-by-step **teaching note** into your Obsidian vault. Every idea arrives the way a
 good tutor would bring it in: first the problem, then you try what you already know, you watch it
 break, and only then the slides give the fix a name. It can also **tutor you live** on any
@@ -147,14 +147,14 @@ Callout labels ("Analogy", "Deep dive", "Pause", …) follow the note language (
 
 ```bash
 pip install pymupdf cli-anything-obsidian
-git clone https://github.com/RAIZ-Zzz/lecture-note-skill ~/.claude/skills/lecture-note
+git clone https://github.com/RAIZ-Zzz/learn-like-an-engineer ~/.claude/skills/learn-like-an-engineer
 ```
 
 Set `OBSIDIAN_VAULT` and `OBSIDIAN_API_KEY` (details below), open your vault in Obsidian, then in
 Claude Code:
 
 ```text
-/lecture-note AI6103 5 "slides/Lecture 4.pdf" --lang zh+en
+/learn-like-an-engineer AI6103 5 "slides/Lecture 4.pdf" --lang zh+en
 ```
 
 or *"teach me WEEK 5 section 14.3, you ask and I answer"*.
@@ -181,7 +181,7 @@ The skill holds nothing machine-specific, so nothing in this repo needs editing.
    vault Obsidian has open).
 5. The skill itself:
    ```bash
-   git clone https://github.com/RAIZ-Zzz/lecture-note-skill ~/.claude/skills/lecture-note
+   git clone https://github.com/RAIZ-Zzz/learn-like-an-engineer ~/.claude/skills/learn-like-an-engineer
    ```
    Update later with `git pull`. Without git, download the zip and unpack it to the same folder.
 
@@ -198,7 +198,7 @@ Notes go to `Lecture Notes/<course>/` inside the vault; create one folder per co
 
 ### Use
 
-`/lecture-note <course> <week> [pdf path] [pages A-B] [--lang zh|en|zh+en|en+zh]`, or ask it to
+`/learn-like-an-engineer <course> <week> [pdf path] [pages A-B] [--lang zh|en|zh+en|en+zh]`, or ask it to
 teach a section of an existing note.
 
 ## Under the hood

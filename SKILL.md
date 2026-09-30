@@ -1,14 +1,14 @@
 ---
-name: lecture-note
+name: learn-like-an-engineer
 description: >
-  Turn one week's lecture slides (PDF) into a step-by-step teaching note built for learning, not
-  exam drilling: every knowledge point goes problem → reader discovers the fix through guided
+  Turn a PDF (one week's lecture slides, or a paper or book chapter) into a step-by-step teaching
+  note built for learning like an engineer, starting from the problem, not for exam drilling: every knowledge point goes problem → reader discovers the fix through guided
   questions → the slides' concept → what it solves and is for → pros/cons leading to the next point;
   hard extras folded; animated SVG where motion helps; in the user's Obsidian vault at
   `Lecture Notes/<course>/WEEK n.md`, with slide screenshots in the course `attachments/` folder,
   hand-worked examples verified by script, and fold-answer practice questions. The note language is
   chosen per note: Chinese, English, Chinese with English key points, English with Chinese terms,
-  or custom. Use when the user says "/lecture-note", asks to write / rewrite / complete the notes
+  or custom. Use when the user says "/learn-like-an-engineer" (formerly "/lecture-note"), asks to write / rewrite / complete the notes
   for WEEK n or for a lecture PDF (in any language, e.g. Chinese requests), or names a lecture PDF of
   one of their courses. Also use to teach a section of an existing WEEK note interactively by
   exercises ("teach me WEEK n section x", "you ask, I answer", "what is this section for").
@@ -16,13 +16,13 @@ description: >
 argument-hint: "<course> <week[.part]> [pdf path] [pages A-B] [--lang zh|en|zh+en|en+zh]"
 ---
 
-# Lecture Note — one week of slides → one step-by-step teaching note
+# Learn like an engineer — one PDF → one step-by-step teaching note
 
 ## Where this fits (the three note skills are complementary)
 
 | Skill | Unit | Output | Use for |
 |---|---|---|---|
-| **lecture-note** (this) | one week / one PDF | `Lecture Notes/<course>/WEEK n.md` in the vault | learning each lecture in depth, week by week |
+| **learn-like-an-engineer** (this) | one week / one PDF | `Lecture Notes/<course>/WEEK n.md` in the vault | learning each lecture in depth, week by week |
 | obsidian-markdown | syntax | — | callouts, embeds, properties, wikilinks: follow it when writing |
 | tutor-setup → tutor | whole course | `StudyVault/` in the course folder (CWD) | exam prep: concept notes, MOC, quizzes with mastery tracking |
 
@@ -206,7 +206,7 @@ Talk in the user's language, whatever the note's language is. Walk the arc live:
 ## Setup (nothing machine-specific lives in this file)
 
 - `<skill>` below = this skill's base directory (shown when the skill loads; normally
-  `~/.claude/skills/lecture-note`). Fill it in literally, including inside generator scripts.
+  `~/.claude/skills/learn-like-an-engineer`). Fill it in literally, including inside generator scripts.
 - Vault: the environment variable `$OBSIDIAN_VAULT` (absolute path of the vault folder). If it is
   unset, stop and ask the user to set it. Read/write notes **only** through `cli-anything-obsidian`
   (the publish script does this); it talks to the vault open in Obsidian, and the publish script
@@ -226,7 +226,7 @@ Talk in the user's language, whatever the note's language is. Walk the arc live:
   - `lint_note.py` — house-style check (pages, supplements, citations, figure captions)
   - `publish_note.py` — safe write into the vault + embed check
   - `mindmap.py` — optional course mind map
-- Work files go in the session scratchpad, e.g. `<scratchpad>/lecture-note/<course>-week<n>/`.
+- Work files go in the session scratchpad, e.g. `<scratchpad>/learn-like-an-engineer/<course>-week<n>/`.
 
 ## Workflow
 
