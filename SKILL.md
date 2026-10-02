@@ -231,7 +231,9 @@ Talk in the user's language, whatever the note's language is. Walk the arc live:
   "Lecture Notes"`). Where each course's slides live on this machine is in `<skill>/local.md`
   (git-ignored). If that file or the course's row is missing, ask the user for the slide folder,
   then create/extend `local.md`: a two-column table, `| Vault folder | Slides |`, one row per course.
-  `local.md` also holds one `Reader:` line, the learner's background (see "The concrete reader").
+  `local.md` also holds one `Reader:` line, the learner's background (see "The concrete reader"),
+  and an optional `Student model:` line naming the weak model for the student test (6d), e.g.
+  `Student model: haiku`.
 - **Lecture number ≠ week number** (e.g. AI6103 "Lecture 3 ML Foundations" is WEEK 4). Never pick
   the PDF from its filename alone: check `source_pdf` in existing WEEK notes, then open the PDF's
   first pages. `source_pdf` may be a path from another machine: match on the file name only.
@@ -598,10 +600,16 @@ adds beyond them. So, while writing:
 
 ### 6d. Student test of the questions (default, always)
 `verify.py` proves the answers are right, not that the questions can be understood. So before
-publishing, launch **one fresh subagent on a weak model**: the Agent tool with
-`subagent_type: "general-purpose"` and `model: "haiku"`. A weaker reader stumbles where a learner
-would, and it is cheap. Give it only `<work>/note.md` and `<work>/known.md`, and no slides, plans
-or chat context.
+publishing, launch **one fresh subagent on a weak model**. A weaker reader stumbles where a learner
+would, and it is cheap. Which model to use is the user's choice: the `Student model:` line in
+`local.md`.
+- If the line is missing, use the host's smallest model. In Claude Code that is the Agent tool
+  with `subagent_type: "general-purpose"` and `model: "haiku"`.
+- In another CLI, use any weaker model it can launch as a subagent.
+- If the host cannot pick a model, use a fresh subagent on the default model; the knowledge
+  limit below still applies.
+
+Give it only `<work>/note.md` and `<work>/known.md`, and no slides, plans or chat context.
 
 **The goal is better questions, not a grade for the model.** The score is a list of symptoms, and
 each miss points at the note:
