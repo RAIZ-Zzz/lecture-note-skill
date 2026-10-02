@@ -107,8 +107,9 @@ The design isn't taste. Each rule follows a research result:
 | Struggle is kept, not smoothed away | Active learners learn more but *feel* they learn less (Deslauriers et al., *PNAS* 2019) |
 | Every question must catch a real misconception | **Hinge questions**: a question is worth asking only if someone who has not understood would get it wrong (Wiliam, 2011; Barton, 2018) |
 | Explanation depth follows *your* level | **Subgoal labels** (Catrambone, 1998), **faded worked examples** (Renkl & Atkinson, 2003); detail that helps a novice hinders an expert (**expertise reversal**, Kalyuga et al., 2003) |
+| New ideas are taught as one causal chain in sentences, not as tables of terms; you check by restating it | AI text is rated as clear as human text but understood worse (Guo et al., 2025). Low-knowledge readers need every link spelled out (McNamara et al., 1996). Jargon makes explanations feel satisfying while lowering understanding, and explaining first breaks the illusion (Cruz & Lombrozo, *Nat. Hum. Behav.* 2025) |
 
-Full reasoning, the session notes that shaped each rule, and 26 references are in
+Full reasoning, the session notes that shaped each rule, and 31 references are in
 [`references/learning-design.md`](references/learning-design.md).
 
 ## Features

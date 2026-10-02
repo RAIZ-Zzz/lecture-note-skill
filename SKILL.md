@@ -213,6 +213,10 @@ Talk in the user's language, whatever the note's language is. Walk the arc live:
 - Right answer → confirm in one line, add the one insight it reveals, then ask the next question.
   Wrong answer → reconstruct where their number came from, say which step is wrong and why, and
   give a one-line self-check ("4×2 = 8, but only 4 pixels were added"). Do not re-teach the section.
+- **Check by restating, not by asking "got it?".** After an explanation, ask the user to say the
+  causal chain in their own words ("why does the 10-layer net output 0.5 for both?"). Trying to
+  explain first is what breaks the feeling of understanding that fluent text gives
+  [Cruz & Lombrozo, 2025]. Correct the specific missing link, not the whole explanation.
 - After the chain, do steps 3–5 in prose, then offer the next knowledge point.
 - Do long arithmetic yourself (run it); never ask them to multiply decimals.
 - If they drift to another topic and come back, re-post the open question verbatim.
@@ -483,6 +487,25 @@ and 5 in a few sentences, but it still starts from the problem, never from the t
 - **Explain, do not summarise.** Write connected explanatory prose — "first…, then…, so…" — as a
   teacher speaking. Bullet lists are for enumerating steps or options *after* they have been
   explained, never as the way to introduce new ideas. No paragraphs that list 3+ new terms.
+- **Fluent is not understood: write the causal chain out in full.** AI-written explanations read
+  as clear yet leave readers confused. Readers rate them as clear as human text but understand
+  them worse [Guo et al., 2025]. Three causes, each with a rule; they apply to notes **and live
+  chat**:
+  - **Missing links.** Readers with little background need high-coherence text, with every link
+    spelled out [McNamara et al., 1996], and comprehension means finding the causal chain from
+    start to outcome [Fletcher & Bloom, 1988]. So a new idea is taught as one scenario plus one
+    chain of sentences joined by "because… so… which means…", ending in the outcome
+    ("gradient ≈ 10⁻⁷ → w₁ cannot learn → the cat–dog gap is squashed → both images output 0.5 →
+    the loss sticks at 0.5"). Tables and bullets hold numbers and parallel comparisons only. They
+    never carry a new idea or the reasoning between ideas, because lists hide the causal links
+    [Tufte, 2003].
+  - **Jargon that feels like an explanation.** Jargon lowers understanding yet makes short
+    explanations *more* satisfying, because readers assume the terms fill the gaps
+    [Cruz & Lombrozo, 2025]. Describe the thing in plain words first and name it after. At most
+    one new term per sentence, and no unexplained term inside a table cell.
+  - **Too much at once.** In live chat, one idea per turn. If the learner says they are lost,
+    drop to a single step from something they already handled (their own earlier numbers), not to
+    a shorter version of the same overview.
 - **Easy to hard.** Inside the note, inside each part, and inside each lesson: intuition → numbers →
   formula → subtleties. The first sentence of each lesson must be understandable by someone who
   has read only the lessons above it.
