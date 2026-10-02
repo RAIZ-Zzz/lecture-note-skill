@@ -140,7 +140,12 @@ note, or reads it days later, must never meet an unexplained word. Examples: a q
 - **Terms taught earlier.** At the first use of a technical term in a lesson that did not
   introduce it, add a one-line reminder in brackets plus a link to where it is taught, e.g.
   "channel (one feature map: what a single kernel produces when it slides over the image, see
-  [[#8. …|§8]])" or "[[WEEK 5]] §14". This applies across weeks, and to question text as well as prose.
+  [[#8. …|§8]])" or "[[WEEK 5#14. <full heading>|WEEK 5 §14]]". This applies across weeks, and to
+  question text as well as prose. **A link to a knowledge point always targets its heading**
+  (`[[Note#exact heading text|label]]`), so a click lands on the section, never just on the note;
+  `[[WEEK 5]] §14` (note link + plain section number) is wrong. Copy the heading text from the
+  target note, and match `### 14. …` headings for `§14`. Plain `[[WEEK n]]` is only for
+  previous/next navigation.
 - **Confusable pairs.** When a lesson uses two terms that learners mix up, contrast them in one
   small concrete example before the reader needs them. Typical pairs are batch vs channel, epoch vs
   iteration, parameter vs hyperparameter, validation vs test set, equivariance vs invariance, and
@@ -296,6 +301,11 @@ Write `<work>/plan.md`:
 ### 4. Pick and cut screenshots
 Pick slides whose picture carries meaning the text can't (architectures, plots, worked tables,
 geometry). Typically 8–20 per lecture; do not screenshot text-only slides.
+**The note replaces the slides:** the reader should never need to open the PDF. So every slide
+picture the text talks about ("the figure on p.8", a question about a photo) must be embedded
+where it is discussed, before any question that needs it; `lint_note.py` flags a picture the
+text points at without its screenshot. If the slide prints the answer to a question next to the
+picture, crop that text out (`--clip`) so the question still works.
 ```bash
 python <skill>/scripts/prep_slides.py shot "<pdf>" "<work>/shots" 11 20 28
 python <skill>/scripts/prep_slides.py shot "<pdf>" "<work>/shots" 38 --clip 0,170,940,420
@@ -464,6 +474,16 @@ and 5 in a few sentences, but it still starts from the problem, never from the t
 - Follow the lecture's order and cover every page (plan.md ticks it off).
 - Math in `$...$` / `$$...$$`. Tables for step-by-step numbers and comparisons.
   No invented slide content, no fake citations.
+- **Every formula in its standard typeset form, in notes and in live chat.** Matrices are written
+  out as `bmatrix` grids, fractions as `\frac`, roots as `\sqrt`. Never use shorthand or ad-hoc text
+  for math, such as `diag(0.25, 0.25)`, `[[1,2],[3,4]]` or `sqrt(x)`. Only code is exempt (code
+  blocks, function names such as `torch.diag`). A learner who has only just met matrices cannot
+  decode the shorthand.
+- **Display math never goes in a callout title.** A fold title renders only inline math, so a
+  multi-row matrix there breaks. If a question needs a matrix or another display formula, give the
+  fold a short title, put the setup and the formula in the fold body, and nest the answer in a
+  `> > [!success]- 展开答案` (`Show answer`) fold. That way, expanding the question does not
+  reveal the answer.
 
 #### Question-writing rules (question chains, Pause folds, practice questions, live questions)
 Questions are where notes most often become a mess: the reader can follow prose but trips on a

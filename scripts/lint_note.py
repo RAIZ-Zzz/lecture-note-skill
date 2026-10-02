@@ -12,6 +12,9 @@ Checks the mechanical parts only:
   4. every image / SVG embed is followed by a caption "*图 14.3 · …*" / "*Figure 14.3 · …*"
   5. every "> [!example]" block is titled "实例 14.3：…" / "Example 14.3: …" and has a
      result line (计算结果：/ 运行结果：/ Result: / Output:)
+  6. a link to a section targets the heading: [[WEEK 5#14. …|WEEK 5 §14]], not "[[WEEK 5]] §14"
+  7. a slide picture the text points at ("p.8 的图", "p.64 是一张…照片") is embedded in the note
+  8. no display math in a callout title, and no math shorthand (diag(...), sqrt(...), [[1,2],...])
 Exits 1 and lists line numbers if anything fails.
 """
 import re
@@ -29,18 +32,23 @@ SUPP_FOLD = re.compile(r"^>\s*\[!\w+\]-?\s*(补充：|Supplement: )")
 SOURCE_LINE = re.compile(r"^>\s*(来源：|Sources?: )(.*)$")
 EXAMPLE_HEAD = re.compile(r"^>\s*\[!example\]-?\s*(.*)$")
 EXAMPLE_TITLE = re.compile(r"^(实例 \d+(\.\d+)*：|Example \d+(\.\d+)*: )")
+NOTE_LINK_SECTION = re.compile(r"\[\[[^\]#|]+(\|[^\]]*)?\]\]\s*(§\s*\d|第\s*\d+(\.\d+)*\s*[节部])")
+FIG_REF = re.compile(r"p\.\s?(\d+)[^。；\n]{0,15}?(的图|错觉图|示意图|照片|插图|figure|picture|photo)", re.I)
+CALLOUT_TITLE = re.compile(r"^(>\s*)+\[!\w+\]")
+MATH_SHORTHAND = re.compile(r"\\mathrm\{diag\}|\bdiag\s*\(|\bsqrt\s*\(|\[\[\s*-?\d")
 RESULT = re.compile(r"\*\*(计算结果：|运行结果：|Result:|Output:)\*\*")
 
 
 def strip_code_math(line):
     line = re.sub(r"`[^`]*`", "", line)
+    line = re.sub(r"\[\[[^\]|]*#[^\]|]*\\?\|", "[[", line)   # heading text inside a link target
     return re.sub(r"\$[^$]*\$", "", line)
 
 
 def main():
     path = Path(sys.argv[1])
     lines = path.read_text(encoding="utf-8").splitlines()
-    issues, cited, entries = [], set(), set()
+    issues, cited, entries, fig_refs = [], set(), set(), set()
     in_refs = in_fence = False
     open_supp = open_example = None  # (line number, found?) of the callout being scanned
 
@@ -53,7 +61,7 @@ def main():
         open_supp = open_example = None
 
     for i, raw in enumerate(lines, 1):
-        if raw.strip().startswith("```"):
+        if raw.lstrip("> ").startswith("```"):  # also fences inside callouts
             in_fence = not in_fence
             continue
         if in_fence:
@@ -89,8 +97,15 @@ def main():
         if open_example and RESULT.search(raw):
             open_example = None
 
+        if CALLOUT_TITLE.match(raw) and ("$$" in raw or "\\begin{" in raw):
+            issues.append(f"{i}: display math in a callout title; move it into the fold body")
+        if MATH_SHORTHAND.search(re.sub(r"`[^`]*`", "", raw)):
+            issues.append(f"{i}: write the formula out (bmatrix / \\frac / \\sqrt), not diag(...) / sqrt(...) shorthand")
         if OLD_PAGE.search(line):
             issues.append(f"{i}: cite slide pages as （p.N） / (p. N)")
+        fig_refs.update((int(n), i) for n, _ in FIG_REF.findall(line) if not raw.startswith(("*图", "*Figure")))
+        if NOTE_LINK_SECTION.search(line):
+            issues.append(f"{i}: link the section's heading, e.g. [[WEEK 5#14. …|WEEK 5 §14]], not [[WEEK 5]] §14")
         if BARE_SUPP.search(line):
             issues.append(f"{i}: beyond-slides content needs '（补充 [Author, Year]）' or a '补充：' fold")
         cited.update(re.sub(r"\s+", " ", c) for c in CITE.findall(line))
@@ -105,6 +120,10 @@ def main():
         issues.append(f"[{c}] is cited but has no References entry")
     for c in sorted(entries - cited):
         issues.append(f"References entry [{c}] is never cited")
+    text = "\n".join(lines)
+    for n, i in sorted(fig_refs):
+        if not re.search(rf"-s{n:02d}\.(png|jpe?g)", text):
+            issues.append(f"{i}: the text points at the picture on p.{n}; embed its screenshot (…-s{n:02d}.png)")
     if cited and not entries:
         issues.append("citations used but no '## 参考文献' / '## References' section")
 

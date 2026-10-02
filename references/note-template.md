@@ -286,6 +286,7 @@ the two, and never write a bare `（补充）` without a citation.
 | Scope box and top navigation | `> [!info] 课程与范围` |
 | Worked example | `> [!example] 实例 14.3：…` (result line **计算结果：** / **运行结果：**) |
 | Question chain | `> [!question]- 第 k 题：…` |
+| Question needing a matrix / display formula | `> [!question]- 第 k 题：<short ask>`; setup + `$$…$$` in the body; answer nested as `> > [!success]- 展开答案` |
 | End-of-part check | `> [!question]- 停一下：…` |
 | Practice answer | `> [!success]- 展开答案` under `#### 练习 k · <title>` |
 | Analogy | `> [!quote] 打个比方` |
