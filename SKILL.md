@@ -643,6 +643,11 @@ each miss points at the note:
 Never make a question easier, or leak its answer into the prompt, just to raise the score. A
 question that everyone answers right is a "too easy" flag, not a success.
 
+**A simulated student is a filter, not proof.** Prompted LLM students are poor stand-ins for real
+learners; fine-tuning helps but is still limited [Scarlatos et al., 2026]. A clean 6d run means
+"no obvious gaps found". The real learner's sticking points stay the gold signal: record them in
+the session notes and use them as regression cases.
+
 **Limit its knowledge; do not just ask it to role-play.** Told to "act as a beginner", a model
 still uses everything it knows, so it passes answers the real reader cannot follow. First write
 `<work>/known.md`, the only knowledge it may use besides the note:
@@ -665,6 +670,10 @@ model slips, and what was fixed. For each question it reports:
 - **jump**: which step of the fold's answer could it not have produced itself, and what was
   missing?
 - **off-story**: does the question leave the topic's running story or quietly change its setup?
+- **restate**: after each lesson, the lesson's causal chain in its own words, from problem to
+  outcome, citing note lines. A link it cannot restate from the note is a note gap, however
+  clear the prose reads. Ratings of clarity do not predict comprehension, and explaining is what
+  exposes the gaps [Guo et al., 2025; Cruz & Lombrozo, 2025].
 - its own answer, and whether it matches the fold;
 - any symbol whose meaning it had to guess, or that means two things in the note;
 - any object it could not locate ("which 4 numbers?", "what is N here?");

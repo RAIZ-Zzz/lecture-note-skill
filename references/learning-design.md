@@ -248,6 +248,8 @@ result → consequence → conclusion, and the topic's last lesson calls back to
 - Renkl, A., & Atkinson, R. K. (2003). Structuring the transition from example study to problem
   solving in cognitive skill acquisition: A cognitive load perspective. *Educational
   Psychologist*, 38(1), 15–22.
+- Scarlatos, A., Lee, J., Woodhead, S., & Lan, A. (2026). Simulated students in tutoring dialogues:
+  Substance or illusion? *Proceedings of ACL 2026*. arXiv:2601.04025. https://arxiv.org/abs/2601.04025
 - Sinha, T., & Kapur, M. (2021). When problem solving followed by instruction works: Evidence for
   productive failure. *Review of Educational Research*, 91(5), 761–798.
   https://doi.org/10.3102/00346543211019105
