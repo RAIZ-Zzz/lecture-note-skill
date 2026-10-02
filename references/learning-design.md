@@ -159,6 +159,34 @@ result → consequence → conclusion, and the topic's last lesson calls back to
   without steps, and §7 Q3 wrote `diag(0.25, 0.25)`. Meanwhile trivial questions got full
   paragraphs.
 
+### 14. Fluent is not understood: causal chains, plain words before terms, restate to check
+- **Rule:** teach a new idea as one scenario plus one connected chain of sentences ("because… so…
+  which means…") ending in the outcome. Tables and bullets hold only numbers and parallel
+  comparisons. Describe the thing in plain words before naming it, with at most one new term per
+  sentence. In live chat give one idea per turn, and check understanding by asking the learner to
+  restate the chain, not by asking "got it?".
+- **Why:** AI-written explanations can look excellent and still confuse. In a 150-reader study,
+  LLM-written summaries were rated as clear and coherent as human-written ones, yet readers
+  understood the human versions significantly better. Surface readability metrics did not predict
+  comprehension (Guo et al., 2025). Three mechanisms explain the gap:
+  - **Coherence.** Readers with little background knowledge learn more from high-coherence text,
+    where the links between statements are explicit; only knowledgeable readers can fill the gaps
+    themselves (McNamara, Kintsch, Songer & Kintsch, 1996). Understanding a text means finding
+    the causal chain from its opening to its outcome (Fletcher & Bloom, 1988).
+  - **Lists.** Bullet outlines leave the causal relations between items unstated (Tufte, 2003).
+    This is an argument from case analysis, not a controlled experiment, and it fits the
+    causal-chain account above.
+  - **Jargon.** Across nine experiments, jargon lowered understanding while making short
+    explanations more satisfying, because readers assumed the terms filled the gaps. Asking
+    people to explain first made them judge such explanations, and their own understanding, more
+    accurately (Cruz & Lombrozo, 2025).
+- **Session note (2026-10-02):** the learner read WEEK 6 Part 3 (PyTorch autograd) and said they
+  were lost. My first reply was a 4-row table: dynamic graph, memory cost, freezing, no_grad and
+  inference_mode, one term-heavy cell each, with nothing linking the rows. The learner called it
+  "鬼话" ("gibberish"). What had worked earlier the same day was the opposite. The cat–dog run
+  showed one scenario, real numbers and a single chain: gradient ≈ 10⁻⁷ → w₁ cannot learn → the
+  cat–dog gap is squashed → both images output 0.5 → the loss sticks at 0.5.
+
 ## References
 
 - Ausubel, D. P. (1968). *Educational Psychology: A Cognitive View*. Holt, Rinehart & Winston.
@@ -180,15 +208,23 @@ result → consequence → conclusion, and the topic's last lesson calls back to
 - Cordova, D. I., & Lepper, M. R. (1996). Intrinsic motivation and the process of learning:
   Beneficial effects of contextualization, personalization, and choice. *Journal of Educational
   Psychology*, 88(4), 715–730.
+- Cruz, F., & Lombrozo, T. (2025). How laypeople evaluate scientific explanations containing
+  jargon. *Nature Human Behaviour*, 9(10), 2038–2053. https://doi.org/10.1038/s41562-025-02227-0
 - Deci, E. L., & Ryan, R. M. (2000). Self-determination theory and the facilitation of intrinsic
   motivation, social development, and well-being. *American Psychologist*, 55(1), 68–78.
 - Deslauriers, L., McCarty, L. S., Miller, K., Callaghan, K., & Kestin, G. (2019). Measuring actual
   learning versus feeling of learning in response to being actively engaged in the classroom.
   *PNAS*, 116(39), 19251–19257. https://doi.org/10.1073/pnas.1821936116
+- Fletcher, C. R., & Bloom, C. P. (1988). Causal reasoning in the comprehension of simple
+  narrative texts. *Journal of Memory and Language*, 27(3), 235–244.
+  https://doi.org/10.1016/0749-596X(88)90052-6
 - Freeman, S., Eddy, S. L., McDonough, M., Smith, M. K., Okoroafor, N., Jordt, H., & Wenderoth, M. P.
   (2014). Active learning increases student performance in science, engineering, and mathematics.
   *PNAS*, 111(23), 8410–8415. https://doi.org/10.1073/pnas.1319030111
 - Freire, P. (1970). *Pedagogy of the Oppressed*. Herder and Herder.
+- Guo, Y., Sohn, J. H., Leroy, G., & Cohen, T. (2025). Are LLM-generated plain language summaries
+  truly understandable? A large-scale crowdsourced evaluation. arXiv:2505.10409.
+  https://arxiv.org/abs/2505.10409
 - Kalyuga, S., Ayres, P., Chandler, P., & Sweller, J. (2003). The expertise reversal effect.
   *Educational Psychologist*, 38(1), 23–31.
 - Kapur, M. (2008). Productive failure. *Cognition and Instruction*, 26(3), 379–424.
@@ -203,6 +239,9 @@ result → consequence → conclusion, and the topic's last lesson calls back to
   improves performance and transfer in learning to develop mobile applications. *Proceedings of
   ICER '12*, 71–78.
 - Mayer, R. E. (2009). *Multimedia Learning* (2nd ed.). Cambridge University Press.
+- McNamara, D. S., Kintsch, E., Songer, N. B., & Kintsch, W. (1996). Are good texts always better?
+  Interactions of text coherence, background knowledge, and levels of understanding in learning
+  from text. *Cognition and Instruction*, 14(1), 1–43. https://doi.org/10.1207/s1532690xci1401_1
 - Piaget, J. (1985). *The Equilibration of Cognitive Structures*. University of Chicago Press.
 - Renkl, A., & Atkinson, R. K. (2003). Structuring the transition from example study to problem
   solving in cognitive skill acquisition: A cognitive load perspective. *Educational
@@ -212,6 +251,7 @@ result → consequence → conclusion, and the topic's last lesson calls back to
   https://doi.org/10.3102/00346543211019105
 - Sweller, J. (1988). Cognitive load during problem solving: Effects on learning. *Cognitive
   Science*, 12(2), 257–285.
+- Tufte, E. R. (2003). *The Cognitive Style of PowerPoint*. Graphics Press.
 - VanLehn, K. (2011). The relative effectiveness of human tutoring, intelligent tutoring systems,
   and other tutoring systems. *Educational Psychologist*, 46(4), 197–221.
 - Wiliam, D. (2011). *Embedded Formative Assessment*. Solution Tree Press.
