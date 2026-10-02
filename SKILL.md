@@ -40,6 +40,12 @@ start of a section loses them at once, and summary-style notes (dense bullet lis
 themselves**, one idea at a time, easy → hard. The notes are **for learning, not for exam drilling**:
 the goal is to understand what each idea solves and what it is for, so that exam answers follow.
 
+**The concrete reader.** The `Reader:` line in `local.md` describes this user's background
+(degree, what is rusty, what is new). If it is missing, ask once and add it. It sets how much each
+step needs spelling out. Pitch notes at a capable
+non-specialist: show an operation the reader has not met yet (a matrix product, a norm) worked in
+full once, and never pad what they already handle.
+
 Everything below serves one method, the lesson arc. Labels such as "Deep dive", "Pause" or
 "Supplement" are written in the note's language: see the label table in
 `references/note-template.md`.
@@ -104,8 +110,9 @@ heading to an unrelated one.
    does BN compute?"); never drop in a free-floating toy ("pick 2 of {2, 4, 6, 8}") the reader
    cannot place, and never give an existing number a new role without saying so in the story.
    After the chain, close the loop in one line: result → consequence → conclusion.
-   Use a question chain of 3–5 small questions: Q1 is pure counting or
-   observation on a tiny case with no formula; each next question changes **one** thing; the reader
+   Use a question chain of 3–5 small questions: Q1 is counting or observation on a tiny case with
+   no formula, but its answer is never printed in the prompt (not "0.2377 < 0.25: did the loss go
+   down?"); each next question changes **one** thing; the reader
    does the conceptual step (which number goes where, which way it moves) while arithmetic stays at
    small integers. By the end the reader has built the idea without knowing its name.
 3. **Name it: the slides' concept.** Only now introduce the concept exactly as the slides present
@@ -192,6 +199,10 @@ Talk in the user's language, whatever the note's language is. Walk the arc live:
 - At the start of a new multi-lesson topic, let the user choose the running story (2–3 candidates
   via AskUserQuestion, one recommended, "Other" for their own). If the lesson has a slide figure
   that is the concept, show it early and ask on it.
+- Before the first question of a section, name its prerequisites in one line. If the `Reader:`
+  line or the conversation suggests the user lacks one, teach it first. Teach it fully if the
+  note or slides use it; otherwise offer it ("this needs matrix multiplication; a 2-minute
+  refresher first?").
 - Step 1 in a few plain sentences, then the roadmap of step 2 ("4 small questions, one at a time").
 - Before the first question, move the topic's running scenario into the new situation and let the
   user try what they already know on it (step 2 of the arc); no separate "purpose / mapping" box.
@@ -220,6 +231,7 @@ Talk in the user's language, whatever the note's language is. Walk the arc live:
   "Lecture Notes"`). Where each course's slides live on this machine is in `<skill>/local.md`
   (git-ignored). If that file or the course's row is missing, ask the user for the slide folder,
   then create/extend `local.md`: a two-column table, `| Vault folder | Slides |`, one row per course.
+  `local.md` also holds one `Reader:` line, the learner's background (see "The concrete reader").
 - **Lecture number ≠ week number** (e.g. AI6103 "Lecture 3 ML Foundations" is WEEK 4). Never pick
   the PDF from its filename alone: check `source_pdf` in existing WEEK notes, then open the PDF's
   first pages. `source_pdf` may be a path from another machine: match on the file name only.
@@ -259,7 +271,17 @@ Talk in the user's language, whatever the note's language is. Walk the arc live:
    | `en+zh` | Plain English narrative; every technical point is stated in English and then in Chinese |
    "Other" in the question lets the user describe a custom mix; record it in `lang` as `custom:
    <their description>`. Labels follow the label table in `references/note-template.md`.
-5. Read 1–2 recent substantial notes of the **same course** for terminology and link targets
+5. **Reader level.** Read the `Reader:` line in `local.md`. Ask in the same AskUserQuestion call
+   as the language question, so the user answers both at once:
+   - If the line exists, show it and offer "still accurate (recommended)" or "update it".
+   - If it is missing, offer three presets, and "Other" lets the user describe themselves (degree,
+     what they know, what is rusty):
+     - "new to this subject": school maths, basic calculus;
+     - "related background, rusty";
+     - "solid background, wants depth".
+   Save the answer as the `Reader:` line. It drives the prerequisite check (step 3.5) and how much
+   each step is spelled out.
+6. Read 1–2 recent substantial notes of the **same course** for terminology and link targets
    (their style may predate the rules below; the rules below win).
 
 ### 2. Read the slides
@@ -294,8 +316,36 @@ Write `<work>/plan.md`:
      do the explaining").
 3. **Running stories** — group the knowledge points into topics. For every multi-lesson topic,
    draft 2–3 candidate stories and let the user pick (see "The user chooses the story") before
-   writing. Record the chosen story and its numbers here.
-4. **New-term budget** — mark the lessons that introduce several new terms and split them so each
+   writing. Record the chosen story and its numbers here. Then run the **failure check**: list
+   the failure every lesson of the topic must show and make sure the story contains what it needs.
+   For example, "vanishing gradients make a deep net useless" needs two classes, so that "the
+   front layers cannot separate cat from dog" is visible; a single cat image cannot show it.
+   Extend the story now (add the dog), never mid-topic with an ad-hoc setup (a changed bias, a new
+   x) that the story does not motivate.
+4. **Question cards** — before writing any question, give it one line in `plan.md`:
+   `Qk | target misconception or insight | story object used | inference steps`.
+   - Cut, or turn into a prose sentence, any card with no target, no story object, or 0 steps.
+   - Every lesson whose step 1 is a problem gets one **consequence card**: a question that shows
+     the damage inside the story (the deep net outputs 0.5 for both cat and dog, and the loss
+     sticks at 0.5).
+   - Take targets from the misconceptions learners actually show; past session notes in
+     `references/learning-design.md` list some.
+5. **Prerequisite check** — list the knowledge the material assumes, for example "matrix
+   multiplication", "the chain rule" or "what a norm is". Mark each one as *has*, *lacks* or
+   *unsure* against the `Reader:` line. **Before writing, tell the user the list.** Then:
+   - **The material uses the prerequisite but does not teach it** (the slides say "Jacobian" and
+     never explain it), and the reader lacks or may lack it: teach it, no question asked. Use the
+     same rules as any lesson: a problem from the running story, one fully worked tiny example, and
+     every formula in standard form. Put it where it is first needed, label it as a supplement
+     (`> [!info]- 补充：<topic>` fold ending in `来源：[Author, Year]`), and never skim it because
+     it is "only background".
+   - **The material never mentions the prerequisite** (implicit background) and the reader lacks
+     it: ask with AskUserQuestion (multiSelect) which of these to add as supplements. Write the
+     chosen ones the same way. For the others, list them in the note's opening section with a
+     pointer to where they are taught.
+   - The note's opening section always lists the prerequisites, each marked "supplemented in
+     §k", "assumed" or "see <source>".
+6. **New-term budget** — mark the lessons that introduce several new terms and split them so each
    `###` lesson introduces **at most 1–2 new terms**.
 
 ### 4. Pick and cut screenshots
@@ -503,6 +553,19 @@ question must pass these rules:
   numbers averaged together once") and the procedure ("channels are split once into fixed
   consecutive pairs, {1,2} and {3,4}; this is not choosing pairs"), so no reader can read it as
   C(n,k) or as a different grouping.
+- **Worth asking.** A question earns its place only if a reader who has not understood the idea,
+  or who holds a known misconception, would answer it wrongly (a hinge question). If the answer
+  can be read straight off the prompt, it is a sentence of prose, not a question. Its question
+  card (step 3.4) names the target.
+- **Inside the story.** Every question uses the topic's running story and its objects. If a
+  question needs a setting the story cannot give, fix the story in the plan instead of improvising.
+- **Answer length follows the inference steps, not the topic's importance.**
+  - One step: one line plus the takeaway.
+  - Two or more steps: one labelled sub-step per inference (① where the gradient comes from →
+    ② one step moves η × gradient → ③ 1,000 steps), each with its numbers.
+  - An operation the reader meets for the first time (a matrix product, a norm, scientific
+    notation) is worked in full the first time it appears. Later uses may give only the result.
+  - Never answer with the shape or the final number alone when the reader cannot yet produce it.
 - **Answers show the steps, not a compressed formula.** Give each step in words with its numbers,
   e.g. "per image: 2 groups; 2 images → 2 × 2 = 4 groups; each group: 2 channels × 4 positions =
   8 numbers". When several cases are compared, end with a small table (case → what is fixed →
@@ -672,6 +735,8 @@ overlapping, duplicated content).
 - [ ] Every question follows the question-writing rules (one meaning per symbol across the note,
       self-contained, one ask, counting unit and procedure stated, stepwise answer), and the
       student test (6d) ran with every flagged question fixed
+- [ ] Every question has a card in `plan.md` (target, story object, inference steps); none is
+      too easy, off-story, or answered with a jump the `Reader:` profile cannot follow
 - [ ] Every beyond-slides claim (supplements, paper attributions) was checked online and cites an
       author–year reference, or is marked `(to verify)`
 - [ ] House style followed and `scripts/lint_note.py` passes (pages, supplements, citations ↔

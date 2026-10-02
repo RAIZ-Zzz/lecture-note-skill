@@ -126,9 +126,43 @@ result → consequence → conclusion, and the topic's last lesson calls back to
 - **Why:** this is the learner's stated preference. They find the English wording clearer and need
   to talk to practitioners. It is a user requirement, not a research claim.
 
+### 12. Questions worth asking, inside the story (hinge questions)
+- **Rule:** every question has a card in `plan.md` naming the misconception or insight it targets,
+  the story object it uses, and its number of inference steps. Cut questions whose answer can be
+  read off the prompt, and give every problem lesson one consequence question that shows the
+  damage in the story. Choose the story at plan time so it can show every failure (step 3.3).
+- **Why:** a hinge question is diagnostic: learners who hold the target misconception answer it
+  wrongly, so answering it right is evidence of understanding (Wiliam, 2011; Barton, 2018). A
+  question that everyone gets right teaches nothing and costs attention. Anchored instruction
+  (principle 1) only works if the anchor can show the phenomenon.
+- **Session note (2026-10-02):** in WEEK 6 the learner found some questions trivial (§1 Q1 asks
+  whether 0.2377 < 0.25). Others left the story: §8 changed the bias to 0 and let "each layer's
+  bias adjust itself". The running story had a single cat image, so it could not show what
+  vanishing gradients *do*. The learner asked "can't we still tune ω?" and only got it once a dog
+  was added: the 10-layer net output 0.500 for both images and the loss stuck at 0.5. Misconceptions
+  seen that session, which make good hinge targets: "backprop only gives the sign", "vanishing is
+  backprop's fault", "the last layers can make up for frozen front layers", "a better loss
+  function fixes vanishing", "clipping caps each component at ±c".
+
+### 13. Answer depth follows inference steps (subgoals, faded examples)
+- **Rule:** a one-step answer is one line. A multi-step answer gives one labelled sub-step per
+  inference. An operation the reader meets for the first time is worked in full once, and later
+  uses fade to the result.
+- **Why:** labelling the subgoals of a worked solution helps learners rebuild and transfer it
+  (Catrambone, 1998; Margulieux, Guzdial & Catrambone, 2012). Fading worked steps as competence
+  grows smooths the move from studying examples to solving problems (Renkl & Atkinson, 2003).
+  Detail that helps a novice is redundant for someone who already knows it (the expertise reversal
+  effect; Kalyuga, Ayres, Chandler & Sweller, 2003). So depth must follow what *this* reader
+  can already do, not how important the topic is.
+- **Session note (2026-10-02):** §4 Q3 answered "(1×10)(10×10) = 1×10" with no product shown, and
+  the learner did not know how to multiply a row by a matrix. §5 Q3 gave scientific notation
+  without steps, and §7 Q3 wrote `diag(0.25, 0.25)`. Meanwhile trivial questions got full
+  paragraphs.
+
 ## References
 
 - Ausubel, D. P. (1968). *Educational Psychology: A Cognitive View*. Holt, Rinehart & Winston.
+- Barton, C. (2018). *How I Wish I'd Taught Maths*. John Catt Educational.
 - Bastani, H., Bastani, O., Sungu, A., Ge, H., Kabakcı, Ö., & Mariman, R. (2025). Generative AI
   without guardrails can harm learning: Evidence from high school mathematics. *PNAS*, 122(26),
   e2422633122. https://doi.org/10.1073/pnas.2422633122
@@ -136,6 +170,8 @@ result → consequence → conclusion, and the topic's last lesson calls back to
   Metcalfe & A. Shimamura (Eds.), *Metacognition: Knowing about knowing* (pp. 185–205). MIT Press.
 - Bloom, B. S. (1984). The 2 sigma problem: The search for methods of group instruction as effective
   as one-to-one tutoring. *Educational Researcher*, 13(6), 4–16.
+- Catrambone, R. (1998). The subgoal learning model: Creating better examples so that students can
+  solve novel problems. *Journal of Experimental Psychology: General*, 127(4), 355–376.
 - Cognition and Technology Group at Vanderbilt (1990). Anchored instruction and its relationship to
   situated cognition. *Educational Researcher*, 19(6), 2–10.
 - Cognition and Technology Group at Vanderbilt (1992). The Jasper series as an example of anchored
@@ -153,6 +189,8 @@ result → consequence → conclusion, and the topic's last lesson calls back to
   (2014). Active learning increases student performance in science, engineering, and mathematics.
   *PNAS*, 111(23), 8410–8415. https://doi.org/10.1073/pnas.1319030111
 - Freire, P. (1970). *Pedagogy of the Oppressed*. Herder and Herder.
+- Kalyuga, S., Ayres, P., Chandler, P., & Sweller, J. (2003). The expertise reversal effect.
+  *Educational Psychologist*, 38(1), 23–31.
 - Kapur, M. (2008). Productive failure. *Cognition and Instruction*, 26(3), 379–424.
 - Kapur, M., & Bielaczyc, K. (2012). Designing for productive failure. *Journal of the Learning
   Sciences*, 21(1), 45–83.
@@ -161,8 +199,14 @@ result → consequence → conclusion, and the topic's last lesson calls back to
   educational setting. *Scientific Reports*, 15, 17458. https://doi.org/10.1038/s41598-025-97652-6
 - Kirschner, P. A., Sweller, J., & Clark, R. E. (2006). Why minimal guidance during instruction does
   not work. *Educational Psychologist*, 41(2), 75–86.
+- Margulieux, L. E., Guzdial, M., & Catrambone, R. (2012). Subgoal-labeled instructional material
+  improves performance and transfer in learning to develop mobile applications. *Proceedings of
+  ICER '12*, 71–78.
 - Mayer, R. E. (2009). *Multimedia Learning* (2nd ed.). Cambridge University Press.
 - Piaget, J. (1985). *The Equilibration of Cognitive Structures*. University of Chicago Press.
+- Renkl, A., & Atkinson, R. K. (2003). Structuring the transition from example study to problem
+  solving in cognitive skill acquisition: A cognitive load perspective. *Educational
+  Psychologist*, 38(1), 15–22.
 - Sinha, T., & Kapur, M. (2021). When problem solving followed by instruction works: Evidence for
   productive failure. *Review of Educational Research*, 91(5), 761–798.
   https://doi.org/10.3102/00346543211019105
@@ -170,3 +214,4 @@ result → consequence → conclusion, and the topic's last lesson calls back to
   Science*, 12(2), 257–285.
 - VanLehn, K. (2011). The relative effectiveness of human tutoring, intelligent tutoring systems,
   and other tutoring systems. *Educational Psychologist*, 46(4), 197–221.
+- Wiliam, D. (2011). *Embedded Formative Assessment*. Solution Tree Press.

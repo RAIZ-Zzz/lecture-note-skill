@@ -105,13 +105,21 @@ The design isn't taste. Each rule follows a research result:
 | Guided questions, never "go figure it out" | Minimal guidance fails novices (Kirschner, Sweller & Clark, 2006) |
 | The tutor never hands over the answer first | Unrestricted GPT-4 help lowered unassisted exam scores by 17%; hint-only tutors removed the harm (Bastani et al., *PNAS* 2025). A research-designed AI tutor doubled learning gains (Kestin et al., *Sci. Rep.* 2025) |
 | Struggle is kept, not smoothed away | Active learners learn more but *feel* they learn less (Deslauriers et al., *PNAS* 2019) |
+| Every question must catch a real misconception | **Hinge questions**: a question is worth asking only if someone who has not understood would get it wrong (Wiliam, 2011; Barton, 2018) |
+| Explanation depth follows *your* level | **Subgoal labels** (Catrambone, 1998), **faded worked examples** (Renkl & Atkinson, 2003); detail that helps a novice hinders an expert (**expertise reversal**, Kalyuga et al., 2003) |
 
-Full reasoning, the session notes that shaped each rule, and 20 references are in
+Full reasoning, the session notes that shaped each rule, and 26 references are in
 [`references/learning-design.md`](references/learning-design.md).
 
 ## Features
 
 **Learning first**
+- **Taught at your level.** On first use, `/lla` asks about your background: new to the subject,
+  related but rusty, solid, or your own description. The answer sets how much each step is spelled
+  out.
+- **Prerequisites up front.** Before writing, it tells you what the material assumes you already
+  know. Something the slides use but never explain is taught properly where it is first needed,
+  marked as a supplement. Background the slides never mention is only added if you say yes.
 - **Easy → hard.** A learning ladder is planned before writing; no term is used before it is explained, and every term is re-explained in one line where a later lesson uses it.
 - **Plain words as the bridge, professional terms as the destination.** Each lesson ends with *"In professional terms"*, so you can talk like a practitioner.
 - **Simple main line, depth on demand.** Derivations, proofs and extras sit in collapsible *deep dive* callouts.
